@@ -5,7 +5,7 @@ import type { User } from './user';
 /** 消息对象。 */
 export interface Message {
   /** 消息唯一 ID。 */
-  message_id: number;
+  message_id: bigint;
   /** 消息发送者。 */
   from?: User;
   /** 消息发送时间（unix 时间戳）。 */
@@ -17,7 +17,7 @@ export interface Message {
   /** @unused */
   forward_from_chat?: Chat;
   /** @unused */
-  forward_from_message_id?: number;
+  forward_from_message_id?: bigint;
   /** @unused */
   forward_signature?: string;
   /** @unused */
@@ -94,9 +94,9 @@ export interface Message {
   /** @unused */
   channel_chat_created?: true;
   /**  @unused */
-  migrate_to_chat_id?: number;
+  migrate_to_chat_id?: bigint;
   /** @unused */
-  migrate_from_chat_id?: number;
+  migrate_from_chat_id?: bigint;
   /** @unused */
   pinned_message?: Message;
   /** @unused */
