@@ -4,7 +4,7 @@ import type { GuildRole } from './role';
 /** Fanbook 用户。 */
 export interface User {
   /** 用户唯一 ID。 */
-  id: number;
+  id: bigint;
   /** 是否机器人。 */
   is_bot: boolean;
   /** 姓。 */
