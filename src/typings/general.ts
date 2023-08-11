@@ -1,0 +1,9 @@
+export type PhotoSize = unknown;
+export type ChatPhoto = unknown;
+export type CirclePostDetail = unknown;
+export type Animation = unknown;
+export type Sticker = unknown;
+export type Game = unknown;
+export type Invoice = unknown;
+export type SuccessfulPayment = unknown;
+export type CallbackGame = unknown;
