@@ -81,7 +81,7 @@ Commit message 遵循 [约定式提交标准](https://www.conventionalcommits.or
 ├── lib (编译后的 CommonJS 产物)
 ├── scripts (开发用的脚本)
 ├── src (源码)
-└── typings (接口类型定义)
+    └── typings (接口类型定义)
 ```
 
 ## License

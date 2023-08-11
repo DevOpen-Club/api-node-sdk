@@ -1,15 +1,20 @@
 {
-  "name": "fanbook-node-api-sdk",
+  "name": "fanbook-api-node-sdk",
   "description": "Fanbook OpenAPI JavaScript / Node.js SDK",
   "version": "0.0.0",
   "packageManager": "pnpm@8.3.1",
-  "exports": {
-    "import": "./es",
-    "require": "./lib",
-    "types": "./typings"
-  },
+  "main": "./lib/index.js",
+  "module": "./es/index.js",
+  "files": [
+    "/lib",
+    "/es",
+    "/README.md",
+    "/CHANGELOG.md",
+    "/LICENSE"
+  ],
   "scripts": {
     "bootstrap": "sh scripts/bootstrap.sh",
+    "build": "sh scripts/build.sh",
     "docs-to-interface": "sh scripts/run-ts-script.sh docs-to-interface"
   },
   "devDependencies": {
@@ -17,12 +22,19 @@
     "@commitlint/config-conventional": "^17.6.7",
     "@commitlint/types": "^17.4.4",
     "@inquirer/prompts": "^3.0.2",
+    "@microsoft/api-documenter": "^7.22.33",
+    "@microsoft/tsdoc": "^0.14.2",
+    "@microsoft/tsdoc-config": "^0.16.2",
     "@swc/core": "^1.3.75",
     "@swc/helpers": "^0.5.1",
     "@types/node": "^18.15.0",
+    "@typescript-eslint/eslint-plugin": "^6.3.0",
+    "@typescript-eslint/parser": "^6.3.0",
+    "eslint-plugin-tsdoc": "^0.2.17",
     "fast-xml-parser": "^4.2.7",
     "husky": "^8.0.3",
     "ts-node": "^10.9.1",
+    "tsconfig": "^7.0.0",
     "typescript": "^5.1.6"
   },
   "repository": {

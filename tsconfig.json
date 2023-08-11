@@ -7,7 +7,7 @@
     "declaration": true,
     "moduleResolution": "Node"
   },
-  "include": ["src/**/*.ts", "typings/**/*.ts"],
+  "include": ["script/*.ts", "src/**/*.ts", "src/typings/**/*.ts"],
   "ts-node": {
     "swc": true
   }
