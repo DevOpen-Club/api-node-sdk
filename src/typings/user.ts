@@ -137,8 +137,12 @@ export interface BotCommandParameter {
   v: string;
 }
 
-/** 机器人对象。 */
-export interface Bot {
+/**
+ * 机器人对象。
+ *
+ * @remarks 在官方文档中名为 `Bot`，由于重名，在此改为 `BotObject`。
+ */
+export interface BotObject {
   /** 机器人 user id。 */
   bot_id: bigint;
   /** 所有者 user id */
