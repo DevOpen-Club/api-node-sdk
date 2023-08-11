@@ -1,2 +1,2 @@
 export * from './bot';
-export * from './typings/index';
+export * from './typings';
