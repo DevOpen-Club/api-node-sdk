@@ -1,11 +1,11 @@
-name: 部署文档站点
+name: 发布更新
 on:
   push:
-    branches:
-      - main
+    tags:
+      - v*  
 jobs:
   build:
-    name: 构建与部署
+    name: 构建部署文档站点
     permissions:
       contents: read
       pages: write
@@ -17,8 +17,6 @@ jobs:
     steps:
       - name: 准备 Git 环境
         uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
       - name: 准备 Node.js 环境
         uses: actions/setup-node@v3
         with:
