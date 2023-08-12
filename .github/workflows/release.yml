@@ -37,7 +37,7 @@ jobs:
           pnpm bootstrap
       - name: 构建文档站点
         run: |
-          pnpm docs:build --base
+          pnpm docs:build
       - name: 设置环境
         uses: actions/configure-pages@v3
       - name: 上传物料
