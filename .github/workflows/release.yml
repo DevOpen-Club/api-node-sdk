@@ -2,7 +2,8 @@ name: 发布更新
 on:
   push:
     tags:
-      - v*  
+      - v*
+  workflow_dispatch:
 jobs:
   build:
     name: 构建部署文档站点
@@ -22,7 +23,7 @@ jobs:
         with:
           node-version: 18.15.0
       - name: 安装包管理器
-        uses: pnpm/action-setup@v2.2.4
+        uses: pnpm/action-setup@v2
         with:
           version: 8.3.1
       - name: 恢复缓存
@@ -36,7 +37,7 @@ jobs:
           pnpm bootstrap
       - name: 构建文档站点
         run: |
-          pnpm docs:build
+          pnpm docs:build --base
       - name: 设置环境
         uses: actions/configure-pages@v3
       - name: 上传物料
@@ -44,4 +45,5 @@ jobs:
         with:
           path: docs/.vitepress/dist
       - name: 发布线上
+        id: deployment
         uses: actions/deploy-pages@v1
