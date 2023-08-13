@@ -84,6 +84,40 @@ Commit message 遵循 [约定式提交标准](https://www.conventionalcommits.or
     └── typings (接口类型定义)
 ```
 
+## 代码规范
+
+遵循 [Google TypeScript 风格指南](https://zh-google-styleguide.readthedocs.io/en/latest/google-typescript-styleguide/contents/)。
+
+### overrides
+
+使用 TSDoc，并将 `@defaultValue` 重命名为 `@default`。
+
+`@unused` 用于标记未使用/未定义的属性。
+
+`@permission` 用于声明需要的权限，是用空格分割的 `src/typings/permission.ts~Permission` 枚举键或 `*`（表示需要白名单）。
+
+同个 `@permission` 标识符的参数中的权限必须全部满足才能调用；多个 `@permission` 标识符只要满足一个就能调用，如：
+
+```ts
+/**
+ * 本方法需要“编辑服务器资料 + 白名单”或“超级管理员”权限。
+ * @permission MANAGE_GUILD *
+ * @permission ADMINISTRATOR 
+ */
+function f() {}
+```
+
+在构造函数参数列表中声明的成员变量，在成员变量前注释，如：
+
+```ts
+class Channel {
+  constructor (
+    /** 频道名称。 */
+    public name: string,
+  ) {}
+}
+```
+
 ## License
 
 [MIT 协议](./LICENSE)
