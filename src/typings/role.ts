@@ -1,5 +1,3 @@
-import type { User } from './user';
-
 /** 身份组对象。 */
 export interface GuildRole {
   /** 身份组唯一 ID。 */
@@ -21,5 +19,7 @@ export interface GuildRole {
   /** 身份组人数。 */
   member_count?: number;
   /** 有管理者时，管理者机器人。 */
-  tag?: User;
+  tag?: {
+    bot_id: string;
+  };
 }

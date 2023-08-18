@@ -32,19 +32,19 @@ export interface Chat {
 /** 频道对象。 */
 export interface Channel {
   /** 频道唯一 ID。 */
-  channel_id: string;
+  channel_id: `${bigint}`;
   /** 频道类型。 */
   type: ChannelType;
   /** 所属服务器 ID，仅服务器频道则有此字段。 */
-  guild_id?: string;
-  /** 频道没错。 */
+  guild_id?: `${bigint}`;
+  /** 频道名称。 */
   name: string;
   /** 频道图标，如果是群则表示群的头像。 */
   icon: string;
   /** 频道人数限制，仅对于群有人数限制。 */
   user_limit?: number;
   /** 创建者 user id。 */
-  owner_id: string;
+  owner_id: `${bigint}`;
   /** 频道主题。 */
   topic?: string;
   /** 频道的权限覆盖表。 */
@@ -96,7 +96,7 @@ export interface GuildEmoji {
 /** 服务器对象。 */
 export interface Guild {
   /** 服务器唯一 ID。 */
-  guild_id: string;
+  guild_id: `${bigint}`;
   /** 名称。 */
   name: string;
   /** 图标。 */
@@ -106,7 +106,7 @@ export interface Guild {
   /** 简介。 */
   description: string;
   /** 所有者 user id。 */
-  owner_id: string;
+  owner_id: `${bigint}`;
   /** 频道列表。 */
   channels: Channel[];
   /** 初始权限值。 */
@@ -123,37 +123,37 @@ export type GuildInviteChannelIsDeleted = 0 | 1;
 
 export interface GuildInviteCodeRecord {
   /** 邀请码（不包含域名）。 */
-  code: string;
+  code?: string;
   /** 邀请人昵称。 */
-  inviter_name: string;
+  inviter_name?: string;
   /** 频道是否删除。 */
-  channel_on_del: GuildInviteChannelIsDeleted;
+  channel_on_del?: GuildInviteChannelIsDeleted;
   /** 邀请者用户的user_id */
-  inviter_id: string;
+  inviter_id: `${bigint}`;
   /** 邀请者头像图片地址。 */
-  avatar: string;
+  avatar?: string;
   /** 频道名称。 */
-  channel_name: string;
+  channel_name?: string;
   /** 过期时间（单位：秒，-1 表示不过期） */
-  expire_time: string;
+  expire_time: `${number}`;
   /** 剩余可用邀请人数。 */
-  number_less: string;
+  number_less?: `${number}`;
   /** 已邀请人数。 */
-  has_invited: string;
+  has_invited?: `${number}`;
   /** 记录唯一 ID。 */
-  list_id: string;
+  list_id?: string;
   /** 备注。 */
-  remark: string;
+  remark?: string;
   /** 设定的有效期（`-1` 表示永久有效）。 */
-  time: string;
+  time?: string;
   /** 设定的次数（`-1` 表示无限）。 */
-  number: string;
+  number: `${number}`;
   /** 邀请加入的频道 ID。 */
-  channel_id: string;
+  channel_id: `${bigint}`;
   /** 频道类型（邀请加入服务器时为 `null`）。 */
-  channel_type: number | null;
+  channel_type?: number | null;
   /** 圈子分享时，来源 post id。 */
-  post_id: string;
+  post_id?: string;
   /** 邀请码链接。 */
-  url: string;
+  url?: string;
 }
