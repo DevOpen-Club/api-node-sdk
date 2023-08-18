@@ -16,8 +16,15 @@ jobs:
         with:
           node-version: 18.15.0
           registry-url: https://registry.npmjs.org
-      - run: npm ci
-      - run: npm publish
+      - name: 安装包管理器
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8.3.1
+      - run: |
+          pnpm bootstrap
+          pnpm build
+          npm ci
+          npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.ACCESS_TOKEN }}
   build:
