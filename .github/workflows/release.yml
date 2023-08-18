@@ -26,8 +26,7 @@ jobs:
           pnpm build
       - name: 部署
         run: |
-          npm ci
-          npm publish
+          pnpm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.ACCESS_TOKEN }}
   build:
