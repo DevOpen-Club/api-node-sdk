@@ -1,9 +1,18 @@
 import { writeFileSync } from 'fs';
 import path from 'path';
 import { XMLParser } from 'fast-xml-parser';
-import { editor } from '@inquirer/prompts';
+import { editor, select } from '@inquirer/prompts';
 
+/** 保存文件路径。 */
 const SAVED_FILENAME = 'generated.d.ts';
+
+/**
+ * 转换的类型来源。
+ *
+ * `method`: API 可用方法
+ * `interface`: API 可用类型
+ */
+type OriginType = 'method' | 'interface';
 
 /** 生成的接口属性。 */
 interface Property {
@@ -40,7 +49,7 @@ function parse(html: string): ParseResult {
   for (let i = 0; i < obj.h2.length; ++i) { // 遍历每个类型
     if (!Array.isArray(obj.table[i].tbody.tr)) obj.table[i].tbody.tr = [ obj.table[i].tbody.tr];
     const cur: DomElement[] = obj.table[i].tbody.tr.map((({ td }: { td: string }) => td)); // 遍历类型属性每一行
-    ans.push([obj.h2[i]['#text'], cur]);
+    ans.push([obj.h2[i]?.['#text'] ?? 'Options', cur]);
   }
   return ans;
 }
@@ -73,16 +82,17 @@ function transformType(dom: DomElement) {
 /**
  * 将解析后的 DOM 列表转换为属性列表。
  * @param parsed - DOM 列表
+ * @param type - 转换的类型
  * @returns 属性列表
  */
-function transform(parsed: DomElement[]): Property[] {
+function transform(parsed: DomElement[], type: OriginType): Property[] {
   return parsed.map((prop) => { // 转换每一个属性
-    const comment: string | undefined = prop[2]['#text'];
+    const comment: string | undefined = prop[type === 'interface' ? 2 : 3]['#text'];
     return {
       name: prop[0]['#text'].replace(' 对象', ''),
       type: transformType(prop[1]),
       // eslint-disable-next-line dot-notation
-      required: !prop[1]['em'],
+      required: type === 'interface' ? !prop[1]['em'] : prop[2]['#text'] === '是',
       comment: comment?.startsWith('. ') ? comment.slice(2, comment.length) : comment,
     };
   });
@@ -106,11 +116,19 @@ function generate(name: string, properties: Property[]) {
 }
 
 (async () => {
+  const type = await select({
+    message: '请选择需要转换的 HTML 的来源',
+    choices: [
+      { name: 'API 可用方法', value: 'method' },
+      { name: 'API 可用类型', value: 'interface' },
+    ],
+  }) as OriginType;
   const html = await editor({
     message: '请在打开的窗口中输入需要转换的 HTML',
   });;
+  if (!html) return; // 无内容
   const parsed = parse(html);
-  const properties = parsed.map((v) => [v[0], transform(v[1])] as const); // 第一项（类型名称）不变，第二项（DOM 列表）转换
+  const properties = parsed.map((v) => [v[0], transform(v[1], type)] as const); // 第一项（类型名称）不变，第二项（DOM 列表）转换
   return properties.map((v) => generate(v[0], v[1])).join('\n'); // 每一项都转换为声明，每一项中间添加换行
 })().then((data) => {
   const dir = path.resolve(__dirname, SAVED_FILENAME);

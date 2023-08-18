@@ -7,3 +7,4 @@ export type Game = unknown;
 export type Invoice = unknown;
 export type SuccessfulPayment = unknown;
 export type CallbackGame = unknown;
+export type ForceReply = unknown;

@@ -8,6 +8,16 @@
     {
       "tagName": "@unused",
       "syntaxKind": "modifier"
+    },
+    {
+      "tagName": "@permission",
+      "syntaxKind": "modifier",
+      "allowMultiple": true
+    },
+    {
+      "tagName": "@todo",
+      "syntaxKind": "block",
+      "allowMultiple": true
     }
   ]
 }
