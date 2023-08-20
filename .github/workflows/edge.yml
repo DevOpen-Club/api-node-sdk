@@ -37,7 +37,7 @@ jobs:
           pnpm bootstrap
       - name: 构建文档站点
         run: |
-          pnpm doc-gen:edge
+          pnpm doc-gen
           pnpm docs:build --base "/api-node-sdk/"
       - name: 设置环境
         uses: actions/configure-pages@v3

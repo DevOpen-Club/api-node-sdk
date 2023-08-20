@@ -1,6 +1,5 @@
 import * as typedoc from 'typedoc';
 import * as path from 'path';
-import { argv } from 'process';
 
 const OUT_DIR = path.resolve(__dirname, '../docs/api');
 
@@ -14,7 +13,6 @@ const OUT_DIR = path.resolve(__dirname, '../docs/api');
     entryDocument: 'index.md',
     hideInPageTOC: true,
     hideBreadcrumbs: true,
-    publicPath: argv[2],
   });
   const project = app.convert();
   if (!project) throw new Error('生成失败');
