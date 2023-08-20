@@ -44,7 +44,7 @@ module.exports = {
     'semi': [2, 'always'],
     'quotes': [2, 'single'],
     'tsdoc/syntax': [2],
-    // '@typescript-eslint/no-undef': [2],
+    '@typescript-eslint/ban-ts-comment': [0],
     '@typescript-eslint/no-unused-vars': [2],
   },
   overrides: [{

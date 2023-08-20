@@ -48,3 +48,5 @@ lib
 es
 docs/.vitepress/dist
 docs/.vitepress/cache
+docs/api/**
+!docs/api/index.md
