@@ -4,7 +4,7 @@
 
 ## 创建机器人
 
-打开 [Fanbook 开放平台]()，登录你的 Fanbook 账号。
+打开 [Fanbook 开放平台](https://open.fanbook.mobi/developers/manage/app)，登录你的 Fanbook 账号。
 
 登录后自动跳转到开发者平台，点击右上角按钮“创建应用”：
 
@@ -45,6 +45,8 @@
 完成！
 
 ## 运行示例
+
+由于 Fanbook 严格限制机器人消息，就用**获取机器人信息**代替发送消息，作为你的第一步。
 
 <<< @/../examples/quick-starter.ts
 

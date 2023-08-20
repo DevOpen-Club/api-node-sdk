@@ -57,6 +57,7 @@ jobs:
           pnpm bootstrap
       - name: 构建文档站点
         run: |
+          pnpm doc-gen
           pnpm docs:build
       - name: 部署到 Netlify
         id: deployment

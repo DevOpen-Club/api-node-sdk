@@ -15,9 +15,10 @@
   "scripts": {
     "bootstrap": "sh scripts/bootstrap.sh",
     "build": "sh scripts/build.sh",
-    "doc-gen": "sh scripts/run-ts-script.sh doc-gen",
-    "docs-to-interface": "sh scripts/run-ts-script.sh docs-to-interface",
-    "generate-api-docs": "sh scripts/run-ts-script.sh generate-api-docs",
+    "doc-gen": "ts-node scripts/doc-gen.ts",
+    "doc-gen:edge": "ts-node scripts/doc-gen.ts \/api-node-sdk\/",
+    "docs-to-interface": "ts-node scripts/docs-to-interface.ts",
+    "generate-api-docs": "ts-node scripts/generate-api-docs.ts",
     "docs:dev": "vitepress dev docs --port 8771",
     "docs:build": "vitepress build docs",
     "docs:preview": "vitepress preview docs"
