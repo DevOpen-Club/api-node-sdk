@@ -15,8 +15,10 @@
   "scripts": {
     "bootstrap": "sh scripts/bootstrap.sh",
     "build": "sh scripts/build.sh",
-    "docs-to-interface": "sh scripts/run-ts-script.sh docs-to-interface",
-    "generate-api-docs": "sh scripts/run-ts-script.sh generate-api-docs",
+    "doc-gen": "ts-node scripts/doc-gen.ts",
+    "doc-gen:edge": "ts-node scripts/doc-gen.ts \/api-node-sdk\/",
+    "docs-to-interface": "ts-node scripts/docs-to-interface.ts",
+    "generate-api-docs": "ts-node scripts/generate-api-docs.ts",
     "docs:dev": "vitepress dev docs --port 8771",
     "docs:build": "vitepress build docs",
     "docs:preview": "vitepress preview docs"
@@ -42,8 +44,11 @@
     "husky": "^8.0.3",
     "ts-node": "^10.9.1",
     "tsconfig": "^7.0.0",
+    "typedoc": "^0.24.8",
+    "typedoc-plugin-markdown": "^3.15.4",
     "typescript": "^5.1.6",
-    "vitepress": "1.0.0-rc.4"
+    "vitepress": "1.0.0-rc.4",
+    "vue": "^3.3.4"
   },
   "repository": {
     "url": "https://github.com/DevOpen-Club/api-node-sdk"

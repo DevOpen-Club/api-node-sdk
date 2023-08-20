@@ -2,7 +2,7 @@
 titleTemplate: ''
 layout: home
 hero:
-  name: '<span style="display: inline-flex;">Fanbook API <img style="height: 64px; " src="/icon/javascript.svg" /> SDK</span>'
+  name: '<span style="display: inline-flex;">Fanbook API <img style="height: 64px; " src="/icon/javascript.svg" alt="JS" /> SDK</span>'
   tagline: Fanbook OpenAPI JavaScript / Node.js SDK
   image: /hero.png
   actions:
@@ -18,7 +18,7 @@ features:
   - title: ✨ 类型完备
     details: 100% 覆盖文档中的已知类型
   - title: ❕ 异常处理
-    details: 请求失败时候自动解析错误码
+    details: 请求失败时自动解析错误码
   - title: 🔗 可拓展
     details: 支持自定义请求和 hook
 ---

@@ -1,4 +1,4 @@
-import { defineConfig } from 'vitepress'
+import { defineConfig } from 'vitepress';
 
 export default defineConfig({
   title: 'Fanbook API Node.js SDK',
@@ -10,13 +10,25 @@ export default defineConfig({
   themeConfig: {
     nav: [
       { text: '首页', link: '/' },
-      { text: '教程', link: '/guide/quick-starter' },
-      { text: 'API 文档', link: '/api' },
+      { text: '教程', link: '/guide/quick-starter.html' },
+      { text: 'API 文档', link: '/api/' },
+      {
+        text: '关于',
+        items: [{
+          text: '项目信息',
+          link: '/about.html',
+        }, {
+          text: '更新日志',
+          link: '/changelog.html',
+        }],
+      },
     ],
     sidebar: [{
       text: '入门',
       items: [
-        { text: '快速开始', link: '/guide/quick-starter' },
+        { text: '快速开始', link: '/guide/quick-starter.html' },
+        { text: 'Hello World', link: '/guide/hello-world.html' },
+        { text: '示例', link: '/guide/examples.html' },
       ],
     }],
     socialLinks: [
@@ -35,6 +47,9 @@ export default defineConfig({
         timeZone: 'Asia/Shanghai',
       },
       text: '上次更新时间',
+    },
+    search: {
+      provider: 'local',
     },
   },
 });

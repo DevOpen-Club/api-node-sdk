@@ -19,7 +19,7 @@ pnpm add fanbook-api-node-sdk
 :::
 
 推荐使用
-<img style='height:18px;display:inline;margin-bottom:-2px;' src='/icon/typescript.svg' aria-hidden />
+<img style='display:inline;height:24px;margin-right:-4px;margin-bottom:-6px;' src='/icon/typescript.svg' aria-hidden />
 &thinsp;[TypeScript](https://www.typescriptlang.org/)
 获得更好的开发体验，文档中所有示例都将用 TS 撰写。
 
