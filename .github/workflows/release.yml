@@ -5,10 +5,10 @@ on:
       - v*
   workflow_dispatch:
 jobs:
-  publish:
+  package:
     name: 发布 npm 包
     environment:
-      name: npm
+      name: latest
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -24,20 +24,16 @@ jobs:
         run: |
           pnpm bootstrap
           pnpm build
-      - name: 部署
+      - name: 上传更新包
         run: |
           pnpm publish --no-git-checks
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.ACCESS_TOKEN }}
-  build:
-    name: 构建部署文档站点
-    permissions:
-      contents: read
-      pages: write
-      id-token: write
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_ACCESS_TOKEN }}
+  docs:
+    name: 更新文档站点
     environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+      name: latest
+      url: ${{ steps.deployment.outputs.NETLIFY_LIVE_URL }}
     runs-on: ubuntu-latest
     steps:
       - name: 准备 Git 环境
@@ -62,12 +58,11 @@ jobs:
       - name: 构建文档站点
         run: |
           pnpm docs:build
-      - name: 设置环境
-        uses: actions/configure-pages@v3
-      - name: 上传物料
-        uses: actions/upload-pages-artifact@v1
-        with:
-          path: docs/.vitepress/dist
-      - name: 发布线上
+      - name: 部署到 Netlify
         id: deployment
-        uses: actions/deploy-pages@v1
+        uses: netlify/actions/cli@master
+        with:
+          args: deploy --prod
+        env:
+          NETLIFY_SITE_ID: ${{ secrets.DOCS_SITE_ID }}
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
