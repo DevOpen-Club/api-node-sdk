@@ -8,9 +8,9 @@ const OUT_DIR = path.resolve(__dirname, '../docs/api');
   app.options.addReader(new typedoc.TSConfigReader());
   await app.bootstrapWithPlugins({
     entryPoints: ['src/index.ts'],
+    cleanOutputDir: false,
     plugin: ['typedoc-plugin-markdown'],
     // @ts-expect-error
-    entryDocument: 'index.md',
     hideInPageTOC: true,
     hideBreadcrumbs: true,
   });
