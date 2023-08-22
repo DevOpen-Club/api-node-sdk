@@ -232,5 +232,70 @@ export interface DeleteGuildUserCreditOptions {
    *
    * 与 {@link chat} 二选一。
    */
-  guild?: bigint;
+  guild?: `${bigint}`;
+}
+
+export interface ListenChatMemberMention {
+	nickname: string;
+	user_id: `${bigint}`;
+}
+
+export interface ListenMessageMember {
+  nick: string | null;
+  roles: string[];
+  guild_card: string[];
+  assist_level: number;
+}
+
+export interface ListenMessageAuthor {
+  nickname: string;
+  username: string;
+  avatar: string;
+  avatar_nft?: unknown;
+  bot: boolean;
+}
+
+export interface ListenMessage {
+  content: string;
+  time: number;
+  user_id: `${bigint}`;
+  channel_id: `${bigint}`;
+  message_id: `${bigint}`;
+  quote_l1?: `${bigint}` | null;
+  quote_l2?: `${bigint}` | null;
+  guild_id: `${bigint}`;
+  channel_type: number;
+  status?: number;
+  nonce?: `${bigint}`;
+  ctype?: number;
+  mentions?: ListenChatMemberMention[];
+  member?: ListenMessageMember;
+  author?: ListenMessageAuthor;
+  desc?: string;
+}
+
+export interface ConnectEvent {
+  client_id: string;
+}
+
+export type ListenEvents = { // mitt 要求使用 type
+  /** 连接成功。 */
+  connect: ConnectEvent;
+  /** 连接发生错误。 */
+  error: Error;
+  /** 收到消息推送。 */
+  push: ListenMessage;
+  /** 关闭连接。 */
+  close: void;
+};
+
+export interface ListenOptions {
+  userToken?: string;
+  deviceId?: string;
+  superStr?: string;
+  /**
+   * 心跳包间隔时间（单位：秒）。
+   * @default 25
+   */
+  ping?: number;
 }
