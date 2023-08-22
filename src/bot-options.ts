@@ -119,7 +119,7 @@ export interface GetGuildMembersResult {
   }>;
 }
 
-export interface ChatMember {
+export interface GuideChatMember {
   user: User;
   status: 'member';
   oversea: boolean;

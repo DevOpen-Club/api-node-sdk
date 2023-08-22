@@ -20,7 +20,7 @@ import type {
 import type {
   EditMessageOptions,
   GetGuildMembersResult,
-  ChatMember,
+  GuideChatMember,
   SendMessageOptions,
   SendPhotoOptions,
   SendReactionOptions,
@@ -370,7 +370,7 @@ export class Bot {
    * @returns 成员列表
    */
   public async listRoleMember(guild: bigint, role: bigint, size: number = 50, last?: bigint) {
-    return await Bot.unwrap<ChatMember[]>(this.request('/getRoleMembers', {
+    return await Bot.unwrap<GuideChatMember[]>(this.request('/getRoleMembers', {
       guild_id: guild,
       role_id: role,
       size,
@@ -384,7 +384,7 @@ export class Bot {
    * @param name - 查询的昵称
    */
   public async searchMembersByName(guild: bigint, name: string) {
-    return await Bot.unwrap<ChatMember[]>(this.request('/searchGuildMember', {
+    return await Bot.unwrap<GuideChatMember[]>(this.request('/searchGuildMember', {
       guild_id: guild,
       username: name,
     }));
@@ -397,7 +397,7 @@ export class Bot {
    * @returns 用户列表
    */
   public async getMembersByShortIds(guild: bigint, ids: number[]) {
-    return await Bot.unwrap<ChatMember[]>(this.request('/searchGuildMemberByName', {
+    return await Bot.unwrap<GuideChatMember[]>(this.request('/searchGuildMemberByName', {
       guild_id: guild,
       username: ids.map((v) => String(v)),
     }));
