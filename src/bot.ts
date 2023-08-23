@@ -1,10 +1,10 @@
 import axios, { Axios, AxiosRequestConfig, AxiosResponse, CreateAxiosDefaults } from 'axios';
-import * as WebSocket from 'ws';
-import * as _jsonBigint from 'json-bigint';
+import { WebSocket } from 'ws';
+import _jsonBigint from 'json-bigint';
 import { v4 as uuid } from 'uuid';
-import * as qs from 'qs';
+import qs from 'qs';
 import * as base64 from 'js-base64';
-import * as mitt from 'mitt';
+import mitt from 'mitt';
 import { FanbookApiError } from './error';
 
 import type {
@@ -20,22 +20,22 @@ import type {
   GuildCredit,
   Channel,
 } from './typings';
-import {
-  type EditMessageOptions,
-  type GetGuildMembersResult,
-  type GuideChatMember,
-  type SendMessageOptions,
-  type SendPhotoOptions,
-  type SendReactionOptions,
-  type KickChatMemberOptions,
-  type ListGuildInvitationResult,
-  type ListChatMessageBehavior,
-  type SetChatOptions,
-  type ListChatMemberOptions,
-  type CreateGuildRoleOptions,
-  type SetGuildRoleOptions,
-  type SetUserCreditOptions,
-  type DeleteGuildUserCreditOptions,
+import type {
+  EditMessageOptions,
+  GetGuildMembersResult,
+  GuideChatMember,
+  SendMessageOptions,
+  SendPhotoOptions,
+  SendReactionOptions,
+  KickChatMemberOptions,
+  ListGuildInvitationResult,
+  ListChatMessageBehavior,
+  SetChatOptions,
+  ListChatMemberOptions,
+  CreateGuildRoleOptions,
+  SetGuildRoleOptions,
+  SetUserCreditOptions,
+  DeleteGuildUserCreditOptions,
   ListenEvents,
   ListenOptions,
 } from './bot-options';
@@ -780,7 +780,7 @@ export class Bot {
     const interval = setInterval(() => { // 定时发送心跳包
       ws.send('{"type":"ping"}');
     }, 1000 * ping);
-    const bus = (mitt as unknown as typeof mitt.default)<ListenEvents>(); // 此处有玄学问题，因此使用强制类型转换
+    const bus = mitt<ListenEvents>();
     bus.on('close', () => { // 监听用户发的关闭事件
       if (ws.readyState === ws.CLOSED || ws.readyState === ws.CLOSING) return;
       clearInterval(interval); // 关闭需要时间，为防关闭时刚好发心跳包，所以提前清除 interval
