@@ -33,7 +33,6 @@ jobs:
     name: 更新文档站点
     environment:
       name: latest
-      url: ${{ steps.deployment.outputs.NETLIFY_LIVE_URL }}
     runs-on: ubuntu-latest
     steps:
       - name: 准备 Git 环境
@@ -60,10 +59,9 @@ jobs:
           pnpm doc-gen
           pnpm docs:build
       - name: 部署到 Netlify
-        id: deployment
-        uses: netlify/actions/cli@master
-        with:
-          args: deploy --prod
+        run: |
+          pnpm install -D netlify-cli
+          pnpm netlify deploy --prod
         env:
           NETLIFY_SITE_ID: ${{ secrets.DOCS_SITE_ID }}
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
