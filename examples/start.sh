@@ -1,1 +1,1 @@
-pnpm ts-node $1.ts
+pnpm ts-node src/$1.ts
