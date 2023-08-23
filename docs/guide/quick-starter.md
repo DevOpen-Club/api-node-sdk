@@ -49,4 +49,4 @@ SDK 支持的环境：
 
 | ![Chrome](/browser/chrome.svg) | ![Edge](/browser/edge.svg) | ![Firefox](/browser/firefox.svg) | ![Opera](/browser/opera.svg) | ![Safari](/browser/safari.svg) | <img style='height: 18px; margin: 0 auto;' src='/browser/nodejs.svg' alt='Node.js'> | ![Deno](/browser/deno.svg) |
 | :----: | :--: | :-----: | :---: | :----: | :-----: | :--: |
-| 67     | 79   | 68      | 54    | 14     | 10.4.0  | 1.0  |
+| 67     | 79   | 68      | 54    | 14     | 10.4.0  | 1.4  |
