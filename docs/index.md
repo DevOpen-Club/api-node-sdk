@@ -1,9 +1,9 @@
 ---
-titleTemplate: ''
+titleTemplate: Fanbook API Node.js SDK
 layout: home
 hero:
-  name: '<span style="display: inline-flex;">Fanbook API <img style="height: 64px; " src="/icon/javascript.svg" alt="JS" /> SDK</span>'
-  tagline: Fanbook OpenAPI JavaScript / Node.js SDK
+  name: '<span style="display:inline-flex;white-space:pre;">Fanbook API <span class="js-logo" alt="Node.js"></span> SDK</span>'
+  tagline: JavaScript / Node.js SDK for Fanbook OpenAPI
   image: /hero.png
   actions:
     - theme: brand
@@ -22,3 +22,17 @@ features:
   - title: 🔗 可拓展
     details: 支持自定义请求和 hook
 ---
+
+<style>
+.js-logo {
+  width: 40px;
+  background-image: url('/icon/javascript.svg');
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+@media (min-width: 640px) {
+  .js-logo {
+    width: 60px;
+  }
+}
+</style>
