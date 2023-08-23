@@ -61,7 +61,7 @@ jobs:
       - name: 部署到 Netlify
         run: |
           pnpm install -D netlify-cli
-          pnpm netlify deploy --prod
+          pnpm netlify deploy --dir=docs/.vitepress/dist --prod
         env:
           NETLIFY_SITE_ID: ${{ secrets.DOCS_SITE_ID }}
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
