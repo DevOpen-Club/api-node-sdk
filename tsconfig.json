@@ -3,9 +3,10 @@
     "alwaysStrict": true,
     "module": "ES2020",
     "target": "ES2020",
-    "lib": ["ES2020"],
+    "lib": ["ES2020", "DOM"],
     "declaration": true,
-    "moduleResolution": "Node"
+    "moduleResolution": "Node",
+    "esModuleInterop": true
   },
   "include": ["script/*.ts", "src/**/*.ts", "src/typings/**/*.ts"],
   "ts-node": {
