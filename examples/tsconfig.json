@@ -5,7 +5,7 @@
     "target": "ESNext",
     "moduleResolution": "Node"
   },
-  "include": ["*.ts"],
+  "include": ["src/*.ts"],
   "ts-node": {
     "swc": true,
     "esm": true
