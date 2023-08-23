@@ -48,6 +48,6 @@
 
 由于 Fanbook 严格限制机器人消息，就用**获取机器人信息**代替发送消息，作为你的第一步。
 
-<<< @/../examples/quick-starter.ts
+<<< @/../example/src/quick-starter.ts
 
 如果运行后输出了你的机器人信息，那么恭喜你，你已经迈出了第一步。
