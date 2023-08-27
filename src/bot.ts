@@ -356,7 +356,7 @@ export class Bot {
    * @param user - 用户 ID，必须在频道中，留空则自动获取
    * @returns 当前页的成员信息
    */
-  public async listGuildMember(guild: bigint, channel: bigint, ranges: Array<{ start: number, ned: number }>, user?: bigint) {
+  public async listGuildMember(guild: bigint, channel: bigint, ranges: Array<{ start: number, end: number }>, user?: bigint) {
     user = user ?? (await this.getMe()).id;
     return await Bot.unwrap<GetGuildMembersResult>(this.request('/v2/guild/members', {
       guild_id: String(guild),
