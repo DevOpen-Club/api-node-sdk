@@ -7,3 +7,7 @@
 ## 订阅事件
 
 <<< @/../examples/src/listen-events.ts
+
+## 私信消息转发
+
+<<< @/../examples/src/message-forward.ts
