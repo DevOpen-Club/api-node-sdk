@@ -18,6 +18,8 @@ pnpm bootstrap
 pnpm start 示例名称
 ```
 
-当前支持的示例名称：
+当前支持的示例名称是 /examples/src 目录下的文件名，即：
 
-- `quick-starer`
+- `listen-events`
+- `message-forward`
+- `quick-starter`
