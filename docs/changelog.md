@@ -2,6 +2,17 @@
 
 完整版：[CHANGELOG.md](https://github.com/DevOpen-Club/api-node-sdk/blob/main/CHANGELOG.md)。
 
+## [0.3.0](https://github.com/DevOpen-Club/api-node-sdk/releases/tag/v0.3.0)
+
+- <Badge type='warning'>破坏性变更</Badge> 修复 `Bot#listGuildMember` 的 `range` 参数类型中的拼写错误 ([#35](https://github.com/DevOpen-Club/api-node-sdk/pull/35))
+- 修复 `Bot#listGuildRole` 错误的数据类型转换 ([#34](https://github.com/DevOpen-Club/api-node-sdk/pull/34))
+- 移除 commitlint ([#36](https://github.com/DevOpen-Club/api-node-sdk/pull/36))
+- 更新 `README.md` `CONTRIBUTING.md`；添加 `SECURITY.md` ([#37](https://github.com/DevOpen-Club/api-node-sdk/pull/37))
+- 修复可选的 options 参数不能留空的问题 ([#38](https://github.com/DevOpen-Club/api-node-sdk/pull/38))
+- 修复无法导入在 `src/typings/*.ts` 定义的的值的问题 ([#39](https://github.com/DevOpen-Club/api-node-sdk/pull/39))
+- 修复请求体中的 `BigInt` 解析失败报错的问题 ([#40](https://github.com/DevOpen-Club/api-node-sdk/pull/40))
+- 添加示例 ([#41](https://github.com/DevOpen-Club/api-node-sdk/pull/41))
+
 ## [0.2.1](https://github.com/DevOpen-Club/api-node-sdk/releases/tag/v0.2.1)
 
 - 修复 ES Module 下无法正常工作的问题 ([#32](https://github.com/DevOpen-Club/api-node-sdk/pull/32))

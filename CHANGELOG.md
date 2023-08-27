@@ -1,5 +1,27 @@
 # 更新日志
 
+## [0.3.0] - 2023-08-27
+
+### ⚠️ 需要注意
+
+- 修复 `Bot#listGuildMember` 的 `range` 参数类型中的拼写错误 ([#35](https://github.com/DevOpen-Club/api-node-sdk/pull/35))
+
+对于本项目的贡献者：
+
+- 移除 commitlint ([#36](https://github.com/DevOpen-Club/api-node-sdk/pull/36))
+- 更新 `README.md` `CONTRIBUTING.md`；添加 `SECURITY.md` ([#37](https://github.com/DevOpen-Club/api-node-sdk/pull/37))
+
+### 🐛 bug 修复
+
+- 修复 `Bot#listGuildRole` 错误的数据类型转换 ([#34](https://github.com/DevOpen-Club/api-node-sdk/pull/34))
+- 修复可选的 options 参数不能留空的问题 ([#38](https://github.com/DevOpen-Club/api-node-sdk/pull/38))
+- 修复无法导入在 `src/typings/*.ts` 定义的的值的问题 ([#39](https://github.com/DevOpen-Club/api-node-sdk/pull/39))
+- 修复请求体中的 `BigInt` 解析失败报错的问题 ([#40](https://github.com/DevOpen-Club/api-node-sdk/pull/40))
+
+### 📝 文档改进
+
+- 添加示例 ([#41](https://github.com/DevOpen-Club/api-node-sdk/pull/41))
+
 ## [0.2.1] - 2023-08-23
 
 ### 🐛 bug 修复
