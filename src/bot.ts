@@ -130,8 +130,12 @@ export class Bot {
       url: path,
       baseURL: `https://a1.fanbook.mobi/api/bot/${this.token}`,
       method: 'POST',
-      data,
+      data: typeof data === 'object' ? jsonBigint.stringify(data) : data,
       ...options,
+      headers: {
+        'Content-Type': typeof data === 'object' ? 'application/json' : undefined,
+        ...options?.headers,
+      },
     });
   }
 
@@ -195,7 +199,7 @@ export class Bot {
    */
   public async sendMessage(chat: bigint, content: string, description: string, options?: SendMessageOptions) {
     return await Bot.unwrap<Message>(this.request('/sendMessage', {
-      chat,
+      chat_id: chat,
       text: content,
       desc: description,
       ...options,
