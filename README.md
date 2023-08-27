@@ -1,17 +1,11 @@
 # Fanbook OpenAPI JavaScript / Node.js SDK
 
-<p align="center">
-  <img src="https://img.shields.io/badge/license-MIT-green?style=flat-square" />
-  <img src="https://shields.io/github/issues/DevOpen-Club/api-node-sdk?style=flat-square" />
-  <img src="https://shields.io/github/issues-pr/DevOpen-Club/api-node-sdk?style=flat-square" />
-</p>
+![](https://socialify.git.ci/DevOpen-Club/api-node-sdk/image?description=1&font=Source%20Code%20Pro&language=1&name=1&pattern=Circuit%20Board&theme=Auto)
 
 <p align="center">
   鸣谢：
   <a href="https://www.netlify.com" title="Netlify 提供文档站点托管服务"><img src="https://www.netlify.com/v3/img/components/netlify-color-accent.svg" alt="Netlify 提供文档站点托管服务" /></a>
 </p>
-
-Fanbook 开放平台接口 Node.js SDK 。
 
 # 概述
 
