@@ -23,9 +23,6 @@
     "docs:preview": "vitepress preview docs"
   },
   "devDependencies": {
-    "@commitlint/cli": "^17.6.7",
-    "@commitlint/config-conventional": "^17.6.7",
-    "@commitlint/types": "^17.4.4",
     "@inquirer/prompts": "^3.0.2",
     "@microsoft/api-documenter": "^7.22.33",
     "@microsoft/tsdoc": "^0.14.2",
