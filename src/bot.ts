@@ -193,7 +193,7 @@ export class Bot {
    * @param options - 其他选项
    * @returns 发送的消息对象
    */
-  public async sendMessage(chat: bigint, content: string, description: string, options: SendMessageOptions) {
+  public async sendMessage(chat: bigint, content: string, description: string, options?: SendMessageOptions) {
     return await Bot.unwrap<Message>(this.request('/sendMessage', {
       chat,
       text: content,
@@ -211,7 +211,7 @@ export class Bot {
    * @param options - 其他选项
    * @returns 发送的消息对象
    */
-  public async sendPhoto(chat: bigint, url: string, options: SendPhotoOptions) {
+  public async sendPhoto(chat: bigint, url: string, options?: SendPhotoOptions) {
     return await Bot.unwrap<Message>(this.request('/sendPhoto', {
       chat_id: chat,
       photo: { Url: url },
@@ -243,7 +243,7 @@ export class Bot {
    * @param user - 表态的用户 ID
    * @param chat - 被表态的消息所在聊天 ID
    * @param message - 被表态的消息 ID
-   * @param options - 表态选项
+   * @param options - 其他数据
    */
   public async sendReaction(user: bigint, chat: bigint, message: bigint, options: SendReactionOptions) {
     await Bot.unwrap(this.request('/sendReaction', {
@@ -262,7 +262,7 @@ export class Bot {
    * @param options - 其他选项
    * @returns 编辑后的消息对象
    */
-  public async editMessage(chat: bigint, message: bigint, content: string, options: EditMessageOptions) {
+  public async editMessage(chat: bigint, message: bigint, content: string, options?: EditMessageOptions) {
     return await Bot.unwrap<Message>(this.request('/editMessageText', {
       chat_id: chat,
       message_id: message,
@@ -485,7 +485,7 @@ export class Bot {
   /**
    * 从服务器或聊天中移除成员。
    * @param user - 用户 ID
-   * @param options - 移除选项
+   * @param options - 其他数据
    */
   public async removeChatMember(user: bigint, options: KickChatMemberOptions) {
     await Bot.unwrap(this.request('/kickChatMember', {
@@ -592,15 +592,15 @@ export class Bot {
    * @param chat - 聊天 ID
    * @param options - 其他选项
    */
-  public async setChat(chat: bigint, options: SetChatOptions) {
+  public async setChat(chat: bigint, options?: SetChatOptions) {
     await Bot.unwrap(this.request('/channel/edit', {
       channel_id: String(chat),
-      user_id: String(options.user ?? (await this.getMe()).id),
-      guild_id: options.guild !== undefined ? String(options.guild) : undefined,
-      name: options.name,
-      topic: options.topic,
-      parent_id: options.parent !== undefined ? String(options.parent) : undefined,
-      icon: options.icon,
+      user_id: String(options?.user ?? (await this.getMe()).id),
+      guild_id: options?.guild !== undefined ? String(options?.guild) : undefined,
+      name: options?.name,
+      topic: options?.topic,
+      parent_id: options?.parent !== undefined ? String(options?.parent) : undefined,
+      icon: options?.icon,
     }));
   }
 
@@ -617,8 +617,8 @@ export class Bot {
 
   /**
    * 列出聊天或服务器成员。
-   * @param options - 
-   * @returns 
+   * @param options - 其他数据
+   * @returns 成员列表
    */
   public async listChatMember(options: ListChatMemberOptions) {
     return await Bot.unwrap(this.request('/getChatMember', {
@@ -712,7 +712,7 @@ export class Bot {
    * 设置服务器用户荣誉。
    * @param user - 用户 ID
    * @param credit - 荣誉数据
-   * @param options - 荣誉选项
+   * @param options - 其他数据
    * @returns 荣誉自定义 ID
    */
   public async setUserCredit(user: bigint, credit: GuildCredit, options: SetUserCreditOptions) {
@@ -733,7 +733,7 @@ export class Bot {
    * 删除服务器用户荣誉。
    * @param user - 用户 ID
    * @param card - 荣誉自定义 ID
-   * @param options - 荣誉选项
+   * @param options - 其他数据
    */
   public async deleteGuildUserCredit(user: bigint, card: string, options: DeleteGuildUserCreditOptions) {
     await Bot.unwrap(this.request('/v2/guild/credit', {
