@@ -636,7 +636,7 @@ export class Bot {
    */
   public async listGuildRole(guild: bigint, last?: bigint) {
     return await Bot.unwrap<GuildRole[]>(this.request('/getGuildRoles', {
-      guild_id: String(guild),
+      guild_id: guild,
       last_id: last,
     }));
   }
