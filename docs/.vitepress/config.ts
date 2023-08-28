@@ -28,11 +28,21 @@ export default defineConfig({
       items: [
         { text: '快速开始', link: '/guide/quick-starter.html' },
         { text: 'Hello World', link: '/guide/hello-world.html' },
+      ],
+    }, {
+      text: '参考',
+      items: [
+        { text: 'API 调用', link: '/reference/api-calling.html' },
+        { text: '错误处理', link: '/reference/error-handling.html' },
         { text: '示例', link: '/guide/examples.html' },
       ],
     }],
     socialLinks: [
       { icon: 'github', link: 'https://github.com/DevOpen-Club/api-node-sdk' },
+      {
+        icon: { svg: '<img src="/icon/fanbook.svg" alt="Fanbook" width="24" />' },
+        link: 'https://fanbook.mobi/rjCNRFUN',
+      },
     ],
     footer: {
       message: 'Released under the MIT License.',
