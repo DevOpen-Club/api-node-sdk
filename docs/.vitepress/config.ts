@@ -12,16 +12,7 @@ export default defineConfig({
       { text: '首页', link: '/' },
       { text: '教程', link: '/guide/quick-starter.html' },
       { text: 'API 文档', link: '/api/' },
-      {
-        text: '关于',
-        items: [{
-          text: '项目信息',
-          link: '/about.html',
-        }, {
-          text: '更新日志',
-          link: '/changelog.html',
-        }],
-      },
+      { text: '关于', link: '/about.html' },
     ],
     sidebar: [{
       text: '入门',
@@ -34,7 +25,13 @@ export default defineConfig({
       items: [
         { text: 'API 调用', link: '/reference/api-calling.html' },
         { text: '错误处理', link: '/reference/error-handling.html' },
-        { text: '示例', link: '/guide/examples.html' },
+        { text: '示例', link: '/reference/examples.html' },
+      ],
+    }, {
+      text: '其他',
+      items: [
+        { text: '更新日志', link: '/changelog.html' },
+        { text: '贡献', link: '/contributing.html' },
       ],
     }],
     socialLinks: [

@@ -45,7 +45,7 @@ xhr.send(jsonBigint.stringify({
 ```
 
 ```ts [fetch]
-import jsonBigint from 'json-bigint';
+import _jsonBigint from 'json-bigint';
 const jsonBigint = _jsonBigint({ strict: true, useNativeBigInt: true });
 
 const BOT_TOKEN = '在此填入你的机器人令牌';
@@ -60,14 +60,14 @@ const response = await fetch(`https://a1.fanbook.mobi/api/bot/${BOT_TOKEN}/sendM
     desc: CONTENT,
   }),
 });
-const data = await response.json();
+const data = jsonBigint.parse(await response.text());
 if (data.ok) console.log(data.result);
 else console.error(data);
 ```
 
 ```ts [axios]
 import axios from 'axios';
-import jsonBigint from 'json-bigint';
+import _jsonBigint from 'json-bigint';
 const jsonBigint = _jsonBigint({ strict: true, useNativeBigInt: true });
 
 const BOT_TOKEN = '在此填入你的机器人令牌';

@@ -41,12 +41,14 @@ pnpm add fanbook-api-node-sdk
 
 # 代码示例
 
-- [获取机器人信息](./examples/quick-starter.ts)
+访问 [文档](https://fanbook-api-sdk.js.org/reference/examples.html) 或[查看源代码](./examples)。
 
 # 联系我们
 
-如果你发现了 bug 或需要新功能，请[提一个 issue](https://github.com/DevOpen-Club/api-node-sdk/new) 。
+<!-- 此处修改需要在 docs/contributing.md 中同步。 -->
 
-如果你有 new ideas ，可以[发个讨论帖](https://github.com/DevOpen-Club/api-node-sdk/discussions/new/choose)
+如果你发现了 bug 或需要新功能，请[提一个 issue](https://github.com/DevOpen-Club/api-node-sdk/new)。
 
-如果你也想贡献一份力量，请看 [CONTRIBUTING.md](./CONTRIBUTING.md)。
+如果你有新的想法，可以[发个讨论帖](https://github.com/DevOpen-Club/api-node-sdk/discussions/new/choose)。
+
+如果你也想贡献一份力量，请看 [贡献指南](./CONTRIBUTING.md)。
