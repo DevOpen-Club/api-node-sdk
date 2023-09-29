@@ -17,7 +17,7 @@ jobs:
       - name: 同步分支
         run: |
           git checkout -b stable origin/stable
-          git merge --ff-only main
+          git merge --ff-only origin/main
           git push origin stable
       - uses: actions/setup-node@v3
         with:
