@@ -7,17 +7,23 @@ on:
 jobs:
   package:
     name: 发布 npm 包
-    environment:
-      name: latest
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: 同步分支
+        run: |
+          git switch stable
+          git merge --ff-only main
+          git push stable
       - uses: actions/setup-node@v3
         with:
           node-version: 18.15.0
           registry-url: https://registry.npmjs.org
-      - name: 安装包管理器
-        uses: pnpm/action-setup@v2
+      - uses: pnpm/action-setup@v2
         with:
           version: 8.3.1
       - name: 构建
@@ -29,39 +35,3 @@ jobs:
           pnpm publish --no-git-checks
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_ACCESS_TOKEN }}
-  docs:
-    name: 更新文档站点
-    environment:
-      name: latest
-    runs-on: ubuntu-latest
-    steps:
-      - name: 准备 Git 环境
-        uses: actions/checkout@v3
-      - name: 准备 Node.js 环境
-        uses: actions/setup-node@v3
-        with:
-          node-version: 18.15.0
-      - name: 安装包管理器
-        uses: pnpm/action-setup@v2
-        with:
-          version: 8.3.1
-      - name: 恢复缓存
-        uses: actions/cache@v2
-        with:
-          path: node_modules
-          key: dependencies
-          restore-keys: dependencies
-      - name: 安装依赖
-        run: |
-          pnpm bootstrap
-      - name: 构建文档站点
-        run: |
-          pnpm doc-gen
-          pnpm docs:build
-      - name: 部署到 Netlify
-        run: |
-          pnpm install -D netlify-cli
-          pnpm netlify deploy --dir=docs/.vitepress/dist --prod
-        env:
-          NETLIFY_SITE_ID: ${{ secrets.DOCS_SITE_ID }}
-          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
