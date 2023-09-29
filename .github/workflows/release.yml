@@ -16,9 +16,9 @@ jobs:
           fetch-depth: 0
       - name: 同步分支
         run: |
-          git switch stable
+          git checkout -b stable origin/stable
           git merge --ff-only main
-          git push stable
+          git push origin stable
       - uses: actions/setup-node@v3
         with:
           node-version: 18.15.0
