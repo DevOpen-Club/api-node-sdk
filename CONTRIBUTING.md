@@ -35,8 +35,8 @@
 3. 运行 `pnpm bootstrap` 初始化开发环境；
 4. 从 `main` 创建分支；
 5. 在源代码中自由发挥……
-6. 自行测试，确保功能预期，且边缘情况可控；
-7. 提交更改，推送到 fork 出的仓库；
+6. 尽量编写单元测试，确保边缘情况可控；
+7. 运行 `pnpm test` 进行单元测试，通过后即可提交更改，推送到 fork 出的仓库；
 8. 提交 pull request 到本仓库，如果有对应的 issue，请进行[关联](https://docs.github.com/en/issues/tracking-your-work-with-issues/linking-a-pull-request-to-an-issue#linking-a-pull-request-to-an-issue-using-a-keyword)；
 9.  等待合并……
 
