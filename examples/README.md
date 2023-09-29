@@ -15,11 +15,7 @@ pnpm bootstrap
 在**本目录**下运行：
 
 ```bash
-pnpm start 示例名称
+pnpm ts-node src/quick-starter.ts
 ```
 
-当前支持的示例名称是 /examples/src 目录下的文件名，即：
-
-- `listen-events`
-- `message-forward`
-- `quick-starter`
+你可以将 `quick-starter` 换成任何示例名，在本目录下的 `src` 文件夹中可以找到源代码。

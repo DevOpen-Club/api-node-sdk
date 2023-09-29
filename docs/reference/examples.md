@@ -11,3 +11,7 @@
 ## 私信消息转发
 
 <<< @/../examples/src/message-forward.ts
+
+## 发送富文本
+
+<<< @/../examples/src/rich-text.ts
