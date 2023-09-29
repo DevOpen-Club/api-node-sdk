@@ -1,5 +1,27 @@
 # 更新日志
 
+## [0.4.0] - 2023-09-29
+
+### 🚀 新功能
+
+- 添加富文本类型支持、解析、转字符串功能 ([#46](https://github.com/DevOpen-Club/api-node-sdk/pull/46))
+
+### 🐛 bug 修复
+
+- 导出 `src/error.ts` ([#44](https://github.com/DevOpen-Club/api-node-sdk/pull/44))
+
+### 📝 文档改进
+
+- 添加 Fanbook 社区链接 ([#43](https://github.com/DevOpen-Club/api-node-sdk/pull/43))
+- 优化文档目录 ([#43](https://github.com/DevOpen-Club/api-node-sdk/pull/43)) ([#45](https://github.com/DevOpen-Club/api-node-sdk/pull/45))
+- 修改错误的对比示例和描述 ([#45](https://github.com/DevOpen-Club/api-node-sdk/pull/45))
+- 添加错误处理文档、贡献指南 ([#45](https://github.com/DevOpen-Club/api-node-sdk/pull/45))
+
+### 🧹 其他
+
+- 添加单元测试 ([#47](https://github.com/DevOpen-Club/api-node-sdk/pull/47)) ([#50](https://github.com/DevOpen-Club/api-node-sdk/pull/50))
+- 修改示例运行方法 ([#48](https://github.com/DevOpen-Club/api-node-sdk/pull/48))
+
 ## [0.3.0] - 2023-08-27
 
 ### ⚠️ 需要注意

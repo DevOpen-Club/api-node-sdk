@@ -2,6 +2,16 @@
 
 完整版：[CHANGELOG.md](https://github.com/DevOpen-Club/api-node-sdk/blob/main/CHANGELOG.md)。
 
+## [0.4.0](https://github.com/DevOpen-Club/api-node-sdk/releases/tag/v0.4.0)
+
+- 优化文档目录 ([#43](https://github.com/DevOpen-Club/api-node-sdk/pull/43)) ([#45](https://github.com/DevOpen-Club/api-node-sdk/pull/45))
+- 导出 `src/error.ts` ([#44](https://github.com/DevOpen-Club/api-node-sdk/pull/44))
+- 修改错误的对比示例和描述 ([#45](https://github.com/DevOpen-Club/api-node-sdk/pull/45))
+- 添加错误处理文档、贡献指南 ([#45](https://github.com/DevOpen-Club/api-node-sdk/pull/45))
+- 添加富文本类型支持、解析、转字符串功能 ([#46](https://github.com/DevOpen-Club/api-node-sdk/pull/46))
+- 添加单元测试 ([#47](https://github.com/DevOpen-Club/api-node-sdk/pull/47)) ([#50](https://github.com/DevOpen-Club/api-node-sdk/pull/50))
+- 修改示例运行方法 ([#48](https://github.com/DevOpen-Club/api-node-sdk/pull/48))
+
 ## [0.3.0](https://github.com/DevOpen-Club/api-node-sdk/releases/tag/v0.3.0)
 
 - <Badge type='warning'>破坏性变更</Badge> 修复 `Bot#listGuildMember` 的 `range` 参数类型中的拼写错误 ([#35](https://github.com/DevOpen-Club/api-node-sdk/pull/35))
