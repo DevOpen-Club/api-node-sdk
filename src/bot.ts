@@ -615,7 +615,7 @@ export class Bot {
    */
   public async getPrivateChat(user: bigint) {
     return await Bot.unwrap<Chat>(this.request('/getPrivateChat', {
-      user_id: String(user),
+      user_id: user,
     }));
   }
 
