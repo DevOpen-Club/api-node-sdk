@@ -282,7 +282,7 @@ export type ListenEvents = { // mitt 要求使用 type
   /** 连接成功。 */
   connect: ConnectEvent;
   /** 连接发生错误。 */
-  error: Error;
+  error: unknown;
   /** 收到消息推送。 */
   push: ListenMessage;
   /** 关闭连接。 */

@@ -1,5 +1,5 @@
 import axios, { Axios, AxiosRequestConfig, AxiosResponse, CreateAxiosDefaults } from 'axios';
-import { WebSocket } from 'ws';
+import NodeWs from 'ws';
 import _jsonBigint from 'json-bigint';
 import { v4 as uuid } from 'uuid';
 import qs from 'qs';
@@ -759,6 +759,20 @@ export class Bot {
    * @see https://github.com/fanbook-open/websocket-doc/blob/main/README.md
    */
   async listen(options?: ListenOptions) {
+    async function handleMessage(ev: MessageEvent) {
+      const data = JSON.parse(
+        ev.data instanceof Blob
+        ? await (ev.data as Blob).text() // 浏览器
+        : ev.toString() // Node.js
+      );
+      switch (data.action) {
+        case 'connect': bus.emit('connect', data.data); break; // 连接成功
+        case 'pong': break; // 心跳包
+        default:
+          bus.emit('push', data.data);
+      }
+    }
+    const Ws = (typeof WebSocket === 'undefined') ? NodeWs : WebSocket;
     const userToken = encodeURI(options?.userToken ?? Reflect.get(await this.getMe(), 'user_token') as string);
     const deviceId = encodeURI(options?.deviceId ?? String((await this.getMe()).id));
     const props = encodeURI(options?.superStr ?? base64.encode(JSON.stringify({
@@ -769,18 +783,13 @@ export class Bot {
       build_number: '1',
     })));
     const ping = options?.ping ?? 25;
-    const ws = new WebSocket(`wss://gateway-bot.fanbook.mobi/websocket?id=${userToken}&dId=${deviceId}&v=1.6.60&x-super-properties=${props}`);
-    ws.on('message', (ev) => { // 收到消息
-      const data = JSON.parse(ev.toString());
-      switch (data.action) {
-        case 'connect': bus.emit('connect', data.data); break; // 连接成功
-        case 'pong': break; // 心跳包
-        default:
-          bus.emit('push', data.data);
-      }
-    });
-    ws.on('error', (e) => bus.emit('error', e));
-    ws.on('close', () => clearInterval(interval)); // 防意外关闭导致 interval 不释放（释放两次是安全的）
+    const ws = new Ws(`wss://gateway-bot.fanbook.mobi/websocket?id=${userToken}&dId=${deviceId}&v=1.6.60&x-super-properties=${props}`);
+    // ws.onmessage 在 Node.js 下无法获取数据
+    // 为了兼容浏览器环境，分开实现
+    if ('on' in ws) ws.on('message', handleMessage);
+    else ws.onmessage = handleMessage;
+    ws.onerror = (e: unknown) => bus.emit('error', e);
+    ws.onclose = () => clearInterval(interval); // 防意外关闭导致 interval 不释放（释放两次是安全的）
     const interval = setInterval(() => { // 定时发送心跳包
       ws.send('{"type":"ping"}');
     }, 1000 * ping);
