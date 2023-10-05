@@ -55,7 +55,7 @@
   "repository": {
     "url": "https://github.com/DevOpen-Club/api-node-sdk"
   },
-  "homepage": "https://github.com/DevOpen-Club/api-node-sdk",
+  "homepage": "https://fanbook-api-sdk.js.org/",
   "author": "DevOpen Club",
   "license": "MIT",
   "dependencies": {

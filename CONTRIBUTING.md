@@ -20,6 +20,14 @@
 - 非线性历史记录
 - 强制推送
 
+仓库有且仅有两个分支：`main` 和 `stable`。
+
+需要合并的更改只能合并到 `main` 分支，`stable` 分支不允许合并 PR 或人为推送 commit。
+
+`main` 分支上的更改发布后，`stable` 分支 fast-foward 到 `main` 分支。
+
+这样做的目的是为了让 `main` 分支有[最新部署的文档站点](https://main--fanbook-api-node-sdk.netlify.app/)（包含未发布的更改）。
+
 ## 报告 Issues
 
 我们使用 [Github issues](https://github.com/DevOpen-Club/api-node-sdk/issues) 进行 bug 报告和功能建议。
