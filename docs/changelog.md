@@ -2,6 +2,10 @@
 
 完整版：[CHANGELOG.md](https://github.com/DevOpen-Club/api-node-sdk/blob/main/CHANGELOG.md)。
 
+## [0.4.3](https://github.com/DevOpen-Club/api-node-sdk/releases/tag/v0.4.3)
+
+- 修正 `CreditSlot` 的可选属性 ([#59](https://github.com/DevOpen-Club/api-node-sdk/pull/59))
+
 ## [0.4.2](https://github.com/DevOpen-Club/api-node-sdk/releases/tag/v0.4.2)
 
 - 修正 v0.4.1 更新日志的标题 ([#55](https://github.com/DevOpen-Club/api-node-sdk/pull/55))
