@@ -29,13 +29,13 @@ export interface CreditSlot {
    *
    * 与 {@link img} 互斥。
    */
-  label: string;
+  label?: string;
   /**
    * 荣誉图标图片地址。
    *
    * 与 {@link label} 互斥。
    */
-  img: string;
+  img?: string;
   /** 荣誉的值，展示在标签右、图标下。 */
   value: string;
 }
