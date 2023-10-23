@@ -1,5 +1,16 @@
 # 更新日志
 
+## [0.4.3] - 2023-10-23
+
+### 🐛 bug 修复
+
+- 修正 `CreditSlot` 的可选属性 ([#59](https://github.com/DevOpen-Club/api-node-sdk/pull/59))
+
+### 🧹 其他
+
+- 更新 `package.json` 中的 `homepage` ([#58](https://github.com/DevOpen-Club/api-node-sdk/pull/58))
+- 贡献指南补充分支规则 ([#58](https://github.com/DevOpen-Club/api-node-sdk/pull/58))
+
 ## [0.4.2] - 2023-10-04
 
 ### 🐛 bug 修复
