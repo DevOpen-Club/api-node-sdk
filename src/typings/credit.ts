@@ -36,6 +36,7 @@ export interface CreditSlot {
    * 与 {@link label} 互斥。
    */
   img?: string;
+  badge?: string;
   /** 荣誉的值，展示在标签右、图标下。 */
   value: string;
 }
