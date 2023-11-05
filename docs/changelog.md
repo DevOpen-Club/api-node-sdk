@@ -2,6 +2,10 @@
 
 完整版：[CHANGELOG.md](https://github.com/DevOpen-Club/api-node-sdk/blob/main/CHANGELOG.md)。
 
+## [0.4.4](https://github.com/DevOpen-Club/api-node-sdk/releases/tag/v0.4.4)
+
+- 添加 `GuildCredit` 在文档中未列出的属性 ([#61](https://github.com/DevOpen-Club/api-node-sdk/pull/61))
+
 ## [0.4.3](https://github.com/DevOpen-Club/api-node-sdk/releases/tag/v0.4.3)
 
 - 修正 `CreditSlot` 的可选属性 ([#59](https://github.com/DevOpen-Club/api-node-sdk/pull/59))
