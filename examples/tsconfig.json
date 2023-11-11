@@ -2,8 +2,7 @@
   "compilerOptions": {
     "alwaysStrict": true,
     "module": "Node16",
-    "target": "ESNext",
-    "moduleResolution": "Node"
+    "target": "ESNext"
   },
   "include": ["src/*.ts"],
   "ts-node": {
