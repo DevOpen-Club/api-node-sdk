@@ -2,17 +2,17 @@
 
 ## 初始化
 
-clone 仓库到本地，在项目根目录（本目录的上级目录）运行：
+clone 仓库到本地，在**此文件所在文件夹**下运行：
 
 ```bash
-pnpm bootstrap
+pnpm install
 ```
 
 即可完成初始化。
 
 ## 运行示例
 
-在**本目录**下运行：
+在**此文件所在文件夹**下运行：
 
 ```bash
 pnpm ts-node src/quick-starter.ts
