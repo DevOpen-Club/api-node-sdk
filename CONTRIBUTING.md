@@ -40,13 +40,14 @@
 
 1. Fork [此仓库](https://github.com/DevOpen-Club/api-node-sdk)；
 2. Clone 上一步 fork 出的仓库到本地；
-3. 运行 `pnpm bootstrap` 初始化开发环境；
+3. 运行 `pnpm install` 安装依赖；
 4. 从 `main` 创建分支；
 5. 在源代码中自由发挥……
 6. 尽量编写单元测试，确保边缘情况可控；
-7. 运行 `pnpm test` 进行单元测试，通过后即可提交更改，推送到 fork 出的仓库；
-8. 提交 pull request 到本仓库，如果有对应的 issue，请进行[关联](https://docs.github.com/en/issues/tracking-your-work-with-issues/linking-a-pull-request-to-an-issue#linking-a-pull-request-to-an-issue-using-a-keyword)；
-9.  等待合并……
+7. 运行 `pnpm lint` 检查代码样式；
+8. 运行 `pnpm test` 进行单元测试，通过后即可提交更改，推送到 fork 出的仓库；
+9. 提交 pull request 到本仓库，如果有对应的 issue，请进行[关联](https://docs.github.com/zh/issues/tracking-your-work-with-issues/linking-a-pull-request-to-an-issue#linking-a-pull-request-to-an-issue-using-a-keyword)；
+10. 等待合并……
 
 ## 分支命名指南
 
@@ -88,7 +89,7 @@ Commit message 遵循 [约定式提交标准](https://www.conventionalcommits.or
 ├── example (使用示例)
 ├── lib (编译后的 CommonJS 产物)
 ├── scripts (开发用的脚本)
-├── src (源码)
+└── src (源码)
     └── typings (接口类型定义)
 ```
 

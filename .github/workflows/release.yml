@@ -28,7 +28,7 @@ jobs:
           version: 8.3.1
       - name: 构建
         run: |
-          pnpm bootstrap
+          pnpm install
           pnpm build
       - name: 上传更新包
         run: |

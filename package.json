@@ -13,9 +13,9 @@
     "/LICENSE"
   ],
   "scripts": {
-    "bootstrap": "sh scripts/bootstrap.sh",
     "build": "sh scripts/build.sh",
     "test": "cross-env NODE_OPTIONS=--experimental-vm-modules jest",
+    "lint": "eslint .",
     "doc-gen": "ts-node scripts/doc-gen.ts",
     "docs-to-interface": "ts-node scripts/docs-to-interface.ts",
     "generate-api-docs": "ts-node scripts/generate-api-docs.ts",
