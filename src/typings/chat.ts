@@ -32,11 +32,11 @@ export interface Chat {
 /** 频道对象。 */
 export interface Channel {
   /** 频道唯一 ID。 */
-  channel_id: `${bigint}`;
+  channel_id: string;
   /** 频道类型。 */
   type: ChannelType;
   /** 所属服务器 ID，仅服务器频道则有此字段。 */
-  guild_id?: `${bigint}`;
+  guild_id?: string;
   /** 频道名称。 */
   name: string;
   /** 频道图标，如果是群则表示群的头像。 */
@@ -44,7 +44,7 @@ export interface Channel {
   /** 频道人数限制，仅对于群有人数限制。 */
   user_limit?: number;
   /** 创建者 user id。 */
-  owner_id: `${bigint}`;
+  owner_id: string;
   /** 频道主题。 */
   topic?: string;
   /** 频道的权限覆盖表。 */
@@ -96,7 +96,7 @@ export interface GuildEmoji {
 /** 服务器对象。 */
 export interface Guild {
   /** 服务器唯一 ID。 */
-  guild_id: `${bigint}`;
+  guild_id: string;
   /** 名称。 */
   name: string;
   /** 图标。 */
@@ -106,7 +106,7 @@ export interface Guild {
   /** 简介。 */
   description: string;
   /** 所有者 user id。 */
-  owner_id: `${bigint}`;
+  owner_id: string;
   /** 频道列表。 */
   channels: Channel[];
   /** 初始权限值。 */
@@ -129,7 +129,7 @@ export interface GuildInviteCodeRecord {
   /** 频道是否删除。 */
   channel_on_del?: GuildInviteChannelIsDeleted;
   /** 邀请者用户的user_id */
-  inviter_id: `${bigint}`;
+  inviter_id: string;
   /** 邀请者头像图片地址。 */
   avatar?: string;
   /** 频道名称。 */
@@ -149,7 +149,7 @@ export interface GuildInviteCodeRecord {
   /** 设定的次数（`-1` 表示无限）。 */
   number: `${number}`;
   /** 邀请加入的频道 ID。 */
-  channel_id: `${bigint}`;
+  channel_id: string;
   /** 频道类型（邀请加入服务器时为 `null`）。 */
   channel_type?: number | null;
   /** 圈子分享时，来源 post id。 */
