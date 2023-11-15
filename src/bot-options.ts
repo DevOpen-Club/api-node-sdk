@@ -232,12 +232,12 @@ export interface DeleteGuildUserCreditOptions {
    *
    * 与 {@link chat} 二选一。
    */
-  guild?: `${bigint}`;
+  guild?: string;
 }
 
 export interface ListenChatMemberMention {
 	nickname: string;
-	user_id: `${bigint}`;
+	user_id: string;
 }
 
 export interface ListenMessageMember {
@@ -258,15 +258,15 @@ export interface ListenMessageAuthor {
 export interface ListenMessage {
   content: string;
   time: number;
-  user_id: `${bigint}`;
-  channel_id: `${bigint}`;
-  message_id: `${bigint}`;
-  quote_l1?: `${bigint}` | null;
-  quote_l2?: `${bigint}` | null;
-  guild_id: `${bigint}`;
+  user_id: string;
+  channel_id: string;
+  message_id: string;
+  quote_l1?: string | null;
+  quote_l2?: string | null;
+  guild_id: string;
   channel_type: number;
   status?: number;
-  nonce?: `${bigint}`;
+  nonce?: string;
   ctype?: number;
   mentions?: ListenChatMemberMention[];
   member?: ListenMessageMember;
