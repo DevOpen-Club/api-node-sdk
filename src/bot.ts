@@ -98,7 +98,7 @@ export class Bot {
 
   constructor(
     /** 机器人 token。 */
-    public token: string,
+    public readonly token: string,
     /** 配置项。 */
     options?: BotOptions,
   ) {
