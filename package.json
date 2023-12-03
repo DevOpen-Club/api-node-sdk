@@ -34,7 +34,6 @@
     "@types/jest": "^29.5.7",
     "@types/json-bigint": "^1.0.3",
     "@types/node": "^18.18.8",
-    "@types/qs": "^6.9.9",
     "@types/uuid": "^9.0.6",
     "@types/ws": "^8.5.8",
     "@typescript-eslint/eslint-plugin": "^6.9.1",
@@ -63,7 +62,6 @@
     "js-base64": "^3.7.5",
     "json-bigint": "^1.0.0",
     "mitt": "^3.0.1",
-    "qs": "^6.11.2",
     "uuid": "^9.0.1",
     "ws": "^8.14.2"
   }

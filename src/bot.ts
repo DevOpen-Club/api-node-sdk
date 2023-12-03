@@ -1,11 +1,9 @@
-import axios, { Axios, AxiosRequestConfig, AxiosResponse, CreateAxiosDefaults } from 'axios';
+import { Axios, AxiosRequestConfig, CreateAxiosDefaults } from 'axios';
 import NodeWs from 'ws';
-import _jsonBigint from 'json-bigint';
 import { v4 as uuid } from 'uuid';
-import qs from 'qs';
 import * as base64 from 'js-base64';
 import mitt from 'mitt';
-import { FanbookApiError } from './error';
+import { bigintJsonParser, createAxios, wrapResponse } from './axios';
 
 import type {
   Guild,
@@ -40,11 +38,6 @@ import type {
   ListenOptions,
 } from './bot-options';
 
-const jsonBigint = _jsonBigint({
-  strict: true,
-  useNativeBigInt: true,
-});
-
 export interface BotOptions {
   /** Axios 实例配置。 */
   axios?: CreateAxiosDefaults;
@@ -52,70 +45,22 @@ export interface BotOptions {
 
 /** 机器人客户端。 */
 export class Bot {
-  /**
-   * 转换请求响应。
-   * @param data - 响应体
-   * @returns 转换后的响应体
-   */
-  public static parseResponse(data: unknown) {
-    if (typeof data === 'string') {
-      try { // 能转 JSON 就转
-        return jsonBigint.parse(data);
-      } catch { // 不能转原样返回
-        return data;
-      }
-    }
-    return data;
-  }
-
-  /**
-   * 对请求进行中间处理。
-   * @param request - 发出的请求
-   * @returns 请求结果
-   * @throws FanbookApiError
-   */
-  public static async unwrap<D, T = unknown>(request: Promise<AxiosResponse<T, D>>): Promise<D> {
-    let response: AxiosResponse<T, D>;
-    try {
-      response = await request;
-    } catch (e) {
-      throw new FanbookApiError(undefined, undefined, undefined, undefined, e);
-    }
-    const { data } = response;
-    if (typeof data !== 'object') { // 响应不合法
-      throw new FanbookApiError(undefined, 'data is not object', response.request, response);
-    }
-    if (Reflect.has(data, 'ok') && !Reflect.get(data, 'ok')) { // 返回错误
-      throw new FanbookApiError(
-        Reflect.get(data, 'error_code') as number,
-        Reflect.get(data, 'description') as string,
-        response.request,
-        response,
-      );
-    }
-    return Reflect.get(data, 'result') as D; // 拿出结果。返回
-  }
-
   constructor(
     /** 机器人 token。 */
     public readonly token: string,
     /** 配置项。 */
     options?: BotOptions,
   ) {
-    const resTransformers = options?.axios?.transformResponse ?? [];
-    this.axios = axios.create({
-      ...options?.axios,
-      transformResponse: [
-        Bot.parseResponse, // 解析 JSON
-        ...(Array.isArray(resTransformers) // 加入所有给定的 transformer
-          ? resTransformers
-          : [resTransformers]
-        ),
-      ],
-    });
+    this.axios = createAxios(options?.axios);
+    this.axios.defaults.baseURL = `https://a1.fanbook.mobi/api/bot/${this.token}`;
   }
 
-  /** 请求使用的 axios 实例。 */
+  /**
+   * 请求使用的 axios 实例。
+   *
+   * 默认配置：
+   * - `baseURL`: `https://a1.fanbook.mobi/api/bot/${this.token}`
+   */
   public readonly axios: Axios;
 
   /**
@@ -128,9 +73,8 @@ export class Bot {
   async request<D>(path: string, data?: D, options?: AxiosRequestConfig) {
     return await this.axios.request<D>({
       url: path,
-      baseURL: `https://a1.fanbook.mobi/api/bot/${this.token}`,
       method: 'POST',
-      data: typeof data === 'object' ? jsonBigint.stringify(data) : data,
+      data: typeof data === 'object' ? bigintJsonParser.stringify(data) : data,
       ...options,
       headers: {
         'Content-Type': typeof data === 'object' ? 'application/json' : undefined,
@@ -144,7 +88,7 @@ export class Bot {
    * @returns 机器人自身信息
    */
   public async getMe() {
-    return await Bot.unwrap<User>(this.request('/getMe', undefined, {
+    return await wrapResponse<User>(this.request('/getMe', undefined, {
       method: 'GET',
     }));
   }
@@ -154,7 +98,7 @@ export class Bot {
    * @returns 命令列表
    */
   public async listMyCommand() {
-    return await Bot.unwrap<BotCommand[]>(this.request('/getMyCommands', undefined, {
+    return await wrapResponse<BotCommand[]>(this.request('/getMyCommands', undefined, {
       method: 'GET',
     }));
   }
@@ -167,7 +111,7 @@ export class Bot {
    */
   public async setGuildScopedName(guild: bigint, name: string, id?: bigint) {
     id = id ?? (await this.getMe()).id;
-    await Bot.unwrap(this.request('/robot/setGuildNick', {
+    await wrapResponse(this.request('/robot/setGuildNick', {
       guild_id: String(guild),
       bot_id: String(id),
       nickname: name,
@@ -181,7 +125,7 @@ export class Bot {
    * @returns 消息对象
    */
   public async getMessage(chat: bigint, message: bigint) {
-    return await Bot.unwrap<Message>(this.request('/getMessage', {
+    return await wrapResponse<Message>(this.request('/getMessage', {
       chat_id: chat,
       message_id: message,
     }));
@@ -198,7 +142,7 @@ export class Bot {
    * @returns 发送的消息对象
    */
   public async sendMessage(chat: bigint, content: string, description: string, options?: SendMessageOptions) {
-    return await Bot.unwrap<Message>(this.request('/sendMessage', {
+    return await wrapResponse<Message>(this.request('/sendMessage', {
       chat_id: chat,
       text: content,
       desc: description,
@@ -216,7 +160,7 @@ export class Bot {
    * @returns 发送的消息对象
    */
   public async sendPhoto(chat: bigint, url: string, options?: SendPhotoOptions) {
-    return await Bot.unwrap<Message>(this.request('/sendPhoto', {
+    return await wrapResponse<Message>(this.request('/sendPhoto', {
       chat_id: chat,
       photo: { Url: url },
       ...options,
@@ -232,7 +176,7 @@ export class Bot {
    */
   public async sendNotication(user: bigint, content: string, type: 1 | 2, nonce?: string) {
     nonce = nonce ?? uuid();
-    await Bot.unwrap(this.request('/sendNotication', {
+    await wrapResponse(this.request('/sendNotication', {
       channel_type: String(type),
       to_user_id: String(user),
       content,
@@ -250,7 +194,7 @@ export class Bot {
    * @param options - 其他数据
    */
   public async sendReaction(user: bigint, chat: bigint, message: bigint, options: SendReactionOptions) {
-    await Bot.unwrap(this.request('/sendReaction', {
+    await wrapResponse(this.request('/sendReaction', {
       user_id: String(user),
       message_id: String(message),
       channel_id: String(chat),
@@ -267,7 +211,7 @@ export class Bot {
    * @returns 编辑后的消息对象
    */
   public async editMessage(chat: bigint, message: bigint, content: string, options?: EditMessageOptions) {
-    return await Bot.unwrap<Message>(this.request('/editMessageText', {
+    return await wrapResponse<Message>(this.request('/editMessageText', {
       chat_id: chat,
       message_id: message,
       text: content,
@@ -283,7 +227,7 @@ export class Bot {
    * @returns 编辑后的消息对象
    */
   public async editReplyMarkup(chat: bigint, message: bigint, content: ReplyKeyboardMarkup) {
-    return await Bot.unwrap<Message>(this.request('/editMessageReplyMarkup', {
+    return await wrapResponse<Message>(this.request('/editMessageReplyMarkup', {
       chat_id: chat,
       message_id: message,
       reply_markup: content,
@@ -301,7 +245,7 @@ export class Bot {
    * @returns 是否成功
    */
   public async deleteMessage(chat: bigint, message: bigint) {
-    return await Bot.unwrap<boolean>(this.request('/deleteMessage', {
+    return await wrapResponse<boolean>(this.request('/deleteMessage', {
       chat_id: chat,
       message_id: message,
     }));
@@ -318,7 +262,7 @@ export class Bot {
    * @param message - 消息 ID
    */
   public async pinMessage(chat: bigint, message: bigint) {
-    await Bot.unwrap(this.request('/pinChatMessage', {
+    await wrapResponse(this.request('/pinChatMessage', {
       chat_id: chat,
       message_id: message,
     }));
@@ -332,7 +276,7 @@ export class Bot {
    * @param message - 消息 ID
    */
   public async unpinMessage(chat: bigint, message: bigint) {
-    await Bot.unwrap(this.request('/unpinChatMessage', {
+    await wrapResponse(this.request('/unpinChatMessage', {
       chat_id: chat,
       message_id: message,
     }));
@@ -346,7 +290,7 @@ export class Bot {
    */
   public async getGuild(guild: bigint, user?: bigint) {
     user = user ?? (await this.getMe()).id;
-    return await Bot.unwrap<Guild>(this.request('/guild', {
+    return await wrapResponse<Guild>(this.request('/guild', {
       user_id: String(user),
       guild_id: String(guild),
     }));
@@ -362,7 +306,7 @@ export class Bot {
    */
   public async listGuildMember(guild: bigint, channel: bigint, ranges: Array<{ start: number, end: number }>, user?: bigint) {
     user = user ?? (await this.getMe()).id;
-    return await Bot.unwrap<GetGuildMembersResult>(this.request('/v2/guild/members', {
+    return await wrapResponse<GetGuildMembersResult>(this.request('/v2/guild/members', {
       guild_id: String(guild),
       channel_id: String(channel),
       user_id: String(user),
@@ -379,7 +323,7 @@ export class Bot {
    * @returns 成员列表
    */
   public async listRoleMember(guild: bigint, role: bigint, size: number = 50, last?: bigint) {
-    return await Bot.unwrap<GuideChatMember[]>(this.request('/getRoleMembers', {
+    return await wrapResponse<GuideChatMember[]>(this.request('/getRoleMembers', {
       guild_id: guild,
       role_id: role,
       size,
@@ -393,7 +337,7 @@ export class Bot {
    * @param name - 查询的昵称
    */
   public async searchMembersByName(guild: bigint, name: string) {
-    return await Bot.unwrap<GuideChatMember[]>(this.request('/searchGuildMember', {
+    return await wrapResponse<GuideChatMember[]>(this.request('/searchGuildMember', {
       guild_id: guild,
       username: name,
     }));
@@ -406,7 +350,7 @@ export class Bot {
    * @returns 用户列表
    */
   public async getMembersByShortIds(guild: bigint, ids: number[]) {
-    return await Bot.unwrap<GuideChatMember[]>(this.request('/searchGuildMemberByName', {
+    return await wrapResponse<GuideChatMember[]>(this.request('/searchGuildMemberByName', {
       guild_id: guild,
       username: ids.map((v) => String(v)),
     }));
@@ -419,7 +363,7 @@ export class Bot {
    * @param roles - 新的身份组 ID 列表
    */
   public async setMemberRole(guild: bigint, user: bigint, roles: bigint[]) {
-    await Bot.unwrap(this.request('/setMemberRoles', {
+    await wrapResponse(this.request('/setMemberRoles', {
       guild_id: guild,
       user_id: user,
       roles,
@@ -433,7 +377,7 @@ export class Bot {
    * @param roles - 添加的身份组 ID 列表
    */
   public async addMemberRole(guild: bigint, user: bigint, roles: bigint[]) {
-    await Bot.unwrap(this.request('/v2/setMemberRoles', {
+    await wrapResponse(this.request('/v2/setMemberRoles', {
       guild_id: guild,
       user_id: user,
       roles,
@@ -448,7 +392,7 @@ export class Bot {
    * @param roles - 移除的身份组 ID 列表
    */
   public async removeMemberRole(guild: bigint, user: bigint, roles: bigint[]) {
-    await Bot.unwrap(this.request('/v2/setMemberRoles', {
+    await wrapResponse(this.request('/v2/setMemberRoles', {
       guild_id: guild,
       user_id: user,
       roles,
@@ -463,7 +407,7 @@ export class Bot {
    * @returns 是否在服务器中
    */
   public async isGuildMember(guild: bigint, user: bigint) {
-    return (await Bot.unwrap<{ exists: boolean }>(this.request('/guild/existsMember', {
+    return (await wrapResponse<{ exists: boolean }>(this.request('/guild/existsMember', {
       guild_id: String(guild),
       member_id: String(user),
       operation: 'add',
@@ -479,7 +423,7 @@ export class Bot {
    * @param duration - 禁言时长（单位：秒）
    */
   public async forbidMemberSpeaking(guild: bigint, user: bigint, duration: number) {
-    await Bot.unwrap(this.request('/forbidUserSpeaking', {
+    await wrapResponse(this.request('/forbidUserSpeaking', {
       target_uid: String(user),
       target_guild_id: String(guild),
       duration_in_second: duration,
@@ -492,7 +436,7 @@ export class Bot {
    * @param options - 其他数据
    */
   public async removeChatMember(user: bigint, options: KickChatMemberOptions) {
-    await Bot.unwrap(this.request('/kickChatMember', {
+    await wrapResponse(this.request('/kickChatMember', {
       user_id: user,
       ...options,
     }));
@@ -504,7 +448,7 @@ export class Bot {
    * @returns 服务器表情符号列表
    */
   public async listGuildEmoji(guild: bigint) {
-    return await Bot.unwrap<GuildEmoji[]>(this.request('/guild/emoji', undefined, {
+    return await wrapResponse<GuildEmoji[]>(this.request('/guild/emoji', undefined, {
       method: 'GET',
       params: { guild_id: String(guild) },
     }));
@@ -518,7 +462,7 @@ export class Bot {
    * @returns 当前页的服务器邀请信息列表
    */
   public async listGuildInvitation(guild: bigint, size: number, last?: bigint) {
-    return await Bot.unwrap<ListGuildInvitationResult>(this.request('/invite/guildList', {
+    return await wrapResponse<ListGuildInvitationResult>(this.request('/invite/guildList', {
       guild_id: guild,
       size,
       list_id: String(last ?? 0),
@@ -531,7 +475,7 @@ export class Bot {
    * @returns 邀请信息
    */
   public async getInvitation(code: string) {
-    return await Bot.unwrap<GuildInviteCodeRecord>(this.request('/invite/codeInfo', {
+    return await wrapResponse<GuildInviteCodeRecord>(this.request('/invite/codeInfo', {
       c: code,
     }));
   }
@@ -542,7 +486,7 @@ export class Bot {
    * @returns 是否已实名认证
    */
   public async getUserHumanVerifyStatus(user: bigint) {
-    return (await Bot.unwrap<{ authenrited: boolean; }>(this.request('/user/human_authentication', undefined, {
+    return (await wrapResponse<{ authenrited: boolean; }>(this.request('/user/human_authentication', undefined, {
       method: 'GET',
       params: { user_id: user },
     }))).authenrited;
@@ -555,7 +499,7 @@ export class Bot {
    * @returns 用户在的服务器 ID 列表
    */
   public async checkUserGuilds(user: bigint, guilds: bigint[]) {
-    return await Bot.unwrap<bigint[]>(this.request('/v2/checkUserGuilds', {
+    return await wrapResponse<bigint[]>(this.request('/v2/checkUserGuilds', {
       user_id: user,
       guilds,
     }));
@@ -567,7 +511,7 @@ export class Bot {
    * @returns 服务器频道 ID 列表
    */
   public async listGuildChannel(guild: bigint) {
-    return await Bot.unwrap<Channel[]>(this.request('/channel/list', {
+    return await wrapResponse<Channel[]>(this.request('/channel/list', {
       guild_id: String(guild),
     }));
   }
@@ -581,12 +525,12 @@ export class Bot {
    * @returns 当前页的消息列表
    */
   public async listChatMessage(chat: bigint, size: number, message?: bigint, behavior?: ListChatMessageBehavior) {
-    return await Bot.unwrap<bigint[]>(this.request('/message/getList', qs.stringify({
+    return await wrapResponse<bigint[]>(this.request('/message/getList', {
       channel_id: String(chat),
       size,
       message_id: message !== undefined ? String(message) : undefined,
       behavior,
-    }), {
+    }, {
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
     }));
   }
@@ -597,7 +541,7 @@ export class Bot {
    * @param options - 其他选项
    */
   public async setChat(chat: bigint, options?: SetChatOptions) {
-    await Bot.unwrap(this.request('/channel/edit', {
+    await wrapResponse(this.request('/channel/edit', {
       channel_id: String(chat),
       user_id: String(options?.user ?? (await this.getMe()).id),
       guild_id: options?.guild !== undefined ? String(options?.guild) : undefined,
@@ -614,7 +558,7 @@ export class Bot {
    * @returns 私聊
    */
   public async getPrivateChat(user: bigint) {
-    return await Bot.unwrap<Chat>(this.request('/getPrivateChat', {
+    return await wrapResponse<Chat>(this.request('/getPrivateChat', {
       user_id: user,
     }));
   }
@@ -625,7 +569,7 @@ export class Bot {
    * @returns 成员列表
    */
   public async listChatMember(options: ListChatMemberOptions) {
-    return await Bot.unwrap(this.request('/getChatMember', {
+    return await wrapResponse(this.request('/getChatMember', {
       user_id: String(options.user ?? (await this.getMe()).id),
       guild_id: options.guild !== undefined ? String(options.guild) : undefined,
       chat_id: options.chat !== undefined ? String(options.chat) : undefined,
@@ -639,7 +583,7 @@ export class Bot {
    * @returns 服务器身份组列表
    */
   public async listGuildRole(guild: bigint, last?: bigint) {
-    return await Bot.unwrap<GuildRole[]>(this.request('/getGuildRoles', {
+    return await wrapResponse<GuildRole[]>(this.request('/getGuildRoles', {
       guild_id: guild,
       last_id: last,
     }));
@@ -654,7 +598,7 @@ export class Bot {
    * @returns 身份组对象
    */
   public async createGuildRole(guild: bigint, name: string, color: number, options?: CreateGuildRoleOptions) {
-    return await Bot.unwrap<GuildRole>(this.request('/guild/role', {
+    return await wrapResponse<GuildRole>(this.request('/guild/role', {
       guild_id: String(guild),
       name,
       mentionable: options?.mentionable,
@@ -672,7 +616,7 @@ export class Bot {
    * @param options - 其他选项
    */
   public async setGuildRole(guild: bigint, role: bigint, options?: SetGuildRoleOptions) {
-    await Bot.unwrap(this.request('/v2/guild/role', {
+    await wrapResponse(this.request('/v2/guild/role', {
       guild_id: String(guild),
       id: String(role),
       name: options?.name,
@@ -691,7 +635,7 @@ export class Bot {
    * @param role - 身份组 ID
    */
   public async deleteGuildRole(guild: bigint, role: bigint) {
-    await Bot.unwrap(this.request('/guild/role', {
+    await wrapResponse(this.request('/guild/role', {
       guild_id: String(guild),
       id: String(role),
     }, {
@@ -706,7 +650,7 @@ export class Bot {
    * @returns 服务器用户荣誉列表
    */
   public async getGuildUserCredits(guild: bigint, user: bigint) {
-    return await Bot.unwrap<GuildCredit[]>(this.request('/getGuildCredit', {
+    return await wrapResponse<GuildCredit[]>(this.request('/getGuildCredit', {
       guild_id: guild,
       user_id: user,
     }));
@@ -721,7 +665,7 @@ export class Bot {
    */
   public async setUserCredit(user: bigint, credit: GuildCredit, options: SetUserCreditOptions) {
     const id = options.card ?? uuid();
-    await Bot.unwrap(this.request('/v2/guild/credit', {
+    await wrapResponse(this.request('/v2/guild/credit', {
       guild_id: options.guild !== undefined ? String(options.guild) : undefined,
       chat_id: options.chat,
       user_id: String(user),
@@ -740,7 +684,7 @@ export class Bot {
    * @param options - 其他数据
    */
   public async deleteGuildUserCredit(user: bigint, card: string, options: DeleteGuildUserCreditOptions) {
-    await Bot.unwrap(this.request('/v2/guild/credit', {
+    await wrapResponse(this.request('/v2/guild/credit', {
       guild_id: options.guild !== undefined ? String(options.guild) : undefined,
       chat_id: options.chat,
       user_id: String(user),
