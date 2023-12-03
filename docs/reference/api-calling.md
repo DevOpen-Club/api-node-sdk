@@ -11,7 +11,7 @@ import { Bot } from 'fanbook-api-node-sdk';
 const bot = new Bot('在此填入你的机器人令牌');
 ```
 
-[`Bot`](/api/classes/Bot.html) 类的构造函数接受一个字符串，作为机器人令牌。在此实例上的 API 调用默认使用此令牌。
+[`Bot` 类](/api/classes/Bot.html)的构造函数接受一个字符串，作为机器人令牌。在此实例上的 API 调用默认使用此令牌。
 
 SDK 不校验令牌的有效性，但错误的令牌会在 API 调用时报错。
 
@@ -88,7 +88,7 @@ else console.error(data);
 
 :::
 
-使用 SDK，发送一条消息需要：
+使用 SDK，发送一条消息只需：
 
 ```ts
 import { Bot } from 'fanbook-api-node-sdk';
@@ -101,45 +101,17 @@ const bot = new Bot(BOT_TOKEN);
 console.log(await bot.sendMessage(CHAT_ID, CONTENT, CONTENT));
 ```
 
-这就是函数化 API 调用的优点：将业务无关的代码抽离，使代码逻辑清晰、维护简单。
+这就是函数化 API 调用的优点：将业务无关的代码抽离，使代码逻辑清晰、便于维护。
 
-常用的 API 可用方法封装于 [`Bot`](/api/classes/Bot.html) 类中，作为成员函数存在。详见 [API 文档](/api/classes/Bot.html#methods)。
-
-如果你有兴趣深入研究，或有更复杂的业务需求，推荐你了解一下函数式 API 的执行流程：
-
-![](/res/api-calling.svg)
-
-## 自定义 API 调用
-
-如果 [`Bot`](/api/classes/Bot.html) 类的成员函数中没有你需要的 API，可以考虑采用底层些的方法：
-
-![](/res/api-calling.custom-api.svg)
-
-也就是直接调用 [`Bot#request`](/api/classes/Bot.html#request) 来实现自定义 API 调用。
-
-::: tip 关于 [`Bot#request`](/api/classes/Bot.html#request)
-
-类型参数：
-
-1. `D`：请求体的类型，无约束，建议不传，从 `data` 推断
-
-参数：
-
-1. `path`：接口路径，是 url path 中去除 `/api/bot/` 和令牌的部分（如 `https://a1.fanbook.mobi/api/bot/00000000/getMe` 应传入 `'getMe'`）
-2. `data`：请求体，支持 JSON 和 `BigInt`
-3. `options`：本次请求的 Axios 配置
-
-返回：`Promise<AxiosResponse<D, any>>` 请求结果。
-
-:::
+常用的 API 可用方法封装于 [`Bot` 类](/api/classes/Bot.html) 中，作为成员函数存在。详见 [API 文档](/api/classes/Bot.html#methods)。
 
 ## 自定义请求
 
-如果你需要修改 HTTP 请求选项，或在请求前后进行处理，可以考虑混入 Axios 选项。
+`Bot` 类的函数化 API 被调用时，会对参数进行一些转换，并使用 [`Bot#axios`](/api/classes/Bot.html#axios) 发起网络请求。
 
-![](/res/api-calling.custom-request.svg)
+`Bot#axios` 支持解析响应体中的 `BigInt`，你也可以在构造 `Bot` 实例时传入第二个参数，作为 axios 选项。
 
-只需把 Axios 选项作为 [`Bot`](/api/classes/Bot.html) 类构造函数的第 2 个参数的 `axios` 键值，即可在请求使用的 Axios 实例中混入选项。
+如果需要自定义 axios 选项，只需在构造时传入第 2 个参数作为 axios 选项，即可在请求使用的 axios 实例中加入自定义选项。
 
 ```ts
 import { Bot } from 'fanbook-api-node-sdk';
@@ -152,3 +124,17 @@ const bot = new Bot(BOT_TOKEN, {
   },
 });
 ```
+
+对于 SDK 还未支持的 API，你可以直接使用 axios 实例：
+
+```ts
+import { Bot } from 'fanbook-api-node-sdk';
+
+const BOT_TOKEN = '在此填入你的机器人令牌';
+const bot = new Bot(BOT_TOKEN);
+
+// baseURL 是 `https://a1.fanbook.mobi/api/bot/${this.token}`
+await bot.axios.post('/path/to/api');
+```
+
+这种方式同样支持解析响应体中的 `BigInt`，但发生错误时抛出的是 `AxiosError` 而不是 `FanbookApiError`。

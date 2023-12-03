@@ -25,7 +25,7 @@
   },
   "devDependencies": {
     "@inquirer/prompts": "^3.2.0",
-    "@microsoft/api-documenter": "^7.23.11",
+    "@microsoft/api-documenter": "^7.23.12",
     "@microsoft/tsdoc": "^0.14.2",
     "@microsoft/tsdoc-config": "^0.16.2",
     "@swc/core": "^1.3.96",
@@ -46,10 +46,10 @@
     "ts-node": "^10.9.1",
     "tsconfig": "^7.0.0",
     "typedoc": "^0.24.8",
-    "typedoc-plugin-markdown": "^3.17.0",
+    "typedoc-plugin-markdown": "^3.17.1",
     "typescript": "^5.2.2",
-    "vitepress": "1.0.0-rc.24",
-    "vue": "^3.3.7"
+    "vitepress": "1.0.0-rc.31",
+    "vue": "^3.3.9"
   },
   "repository": {
     "url": "https://github.com/DevOpen-Club/api-node-sdk"
