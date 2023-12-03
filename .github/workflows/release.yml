@@ -33,6 +33,6 @@ jobs:
           pnpm build
       - name: 上传更新包
         run: |
-          pnpm publish --no-git-checks --provenance
+          pnpm publish --no-git-checks
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_ACCESS_TOKEN }}
