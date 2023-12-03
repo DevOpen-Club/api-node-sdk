@@ -2,6 +2,15 @@
 
 完整版：[CHANGELOG.md](https://github.com/DevOpen-Club/api-node-sdk/blob/main/CHANGELOG.md)。
 
+## [0.5.0](https://github.com/DevOpen-Club/api-node-sdk/releases/tag/v0.5.0)
+
+- <Badge type='warning'>破坏性变更</Badge> 将 `Bot#token` 标记为只读 ([#70](https://github.com/DevOpen-Club/api-node-sdk/pull/70))
+- <Badge type='warning'>破坏性变更</Badge> 重构请求流程 ([#71](https://github.com/DevOpen-Club/api-node-sdk/pull/71))
+- 修复示例代码 tsconfig 和依赖 ([#64](https://github.com/DevOpen-Club/api-node-sdk/pull/64))
+- 改进订阅事件示例代码 ([#65](https://github.com/DevOpen-Club/api-node-sdk/pull/65))
+- 替换不必要的 `${bigint}` 为 `string` 类型 ([#68](https://github.com/DevOpen-Club/api-node-sdk/pull/68))
+- 添加第三方应用接口 ([#71](https://github.com/DevOpen-Club/api-node-sdk/pull/71))
+
 ## [0.4.4](https://github.com/DevOpen-Club/api-node-sdk/releases/tag/v0.4.4)
 
 - 添加 `GuildCredit` 在文档中未列出的属性 ([#61](https://github.com/DevOpen-Club/api-node-sdk/pull/61))
