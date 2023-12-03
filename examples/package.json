@@ -1,6 +1,7 @@
 {
   "type": "module",
   "dependencies": {
-    "fanbook-api-node-sdk": "link:.."
+    "fanbook-api-node-sdk": "link:..",
+    "js-base64": "^3.7.5"
   }
 }

@@ -4,3 +4,12 @@ dependencies:
   fanbook-api-node-sdk:
     specifier: link:..
     version: link:..
+  js-base64:
+    specifier: ^3.7.5
+    version: 3.7.5
+
+packages:
+
+  /js-base64@3.7.5:
+    resolution: {integrity: sha512-3MEt5DTINKqfScXKfJFrRbxkrnk2AxPWGBL/ycjz4dK8iqiSJ06UxD8jh8xuh6p10TX4t2+7FsBYVxxQbMg+qA==}
+    dev: false

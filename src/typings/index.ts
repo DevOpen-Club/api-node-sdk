@@ -1,3 +1,4 @@
+export * as OAuth2 from './oauth2';
 export * from './chat';
 export * from './circle';
 export * from './credit';
