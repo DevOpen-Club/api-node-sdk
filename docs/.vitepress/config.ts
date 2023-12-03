@@ -19,10 +19,12 @@ export default defineConfig({
       items: [
         { text: '快速开始', link: '/guide/quick-starter.html' },
         { text: 'Hello World', link: '/guide/hello-world.html' },
+        { text: 'OAuth 2.0', link: '/guide/oauth2.html' },
       ],
     }, {
       text: '参考',
       items: [
+        { text: '富文本', link: '/reference/rich-text.html' },
         { text: 'API 调用', link: '/reference/api-calling.html' },
         { text: '错误处理', link: '/reference/error-handling.html' },
         { text: '示例', link: '/reference/examples.html' },
@@ -38,7 +40,7 @@ export default defineConfig({
       { icon: 'github', link: 'https://github.com/DevOpen-Club/api-node-sdk' },
       {
         icon: { svg: '<img src="/icon/fanbook.svg" alt="Fanbook" width="24" />' },
-        link: 'https://fanbook.mobi/rjCNRFUN',
+        link: 'https://in.fanbook.cn/rjCNRFUN',
       },
     ],
     footer: {
