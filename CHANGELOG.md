@@ -1,5 +1,28 @@
 # 更新日志
 
+## [0.5.0] - 2023-12-03
+
+### ⚠️ 需要注意
+
+- 将 `Bot#token` 标记为只读 ([#70](https://github.com/DevOpen-Club/api-node-sdk/pull/70))
+- 重构请求流程 ([#71](https://github.com/DevOpen-Club/api-node-sdk/pull/71))
+
+### 🚀 新功能
+
+- 添加第三方应用接口 ([#71](https://github.com/DevOpen-Club/api-node-sdk/pull/71))
+
+### 🐛 bug 修复
+
+- 替换不必要的 `${bigint}` 为 string 类型 ([#68](https://github.com/DevOpen-Club/api-node-sdk/pull/68))
+
+### 📝 文档改进
+
+- 改进订阅事件示例代码 ([#65](https://github.com/DevOpen-Club/api-node-sdk/pull/65))
+
+### 🧹 其他
+
+- 修复示例代码 tsconfig 和依赖 ([#64](https://github.com/DevOpen-Club/api-node-sdk/pull/64))
+
 ## [0.4.4] - 2023-11-05
 
 ### 🐛 bug 修复
