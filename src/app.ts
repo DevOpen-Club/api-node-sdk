@@ -38,7 +38,7 @@ export class App {
    *   - `Authorization`: 用户名为 {@link clientId}，密码为 {@link clientSecret}
    *   - `Content-Type`: `application/x-www-form-urlencoded`
    */
-  public readonly axios: Axios;
+  public readonly axios: InstanceType<typeof Axios>;
 
   /**
    * OAuth 2.0 流程中，通过 authorization code 获取 access token。
