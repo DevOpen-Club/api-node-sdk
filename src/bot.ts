@@ -61,7 +61,7 @@ export class Bot {
    * 默认配置：
    * - `baseURL`: `https://a1.fanbook.mobi/api/bot/${this.token}`
    */
-  public readonly axios: Axios;
+  public readonly axios: InstanceType<typeof Axios>;
 
   /**
    * 向发送开放平台请求
