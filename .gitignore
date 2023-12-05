@@ -43,8 +43,9 @@ node_modules
 !.vscode/extensions.json
 
 # 自动生成
-lib
-es
+/lib
+/es
+/typings
 docs/.vitepress/dist
 docs/.vitepress/cache
 docs/api/**
