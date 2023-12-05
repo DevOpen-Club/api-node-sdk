@@ -2,6 +2,10 @@
 
 完整版：[CHANGELOG.md](https://github.com/DevOpen-Club/api-node-sdk/blob/main/CHANGELOG.md)。
 
+## [0.5.2](https://github.com/DevOpen-Club/api-node-sdk/releases/tag/v0.5.2)
+
+- 修复 TS 声明文件未发布的问题 ([#78](https://github.com/DevOpen-Club/api-node-sdk/pull/78))
+
 ## [0.5.1](https://github.com/DevOpen-Club/api-node-sdk/releases/tag/v0.5.1)
 
 - 修正 `Bot#axios` `App#axios` 的类型 ([#75](https://github.com/DevOpen-Club/api-node-sdk/pull/75))
