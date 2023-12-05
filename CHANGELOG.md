@@ -1,5 +1,15 @@
 # 更新日志
 
+## [0.5.1] - 2023-12-05
+
+### 🐛 bug 修复
+
+- 修正 `Bot#axios` `App#axios` 的类型 ([#75](https://github.com/DevOpen-Club/api-node-sdk/pull/75))
+
+### 🧹 其他
+
+- 优化包体积 ([#76](https://github.com/DevOpen-Club/api-node-sdk/pull/76))
+
 ## [0.5.0] - 2023-12-03
 
 ### ⚠️ 需要注意

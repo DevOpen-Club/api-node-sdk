@@ -2,6 +2,10 @@
 
 完整版：[CHANGELOG.md](https://github.com/DevOpen-Club/api-node-sdk/blob/main/CHANGELOG.md)。
 
+## [0.5.1](https://github.com/DevOpen-Club/api-node-sdk/releases/tag/v0.5.1)
+
+- 修正 `Bot#axios` `App#axios` 的类型 ([#75](https://github.com/DevOpen-Club/api-node-sdk/pull/75))
+
 ## [0.5.0](https://github.com/DevOpen-Club/api-node-sdk/releases/tag/v0.5.0)
 
 - <Badge type='warning'>破坏性变更</Badge> 将 `Bot#token` 标记为只读 ([#70](https://github.com/DevOpen-Club/api-node-sdk/pull/70))
