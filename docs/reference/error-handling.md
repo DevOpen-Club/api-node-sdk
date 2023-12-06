@@ -26,7 +26,7 @@ import { Bot, FanbookApiError } from 'fanbook-api-node-sdk';
 const bot = new Bot('在此填入你的机器人令牌');
 bot.getMe()
   .catch((e) => {
-    if (e in  stanceof FanbookApiError) {
+    if (e instanceof FanbookApiError) {
       console.error('Request failing with code', e.code);
     } else {
       console.error('Unknown error', e);
