@@ -15,7 +15,7 @@ const members = [{
 
 # 关于
 
-本项目是对 Fanbook 开放平台接口的封装，旨在使 Fanbook 机器人开发更便捷
+本项目是对 Fanbook 开放平台接口的封装，旨在使 Fanbook 机器人开发更便捷。
 
 本项目非 Fanbook 官方项目。
 

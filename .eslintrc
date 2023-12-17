@@ -48,12 +48,5 @@
     "tsdoc/syntax": [2],
     "@typescript-eslint/ban-ts-comment": [0],
     "@typescript-eslint/no-unused-vars": [2]
-  },
-  "overrides": [{
-    "files": [
-      "scripts/*.ts",
-      "src/**/*.ts",
-      "typings/**/*.ts"
-    ]
-  }]
+  }
 }

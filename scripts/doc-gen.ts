@@ -10,8 +10,9 @@ const OUT_DIR = path.resolve(__dirname, '../docs/api');
   await app.bootstrapWithPlugins({
     entryPoints: ['src/index.ts'],
     cleanOutputDir: false,
+    jsDocCompatibility: true,
     plugin: ['typedoc-plugin-markdown'],
-    // @ts-expect-error
+    // @ts-ignore
     hideInPageTOC: true,
     hideBreadcrumbs: true,
   });

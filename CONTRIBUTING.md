@@ -99,7 +99,7 @@ Commit message 遵循 [约定式提交标准](https://www.conventionalcommits.or
 
 ### overrides
 
-使用 TSDoc，并将 `@defaultValue` 重命名为 `@default`。
+使用 JSDoc。
 
 `@unused` 用于标记未使用/未定义的属性。
 
