@@ -9,7 +9,7 @@ export const bigintJsonParser = jsonBigint({
 
 /**
  * 转换请求响应。
- * @param data - 响应体
+ * @param data 响应体
  * @returns 转换后的响应体
  */
 function parseResponseBigint(data: unknown) {
@@ -26,7 +26,7 @@ function parseResponseBigint(data: unknown) {
 
 /**
  * 创建 Axios 实例。
- * @param options - 选项
+ * @param options 选项
  * @returns Axios 实例
  */
 export function createAxios(options?: CreateAxiosDefaults) {
@@ -41,7 +41,7 @@ export function createAxios(options?: CreateAxiosDefaults) {
 
 /**
  * 对请求进行中间处理。
- * @param request - 发出的请求
+ * @param request 发出的请求
  * @returns 请求结果
  * @throws FanbookApiError
  */
