@@ -64,7 +64,7 @@ export type RichTextNode = RichTextContentNode | RichTextBrNode;
 export class RichText {
   /**
    * 从纯文本创建富文本对象。
-   * @param text - 纯文本
+   * @param text 纯文本
    * @returns 富文本对象
    */
   public static fromText(text: string) {
@@ -78,7 +78,7 @@ export class RichText {
 
   /**
    * 从富文本节点创建富文本对象。
-   * @param nodes - 富文本节点
+   * @param nodes 富文本节点
    * @returns 富文本对象
    */
   public static fromNodes(nodes: RichTextNode[]) {
@@ -94,7 +94,7 @@ export class RichText {
    * 转 fanbook 富文本。
    *
    * 可用于发送消息。
-   * @param title - 富文本标题
+   * @param title 富文本标题
    * @returns fanbook 富文本
    */
   public toString(title?: string) {
