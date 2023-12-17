@@ -1,10 +1,11 @@
 {
   "root": true,
   "plugins": [
-    "eslint-plugin-tsdoc"
+    "jsdoc"
   ],
   "extends": [
-    "plugin:@typescript-eslint/recommended"
+    "plugin:@typescript-eslint/recommended",
+    "plugin:jsdoc/recommended-typescript"
   ],
   "env": {
     "es2018": true
@@ -20,6 +21,10 @@
     "dot-notation": [2],
     "eol-last": [2],
     "eqeqeq": [2, "smart"],
+    "jsdoc/check-tag-names": [2, {
+      "definedTags": ["unused", "permission"]
+    }],
+    "jsdoc/require-jsdoc": [0],
     "no-constant-condition": [0],
     "no-extend-native": [2],
     "no-extra-bind": [2],
@@ -45,7 +50,6 @@
     "no-void": [2],
     "semi": [2, "always"],
     "quotes": [2, "single"],
-    "tsdoc/syntax": [2],
     "@typescript-eslint/ban-ts-comment": [0],
     "@typescript-eslint/no-unused-vars": [2]
   }

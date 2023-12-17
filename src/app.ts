@@ -42,7 +42,7 @@ export class App {
 
   /**
    * OAuth 2.0 流程中，通过 authorization code 获取 access token。
-   * @param code - authorization code
+   * @param code authorization code
    * @returns 获取结果
    */
   public async codeToToken(code: string) {
@@ -55,7 +55,7 @@ export class App {
 
   /**
    * OAuth 2.0 流程中，刷新 access token。
-   * @param refreshToken - OAuth 2.0 流程中的 refresh token
+   * @param refreshToken OAuth 2.0 流程中的 refresh token
    * @returns 刷新结果
    */
   public async refreshToken(refreshToken: string) {
@@ -68,7 +68,7 @@ export class App {
 
   /**
    * 获取用户基本信息。
-   * @param accessToken - OAuth 2.0 流程中的 access token
+   * @param accessToken OAuth 2.0 流程中的 access token
    * @returns access token 对应的用户的基本信息
    */
   public async getUser(accessToken: string) {
@@ -82,7 +82,7 @@ export class App {
 
   /**
    * 获取用户所在的服务器。
-   * @param accessToken - OAuth 2.0 流程中的 access token
+   * @param accessToken OAuth 2.0 流程中的 access token
    * @returns access token 对应的用户所在的服务器列表
    */
   public async listUserGuild(accessToken: string) {
