@@ -15,7 +15,7 @@ pnpm install
 在**此文件所在文件夹**下运行：
 
 ```bash
-pnpm ts-node src/quick-starter.ts
+node --loader=ts-node/esm src/quick-starter.ts
 ```
 
-你可以将 `quick-starter` 换成任何示例名，在本目录下的 `src` 文件夹中可以找到源代码。
+你可以将 `quick-starter` 换成任何示例文件名，在本目录下的 `src` 文件夹中可以找到源代码。
