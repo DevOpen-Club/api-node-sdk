@@ -1,47 +1,47 @@
-import axios, { AxiosResponse, CreateAxiosDefaults, InternalAxiosRequestConfig } from 'axios';
+import axios, { AxiosRequestHeaders, AxiosResponse, CreateAxiosDefaults } from 'axios';
 import { isPlainObject } from 'is-plain-object';
 import jsonBigint from 'json-bigint';
 import { FanbookApiError } from './error';
 
+/**
+ * json-bigint 实例。
+ *
+ * 注意：
+ * 1. 位数大于 15 位的数值会被当做 bigint 处理
+ * 2. JSON 对象原型为 `null`
+ */
 export const bigintJsonParser = jsonBigint({
   strict: true,
   useNativeBigInt: true,
 });
 
-/** 测试 Content-Type 是否为 json 的正则表达式。 */
-const isJsonContentType = /^application\/(.*\+)?json$/;
 /**
- * 解析请求 bigint。
- * @param req 请求数据
- * @returns 转换后的请求数据
+ * 转换请求 bigint。
+ * @param data 请求体
+ * @param headers 请求头
+ * @returns 转换后的请求体
  */
-function requestBigintInterceptor(req: InternalAxiosRequestConfig) {
-  const type = req.headers['content-type'];
-  if (
-    (typeof type === 'string' && isJsonContentType.test(type))
-    || isPlainObject(req.data)
-  ) { // 是 JSON
-    req.data = bigintJsonParser.stringify(req.data);
-    req.headers['content-type'] ??= 'application/json';
+function requestBigintTransformer(data: unknown, headers: AxiosRequestHeaders) {
+  if (isPlainObject(data)) { // 是 JSON
+    data = bigintJsonParser.stringify(data);
+    headers.setContentType('application/json');
   }
-  return req;
+  return data;
 }
 /**
- * 解析响应 bigint。
- * @param res 响应数据
- * @returns 转换后的响应数据
+ * 转换响应 bigint。
+ * @param data 响应体
+ * @returns 转换后的响应体
  */
-function responseBigintInterceptor(res: AxiosResponse) {
-  // 非 json 不处理
-  const type = res.headers['content-type'];
-  if (typeof type !== 'string') return res;
-  if (!isJsonContentType.test(type)) return res;
-
-  // 带 bigint 解析 json，不行就算了
-  try {
-    res.data = bigintJsonParser.parse(res.data);
-  } catch {}
-  return res;
+function responseBigintTransformer(data: unknown) {
+  // fanbook 开放平台太坑爹，响应 Content-Type 是 text/plain，所以就不判断 Content-Type 了
+  if (typeof data === 'string') {
+    // 带 bigint 解析 json，不行就算了
+    try {
+      data = bigintJsonParser.parse(data);
+    } catch {}
+  }
+  return data;
 }
 
 /**
@@ -50,16 +50,19 @@ function responseBigintInterceptor(res: AxiosResponse) {
  * @returns Axios 实例
  */
 export function createAxios(options?: CreateAxiosDefaults) {
+  let transformRequest = options?.transformRequest ?? [];
+  if (!Array.isArray(transformRequest)) transformRequest = [transformRequest];
+  let transformResponse = options?.transformResponse ?? [];
+  if (!Array.isArray(transformResponse)) transformResponse = [transformResponse];
+
   const inst = axios.create({
     ...options,
     // 由于 axios 自动解析 json 导致 bigint 精度丢失，要阻止它的 json 解析
     // 如果用户已经给定 pipes，它会阻止 json 解析
     // 如果用户没有给定 pipes，要用 `(x) => x` 阻止 json 解析
-    transformRequest: options?.transformRequest ?? ((x) => x),
-    transformResponse: options?.transformResponse ?? ((x) => x),
+    transformRequest: [requestBigintTransformer, ...transformRequest],
+    transformResponse: [responseBigintTransformer, ...transformResponse],
   });
-  inst.interceptors.request.use(requestBigintInterceptor);
-  inst.interceptors.response.use(responseBigintInterceptor);
   return inst;
 }
 
