@@ -6,7 +6,7 @@ import type { OAuth2Session } from './app-options';
 
 export interface AppOptions {
   publicKey?: string;
-  /** Axios 实例配置。 */
+  /** axios 实例配置。 */
   axios?: CreateAxiosDefaults;
 }
 

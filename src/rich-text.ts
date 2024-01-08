@@ -91,11 +91,11 @@ export class RichText {
   public nodes: RichTextNode[] = [];
 
   /**
-   * 转 fanbook 富文本。
+   * 转 Fanbook 富文本。
    *
    * 可用于发送消息。
    * @param title 富文本标题
-   * @returns fanbook 富文本
+   * @returns Fanbook 富文本
    */
   public toString(title?: string) {
     return JSON.stringify({
