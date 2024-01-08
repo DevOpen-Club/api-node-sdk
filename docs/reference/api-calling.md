@@ -109,7 +109,7 @@ console.log(await bot.sendMessage(CHAT_ID, CONTENT, CONTENT));
 
 `Bot` 类的函数化 API 被调用时，会对参数进行一些转换，并使用 [`Bot#axios`](/api/classes/Bot.html#axios) 发起网络请求。
 
-`Bot#axios` 支持解析响应体中的 `BigInt`，你也可以在构造 `Bot` 实例时传入第二个参数，作为 axios 选项。
+`Bot#axios` 支持解析请求、响应体中的 `BigInt`，你也可以在构造 `Bot` 实例时传入第二个参数，作为 axios 选项。
 
 如果需要自定义 axios 选项，只需在构造时传入第 2 个参数作为 axios 选项，即可在请求使用的 axios 实例中加入自定义选项。
 
@@ -137,4 +137,4 @@ const bot = new Bot(BOT_TOKEN);
 await bot.axios.post('/path/to/api');
 ```
 
-这种方式同样支持解析响应体中的 `BigInt`，但发生错误时抛出的是 `AxiosError` 而不是 `FanbookApiError`。
+这种方式同样支持解析请求、响应体中的 `BigInt`，但发生错误时抛出的是 `axiosError` 而不是 `FanbookApiError`。

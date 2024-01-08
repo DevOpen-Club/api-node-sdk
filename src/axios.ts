@@ -34,7 +34,7 @@ function requestBigintTransformer(data: unknown, headers: AxiosRequestHeaders) {
  * @returns 转换后的响应体
  */
 function responseBigintTransformer(data: unknown) {
-  // fanbook 开放平台太坑爹，响应 Content-Type 是 text/plain，所以就不判断 Content-Type 了
+  // Fanbook 开放平台太坑爹，响应 Content-Type 是 text/plain，所以就不判断 Content-Type 了
   if (typeof data === 'string') {
     // 带 bigint 解析 json，不行就算了
     try {
@@ -45,9 +45,9 @@ function responseBigintTransformer(data: unknown) {
 }
 
 /**
- * 创建 Axios 实例。
+ * 创建 axios 实例。
  * @param options 选项
- * @returns Axios 实例
+ * @returns axios 实例
  */
 export function createAxios(options?: CreateAxiosDefaults) {
   let transformRequest = options?.transformRequest ?? [];
@@ -57,9 +57,7 @@ export function createAxios(options?: CreateAxiosDefaults) {
 
   const inst = axios.create({
     ...options,
-    // 由于 axios 自动解析 json 导致 bigint 精度丢失，要阻止它的 json 解析
-    // 如果用户已经给定 pipes，它会阻止 json 解析
-    // 如果用户没有给定 pipes，要用 `(x) => x` 阻止 json 解析
+    // 加入 
     transformRequest: [requestBigintTransformer, ...transformRequest],
     transformResponse: [responseBigintTransformer, ...transformResponse],
   });

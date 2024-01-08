@@ -11,7 +11,7 @@ export class FanbookApiError extends Error {
     public request?: AxiosRequestConfig,
     /** 响应对象。 */
     public response?: AxiosResponse,
-    /** Axios 抛出的错误。 */
+    /** axios 抛出的错误。 */
     public error?: unknown,
   ) {
     super('Failed to call Fanbook API' + (code ? `: ${code}` : ''));

@@ -39,7 +39,7 @@ import type {
 } from './bot-options';
 
 export interface BotOptions {
-  /** Axios 实例配置。 */
+  /** axios 实例配置。 */
   axios?: CreateAxiosDefaults;
 }
 
