@@ -2,6 +2,14 @@
 
 完整版：[CHANGELOG.md](https://github.com/DevOpen-Club/api-node-sdk/blob/main/CHANGELOG.md)。
 
+## [0.6.0](https://github.com/DevOpen-Club/api-node-sdk/releases/tag/v0.6.0)
+
+- <Badge type='warning'>破坏性变更</Badge> `createAxios` 创建的 axios 实例，请求、响应体都支持了 `BigInt` ([#83](https://github.com/DevOpen-Club/api-node-sdk/pull/83))
+- 从 TSDoc 迁移到 JSDoc ([#81](https://github.com/DevOpen-Club/api-node-sdk/pull/81)) ([#82](https://github.com/DevOpen-Club/api-node-sdk/pull/82))
+- 修复 `BigInt` 解析错误 ([#83](https://github.com/DevOpen-Club/api-node-sdk/pull/83))
+- 示例说明兼容 node 20 ([#84](https://github.com/DevOpen-Club/api-node-sdk/pull/84))
+- 统一专有名词大小写 ([#86](https://github.com/DevOpen-Club/api-node-sdk/pull/86))
+
 ## [0.5.2](https://github.com/DevOpen-Club/api-node-sdk/releases/tag/v0.5.2)
 
 - 修复 TS 声明文件未发布的问题 ([#78](https://github.com/DevOpen-Club/api-node-sdk/pull/78))

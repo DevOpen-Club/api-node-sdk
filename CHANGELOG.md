@@ -1,5 +1,24 @@
 # 更新日志
 
+## [0.6.0] - 2024-01-08
+
+### ⚠️ 需要注意
+
+- `createAxios` 创建的 axios 实例，请求、响应体都支持了 `BigInt` ([#83](https://github.com/DevOpen-Club/api-node-sdk/pull/83))
+
+### 🐛 bug 修复
+
+- 修复 `BigInt` 解析错误 ([#83](https://github.com/DevOpen-Club/api-node-sdk/pull/83))
+
+### 📝 文档改进
+
+- 从 TSDoc 迁移到 JSDoc ([#81](https://github.com/DevOpen-Club/api-node-sdk/pull/81)) ([#82](https://github.com/DevOpen-Club/api-node-sdk/pull/82))
+- 统一专有名词大小写 ([#86](https://github.com/DevOpen-Club/api-node-sdk/pull/86))
+
+### 🧹 其他
+
+- 示例说明兼容 node 20 ([#84](https://github.com/DevOpen-Club/api-node-sdk/pull/84))
+
 ## [0.5.2] - 2023-12-05
 
 ### 🐛 bug 修复
