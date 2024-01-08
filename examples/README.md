@@ -1,5 +1,8 @@
 # Fanbook API Node.js SDK 示例
 
+> [!tip]
+> 示例在 Node.js v20.10.0 下运行正常。
+
 ## 初始化
 
 clone 仓库到本地，在**此文件所在文件夹**下运行：
