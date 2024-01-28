@@ -1,9 +1,11 @@
 name: 发布更新
+
 on:
   push:
     tags:
       - v*
   workflow_dispatch:
+
 jobs:
   package:
     name: 发布 npm 包
@@ -15,24 +17,19 @@ jobs:
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0
-      - name: 同步分支
-        run: |
+      - run: |
           git checkout -b stable origin/stable
           git merge --ff-only origin/main
           git push origin stable
       - uses: actions/setup-node@v3
         with:
-          node-version: 18.15.0
-          registry-url: https://registry.npmjs.org
+          node-version: 20
       - uses: pnpm/action-setup@v2
         with:
-          version: 8.3.1
-      - name: 构建
-        run: |
+          version: 8
+      - run: |
           pnpm install
           pnpm build
-      - name: 上传更新包
-        run: |
-          pnpm publish --no-git-checks
+      - run: pnpm publish --no-git-checks
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_ACCESS_TOKEN }}
