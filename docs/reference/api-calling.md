@@ -7,8 +7,8 @@
 调用 API 之前，需要创建一个机器人实例：
 
 ```ts
-import { Bot } from 'fanbook-api-node-sdk';
-const bot = new Bot('在此填入你的机器人令牌');
+import { Bot } from 'fanbook-api-node-sdk'
+const bot = new Bot('在此填入你的机器人令牌')
 ```
 
 [`Bot` 类](/api/classes/Bot.html)的构造函数接受一个字符串，作为机器人令牌。在此实例上的 API 调用默认使用此令牌。
@@ -22,35 +22,37 @@ SDK 不校验令牌的有效性，但错误的令牌会在 API 调用时报错�
 ::: code-group
 
 ```ts [xhr]
-import _jsonBigint from 'json-bigint';
-const jsonBigint = _jsonBigint({ strict: true, useNativeBigInt: true });
+import _jsonBigint from 'json-bigint'
+const jsonBigint = _jsonBigint({ strict: true, useNativeBigInt: true })
 
-const BOT_TOKEN = '在此填入你的机器人令牌';
-const CHAT_ID = BigInt('在此填入发送到的聊天 ID');
-const CONTENT = '在此填入消息内容';
+const BOT_TOKEN = '在此填入你的机器人令牌'
+const CHAT_ID = BigInt('在此填入发送到的聊天 ID')
+const CONTENT = '在此填入消息内容'
 
-const xhr = new XMLHttpRequest();
-xhr.open('POST', `https://a1.fanbook.mobi/api/bot/${BOT_TOKEN}/sendMessage`);
+const xhr = new XMLHttpRequest()
+xhr.open('POST', `https://a1.fanbook.mobi/api/bot/${BOT_TOKEN}/sendMessage`)
 xhr.onload = (e) => {
-  if (xhr.readyState !== 4) return;
-  const data = jsonBigint.parse(xhr.responseText);
-  if (data.ok) console.log(data.result);
-  else console.error(data);
-};
+  if (xhr.readyState !== 4)
+    return
+  const data = jsonBigint.parse(xhr.responseText)
+  if (data.ok)
+    console.log(data.result)
+  else console.error(data)
+}
 xhr.send(jsonBigint.stringify({
   chat_id: CHAT_ID,
   text: CONTENT,
   desc: CONTENT,
-}));
+}))
 ```
 
 ```ts [fetch]
-import _jsonBigint from 'json-bigint';
-const jsonBigint = _jsonBigint({ strict: true, useNativeBigInt: true });
+import _jsonBigint from 'json-bigint'
+const jsonBigint = _jsonBigint({ strict: true, useNativeBigInt: true })
 
-const BOT_TOKEN = '在此填入你的机器人令牌';
-const CHAT_ID = BigInt('在此填入发送到的聊天 ID');
-const CONTENT = '在此填入消息内容';
+const BOT_TOKEN = '在此填入你的机器人令牌'
+const CHAT_ID = BigInt('在此填入发送到的聊天 ID')
+const CONTENT = '在此填入消息内容'
 
 const response = await fetch(`https://a1.fanbook.mobi/api/bot/${BOT_TOKEN}/sendMessage`, {
   method: 'POST',
@@ -59,31 +61,33 @@ const response = await fetch(`https://a1.fanbook.mobi/api/bot/${BOT_TOKEN}/sendM
     text: CONTENT,
     desc: CONTENT,
   }),
-});
-const data = jsonBigint.parse(await response.text());
-if (data.ok) console.log(data.result);
-else console.error(data);
+})
+const data = jsonBigint.parse(await response.text())
+if (data.ok)
+  console.log(data.result)
+else console.error(data)
 ```
 
 ```ts [axios]
-import axios from 'axios';
-import _jsonBigint from 'json-bigint';
-const jsonBigint = _jsonBigint({ strict: true, useNativeBigInt: true });
+import axios from 'axios'
+import _jsonBigint from 'json-bigint'
+const jsonBigint = _jsonBigint({ strict: true, useNativeBigInt: true })
 
-const BOT_TOKEN = '在此填入你的机器人令牌';
-const CHAT_ID = BigInt('在此填入发送到的聊天 ID');
-const CONTENT = '在此填入消息内容';
+const BOT_TOKEN = '在此填入你的机器人令牌'
+const CHAT_ID = BigInt('在此填入发送到的聊天 ID')
+const CONTENT = '在此填入消息内容'
 
 const response = await axios.post(`https://a1.fanbook.mobi/api/bot/${BOT_TOKEN}/sendMessage`, jsonBigint.stringify({
   chat_id: CHAT_ID,
   text: CONTENT,
   desc: CONTENT,
 }), {
-  transformResponse: (data) => jsonBigint.parse(data),
-});
-const data = response.data;
-if (data.ok) console.log(data.result);
-else console.error(data);
+  transformResponse: data => jsonBigint.parse(data),
+})
+const data = response.data
+if (data.ok)
+  console.log(data.result)
+else console.error(data)
 ```
 
 :::
@@ -91,14 +95,14 @@ else console.error(data);
 使用 SDK，发送一条消息只需：
 
 ```ts
-import { Bot } from 'fanbook-api-node-sdk';
+import { Bot } from 'fanbook-api-node-sdk'
 
-const BOT_TOKEN = '在此填入你的机器人令牌';
-const CHAT_ID = BigInt('在此填入发送到的聊天 ID');
-const CONTENT = '在此填入消息内容';
+const BOT_TOKEN = '在此填入你的机器人令牌'
+const CHAT_ID = BigInt('在此填入发送到的聊天 ID')
+const CONTENT = '在此填入消息内容'
 
-const bot = new Bot(BOT_TOKEN);
-console.log(await bot.sendMessage(CHAT_ID, CONTENT, CONTENT));
+const bot = new Bot(BOT_TOKEN)
+console.log(await bot.sendMessage(CHAT_ID, CONTENT, CONTENT))
 ```
 
 这就是函数化 API 调用的优点：将业务无关的代码抽离，使代码逻辑清晰、便于维护。
@@ -114,27 +118,27 @@ console.log(await bot.sendMessage(CHAT_ID, CONTENT, CONTENT));
 如果需要自定义 axios 选项，只需在构造时传入第 2 个参数作为 axios 选项，即可在请求使用的 axios 实例中加入自定义选项。
 
 ```ts
-import { Bot } from 'fanbook-api-node-sdk';
+import { Bot } from 'fanbook-api-node-sdk'
 
-const BOT_TOKEN = '在此填入你的机器人令牌';
+const BOT_TOKEN = '在此填入你的机器人令牌'
 const bot = new Bot(BOT_TOKEN, {
   axios: { // axios 选项
     timeout: 3 * 1000,
     timeoutErrorMessage: 'Timeout 3000ms',
   },
-});
+})
 ```
 
 对于 SDK 还未支持的 API，你可以直接使用 axios 实例：
 
 ```ts
-import { Bot } from 'fanbook-api-node-sdk';
+import { Bot } from 'fanbook-api-node-sdk'
 
-const BOT_TOKEN = '在此填入你的机器人令牌';
-const bot = new Bot(BOT_TOKEN);
+const BOT_TOKEN = '在此填入你的机器人令牌'
+const bot = new Bot(BOT_TOKEN)
 
 // baseURL 是 `https://a1.fanbook.mobi/api/bot/${this.token}`
-await bot.axios.post('/path/to/api');
+await bot.axios.post('/path/to/api')
 ```
 
 这种方式同样支持解析请求、响应体中的 `BigInt`，但发生错误时抛出的是 `axiosError` 而不是 `FanbookApiError`。

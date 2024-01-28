@@ -1,18 +1,18 @@
-import { Axios, CreateAxiosDefaults } from 'axios';
-import base64 from 'js-base64';
-import { createAxios, wrapResponse } from './axios';
-import type { Guild, OAuth2 } from './typings';
-import type { OAuth2Session } from './app-options';
+import type { Axios, CreateAxiosDefaults } from 'axios'
+import base64 from 'js-base64'
+import { createAxios, wrapResponse } from './axios'
+import type { Guild, OAuth2 } from './typings'
+import type { OAuth2Session } from './app-options'
 
 export interface AppOptions {
-  publicKey?: string;
+  publicKey?: string
   /** axios 实例配置。 */
-  axios?: CreateAxiosDefaults;
+  axios?: CreateAxiosDefaults
 }
 
 /** Fanbook 第三方应用。 */
 export class App {
-  constructor (
+  constructor(
     /** OAuth 2.0 流程中的 client id。 */
     public readonly clientId: string,
     /** OAuth 2.0 流程中的 client secret。 */
@@ -22,11 +22,11 @@ export class App {
     /** 配置项。 */
     options?: AppOptions,
   ) {
-    this.axios = createAxios(options?.axios);
-    this.axios.defaults.baseURL = 'https://a1.fanbook.mobi/open';
+    this.axios = createAxios(options?.axios)
+    this.axios.defaults.baseURL = 'https://a1.fanbook.mobi/open'
     // 这里用 defaults.headers 而不用 defaults.auth，因为后者会覆盖请求实际传入的配置
-    this.axios.defaults.headers.common.Authorization = 'Basic ' + base64.encode(`${this.clientId}:${this.clientSecret}`);
-    this.axios.defaults.headers.common['Content-Type'] = 'application/x-www-form-urlencoded';
+    this.axios.defaults.headers.common.Authorization = `Basic ${base64.encode(`${this.clientId}:${this.clientSecret}`)}`
+    this.axios.defaults.headers.common['Content-Type'] = 'application/x-www-form-urlencoded'
   }
 
   /**
@@ -38,7 +38,7 @@ export class App {
    *   - `Authorization`: 用户名为 {@link clientId}，密码为 {@link clientSecret}
    *   - `Content-Type`: `application/x-www-form-urlencoded`
    */
-  public readonly axios: InstanceType<typeof Axios>;
+  public readonly axios: InstanceType<typeof Axios>
 
   /**
    * OAuth 2.0 流程中，通过 authorization code 获取 access token。
@@ -50,7 +50,7 @@ export class App {
       grant_type: 'authorization_code',
       code,
       redirect_uri: this.redirectUrl,
-    }));
+    }))
   }
 
   /**
@@ -63,7 +63,7 @@ export class App {
       grant_type: 'refresh_token',
       refresh_token: refreshToken,
       redirect_uri: this.redirectUrl,
-    }));
+    }))
   }
 
   /**
@@ -74,10 +74,10 @@ export class App {
   public async getUser(accessToken: string) {
     return await wrapResponse<OAuth2.User>(this.axios.post('/api/user/getMe', {}, {
       headers: {
-        Authorization: `Bearer ${accessToken}`,
+        'Authorization': `Bearer ${accessToken}`,
         'Content-Type': 'application/json',
       },
-    }));
+    }))
   }
 
   /**
@@ -88,9 +88,9 @@ export class App {
   public async listUserGuild(accessToken: string) {
     return await wrapResponse<Guild[]>(this.axios.post('/api/guild/getGuilds', {}, {
       headers: {
-        Authorization: `Bearer ${accessToken}`,
+        'Authorization': `Bearer ${accessToken}`,
         'Content-Type': 'application/json',
       },
-    }));
+    }))
   }
 }

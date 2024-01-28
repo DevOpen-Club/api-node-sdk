@@ -1,8 +1,8 @@
 {
   "compilerOptions": {
-    "alwaysStrict": true,
+    "target": "ESNext",
     "module": "Node16",
-    "target": "ESNext"
+    "alwaysStrict": true
   },
   "include": ["src/*.ts"],
   "ts-node": {

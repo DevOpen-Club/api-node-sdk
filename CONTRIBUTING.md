@@ -111,7 +111,7 @@ Commit message 遵循 [约定式提交标准](https://www.conventionalcommits.or
 /**
  * 本方法需要“编辑服务器资料 + 白名单”或“超级管理员”权限。
  * @permission MANAGE_GUILD *
- * @permission ADMINISTRATOR 
+ * @permission ADMINISTRATOR
  */
 function f() {}
 ```
@@ -120,7 +120,7 @@ function f() {}
 
 ```ts
 class Channel {
-  constructor (
+  constructor(
     /** 频道名称。 */
     public name: string,
   ) {}

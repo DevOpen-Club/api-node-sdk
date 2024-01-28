@@ -1,6 +1,6 @@
 /** 权限项。 */
 export enum Permission {
-  /** 创建邀请链接。*/
+  /** 创建邀请链接。 */
   CREATE_INSTANT_INVITE = 0x1,
   /** 踢人。 */
   KICK_MEMBERS = 0x2,
@@ -77,15 +77,15 @@ export enum Permission {
 }
 
 /** 权限覆盖的对象类型。 */
-export type PermissionOverwriteActionType = 'role' | 'user';
+export type PermissionOverwriteActionType = 'role' | 'user'
 
 export interface PermissionOverwrite {
   /** 角色或用户 ID。 */
-  id: string;
+  id: string
   /** 权限覆盖的对象类型。 */
-  action_type: PermissionOverwriteActionType;
+  action_type: PermissionOverwriteActionType
   /** 拒绝的权限值。 */
-  deny: number;
+  deny: number
   /** 允许的权限值。 */
-  allows: number;
+  allows: number
 }

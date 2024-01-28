@@ -1,4 +1,4 @@
-import { AxiosRequestConfig, AxiosResponse } from 'axios';
+import type { AxiosRequestConfig, AxiosResponse } from 'axios'
 
 /** Fanbook API 请求错误。 */
 export class FanbookApiError extends Error {
@@ -14,6 +14,6 @@ export class FanbookApiError extends Error {
     /** axios 抛出的错误。 */
     public error?: unknown,
   ) {
-    super('Failed to call Fanbook API' + (code ? `: ${code}` : ''));
+    super(`Failed to call Fanbook API${code ? `: ${code}` : ''}`)
   }
 }

@@ -36,11 +36,11 @@ SDK 同时支持 Common JS 和 ES Module。
 ::: code-group
 
 ```ts [ES Module]
-import { Bot } from 'fanbook-api-node-sdk';
+import { Bot } from 'fanbook-api-node-sdk'
 ```
 
 ```ts [Common JS]
-const { Bot } = require('fanbook-api-node-sdk');
+const { Bot } = require('fanbook-api-node-sdk')
 ```
 
 :::

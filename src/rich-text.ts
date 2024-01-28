@@ -1,24 +1,24 @@
 /** 图片数据。 */
 export interface RichTextImageContent {
-  _type: 'image';
+  _type: 'image'
   /** 图片文件名。 */
-  name: string;
+  name: string
   /** 图片地址。 */
-  source: string;
+  source: string
   /** 图片宽度。 */
-  width?: number;
+  width?: number
   /** 图片高度。 */
-  height?: number;
+  height?: number
   /** @unused */
-  checkPath?: unknown;
+  checkPath?: unknown
   /** 是否行内图片。 */
-  _inline: boolean;
+  _inline: boolean
 }
 
 /** 富文本内容节点。 */
 export interface RichTextContentNode {
   /** 内容。 */
-  insert: string | RichTextImageContent;
+  insert: string | RichTextImageContent
   /** 属性。 */
   attributes?: {
     /**
@@ -29,36 +29,36 @@ export interface RichTextContentNode {
      * - 身份组：`${@&<角色ID>}`，如 `${@&483266628902318082}`。
      * - 全体成员：`${@&<服务器ID>}`，如 `${@&481087610740391936}`。
      */
-    at?: string;
+    at?: string
     /** 粗体。 */
-    bold?: boolean;
+    bold?: boolean
     /** 斜体。 */
-    italic?: boolean;
+    italic?: boolean
     /** 下划线。 */
-    underline?: boolean;
+    underline?: boolean
     /** 删除线。 */
-    strike?: boolean;
+    strike?: boolean
     /** 链接地址。 */
-    link?: string;
-  };
+    link?: string
+  }
 }
 /** 换行节点。 */
 export interface RichTextBrNode {
-  insert: '\n';
+  insert: '\n'
   /** 被此节点所结束的一行的属性。 */
   attributes?: {
     /** 标题等级。 */
-    header?: 1 | 2 | 3;
+    header?: 1 | 2 | 3
     /** 列表类型。 */
-    list?: 'ordered' | 'bullet';
+    list?: 'ordered' | 'bullet'
     /** 引用。 */
-    blockquote?: boolean;
+    blockquote?: boolean
     /** 代码块。 */
-    'code-block'?: boolean;
-  };
+    'code-block'?: boolean
+  }
 }
 /** 富文本节点。 */
-export type RichTextNode = RichTextContentNode | RichTextBrNode;
+export type RichTextNode = RichTextContentNode | RichTextBrNode
 
 /** 富文本。 */
 export class RichText {
@@ -68,12 +68,12 @@ export class RichText {
    * @returns 富文本对象
    */
   public static fromText(text: string) {
-    const obj = new RichText();
+    const obj = new RichText()
     for (const line of text.split('\n')) {
-      obj.nodes.push({ insert: line });
-      obj.nodes.push({ insert: '\n' });
+      obj.nodes.push({ insert: line })
+      obj.nodes.push({ insert: '\n' })
     }
-    return obj;
+    return obj
   }
 
   /**
@@ -82,13 +82,13 @@ export class RichText {
    * @returns 富文本对象
    */
   public static fromNodes(nodes: RichTextNode[]) {
-    const obj = new RichText();
-    obj.nodes = nodes;
-    return obj;
+    const obj = new RichText()
+    obj.nodes = nodes
+    return obj
   }
 
   /** 节点列表。 */
-  public nodes: RichTextNode[] = [];
+  public nodes: RichTextNode[] = []
 
   /**
    * 转 Fanbook 富文本。
@@ -103,6 +103,6 @@ export class RichText {
       type: 'richText',
       title,
       v2: JSON.stringify(this.nodes),
-    });
+    })
   }
 }
