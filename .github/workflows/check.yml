@@ -1,0 +1,43 @@
+name: PR 检查
+
+on:
+  pull_request:
+
+jobs:
+  lint:
+    name: 代码风格测试
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 20
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8
+      - uses: actions/cache@v4
+        with:
+          path: node_modules
+          key: dependencies
+          restore-keys: dependencies
+      - run: pnpm install
+      - run: pnpm lint
+
+  test:
+    name: 功能测试
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 20
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8
+      - uses: actions/cache@v4
+        with:
+          path: node_modules
+          key: dependencies
+          restore-keys: dependencies
+      - run: pnpm install
+      - run: pnpm test
