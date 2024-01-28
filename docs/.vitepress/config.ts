@@ -1,4 +1,4 @@
-import { defineConfig } from 'vitepress';
+import { defineConfig } from 'vitepress'
 
 export default defineConfig({
   title: 'Fanbook API Node.js SDK',
@@ -61,4 +61,4 @@ export default defineConfig({
       provider: 'local',
     },
   },
-});
+})

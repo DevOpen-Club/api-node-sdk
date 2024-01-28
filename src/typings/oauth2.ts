@@ -10,34 +10,34 @@ export enum Gender {
 /** OAuth 2.0 流程中的用户。 */
 export interface User {
   /** 用户 user id。 */
-  user_id: string;
+  user_id: string
   /** 是否机器人。 */
-  is_bot: boolean;
+  is_bot: boolean
   /** 性别。 */
-  gender: Gender;
+  gender: Gender
   /** 用户昵称。 */
-  nickname: string;
+  nickname: string
   /** 用户短 ID。 */
-  username: string;
+  username: string
   /** 头像图片地址。 */
-  avatar: string;
+  avatar: string
   /** 加入时间（unix 时间戳）。 */
-  joined_at: string;
-  is_abroad: boolean;
+  joined_at: string
+  is_abroad: boolean
 }
 
 /** OAuth 2.0 流程中的第三方应用。 */
 export interface Application {
   /** 应用 client id。 */
-  client_id: string;
+  client_id: string
   /** 应用简介。 */
-  description: string;
+  description: string
   /** 应用图标地址。 */
-  icon: string;
+  icon: string
   /** 应用名称。 */
-  name: string;
+  name: string
   /** 应用申请的权限。 */
-  scopes: string;
+  scopes: string
 }
 
 /**
@@ -46,4 +46,4 @@ export interface Application {
  * `user.info`: 用户基本信息。
  * `user.link`: 用户手机号码。
  */
-export type Scope = 'user.info' | 'user.link';
+export type Scope = 'user.info' | 'user.link'

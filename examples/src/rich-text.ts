@@ -4,12 +4,13 @@
  * 注：机器人发送消息需要申请白名单。
  */
 
-import { Bot, RichText, RichTextNode } from 'fanbook-api-node-sdk';
+import type { RichTextNode } from 'fanbook-api-node-sdk'
+import { Bot, RichText } from 'fanbook-api-node-sdk'
 
-const YOUR_BOT_TOKEN = '在此填入你的机器人令牌';
-const TARGET_CHANNEL = BigInt('在此填入发送到的频道 ID');
+const YOUR_BOT_TOKEN = '在此填入你的机器人令牌'
+const TARGET_CHANNEL = BigInt('在此填入发送到的频道 ID')
 
-const bot = new Bot(YOUR_BOT_TOKEN);
+const bot = new Bot(YOUR_BOT_TOKEN)
 const nodes: RichTextNode[] = [{
   insert: '粗体\n',
   attributes: { bold: true },
@@ -24,7 +25,7 @@ const nodes: RichTextNode[] = [{
 }, {
   insert: '\n',
   attributes: { 'code-block': true },
-}];
+}]
 
-const text = RichText.fromNodes(nodes);
-await bot.sendMessage(TARGET_CHANNEL, text.toString(), '点击查看富文本消息');
+const text = RichText.fromNodes(nodes)
+await bot.sendMessage(TARGET_CHANNEL, text.toString(), '点击查看富文本消息')
