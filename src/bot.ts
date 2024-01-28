@@ -1,46 +1,46 @@
-import { Axios, AxiosRequestConfig, CreateAxiosDefaults } from 'axios';
-import NodeWs from 'ws';
-import { v4 as uuid } from 'uuid';
-import * as base64 from 'js-base64';
-import mitt from 'mitt';
-import { bigintJsonParser, createAxios, wrapResponse } from './axios';
+import type { Axios, AxiosRequestConfig, CreateAxiosDefaults } from 'axios'
+import NodeWs from 'ws'
+import { v4 as uuid } from 'uuid'
+import * as base64 from 'js-base64'
+import mitt from 'mitt'
+import { bigintJsonParser, createAxios, wrapResponse } from './axios'
 
 import type {
-  Guild,
   BotCommand,
+  Channel,
+  Chat,
+  Guild,
+  GuildCredit,
+  GuildEmoji,
+  GuildInviteCodeRecord,
+  GuildRole,
   Message,
   ReplyKeyboardMarkup,
   User,
-  GuildEmoji,
-  GuildInviteCodeRecord,
-  Chat,
-  GuildRole,
-  GuildCredit,
-  Channel,
-} from './typings';
+} from './typings'
 import type {
+  CreateGuildRoleOptions,
+  DeleteGuildUserCreditOptions,
   EditMessageOptions,
   GetGuildMembersResult,
   GuideChatMember,
+  KickChatMemberOptions,
+  ListChatMemberOptions,
+  ListChatMessageBehavior,
+  ListGuildInvitationResult,
+  ListenEvents,
+  ListenOptions,
   SendMessageOptions,
   SendPhotoOptions,
   SendReactionOptions,
-  KickChatMemberOptions,
-  ListGuildInvitationResult,
-  ListChatMessageBehavior,
   SetChatOptions,
-  ListChatMemberOptions,
-  CreateGuildRoleOptions,
   SetGuildRoleOptions,
   SetUserCreditOptions,
-  DeleteGuildUserCreditOptions,
-  ListenEvents,
-  ListenOptions,
-} from './bot-options';
+} from './bot-options'
 
 export interface BotOptions {
   /** axios 实例配置。 */
-  axios?: CreateAxiosDefaults;
+  axios?: CreateAxiosDefaults
 }
 
 /** 机器人客户端。 */
@@ -51,8 +51,8 @@ export class Bot {
     /** 配置项。 */
     options?: BotOptions,
   ) {
-    this.axios = createAxios(options?.axios);
-    this.axios.defaults.baseURL = `https://a1.fanbook.mobi/api/bot/${this.token}`;
+    this.axios = createAxios(options?.axios)
+    this.axios.defaults.baseURL = `https://a1.fanbook.mobi/api/bot/${this.token}`
   }
 
   /**
@@ -61,7 +61,7 @@ export class Bot {
    * 默认配置：
    * - `baseURL`: `https://a1.fanbook.mobi/api/bot/${this.token}`
    */
-  public readonly axios: InstanceType<typeof Axios>;
+  public readonly axios: InstanceType<typeof Axios>
 
   /**
    * 向发送开放平台请求。
@@ -80,7 +80,7 @@ export class Bot {
         'Content-Type': typeof data === 'object' ? 'application/json' : undefined,
         ...options?.headers,
       },
-    });
+    })
   }
 
   /**
@@ -90,7 +90,7 @@ export class Bot {
   public async getMe() {
     return await wrapResponse<User>(this.request('/getMe', undefined, {
       method: 'GET',
-    }));
+    }))
   }
 
   /**
@@ -100,7 +100,7 @@ export class Bot {
   public async listMyCommand() {
     return await wrapResponse<BotCommand[]>(this.request('/getMyCommands', undefined, {
       method: 'GET',
-    }));
+    }))
   }
 
   /**
@@ -110,12 +110,12 @@ export class Bot {
    * @param id 机器人的 user id，留空则自动获取
    */
   public async setGuildScopedName(guild: bigint, name: string, id?: bigint) {
-    id = id ?? (await this.getMe()).id;
+    id = id ?? (await this.getMe()).id
     await wrapResponse(this.request('/robot/setGuildNick', {
       guild_id: String(guild),
       bot_id: String(id),
       nickname: name,
-    }));
+    }))
   }
 
   /**
@@ -128,7 +128,7 @@ export class Bot {
     return await wrapResponse<Message>(this.request('/getMessage', {
       chat_id: chat,
       message_id: message,
-    }));
+    }))
   }
 
   /**
@@ -147,7 +147,7 @@ export class Bot {
       text: content,
       desc: description,
       ...options,
-    }));
+    }))
   }
 
   /**
@@ -164,7 +164,7 @@ export class Bot {
       chat_id: chat,
       photo: { Url: url },
       ...options,
-    }));
+    }))
   }
 
   /**
@@ -175,13 +175,13 @@ export class Bot {
    * @param nonce 雪花 ID，留空则自动生成
    */
   public async sendNotication(user: bigint, content: string, type: 1 | 2, nonce?: string) {
-    nonce = nonce ?? uuid();
+    nonce = nonce ?? uuid()
     await wrapResponse(this.request('/sendNotication', {
       channel_type: String(type),
       to_user_id: String(user),
       content,
       nonce,
-    }));
+    }))
   }
 
   /**
@@ -199,7 +199,7 @@ export class Bot {
       message_id: String(message),
       channel_id: String(chat),
       ...options,
-    }));
+    }))
   }
 
   /**
@@ -216,7 +216,7 @@ export class Bot {
       message_id: message,
       text: content,
       ...options,
-    }));
+    }))
   }
 
   /**
@@ -231,7 +231,7 @@ export class Bot {
       chat_id: chat,
       message_id: message,
       reply_markup: content,
-    }));
+    }))
   }
 
   /**
@@ -248,7 +248,7 @@ export class Bot {
     return await wrapResponse<boolean>(this.request('/deleteMessage', {
       chat_id: chat,
       message_id: message,
-    }));
+    }))
   }
 
   /** @todo */
@@ -265,7 +265,7 @@ export class Bot {
     await wrapResponse(this.request('/pinChatMessage', {
       chat_id: chat,
       message_id: message,
-    }));
+    }))
   }
 
   /**
@@ -279,7 +279,7 @@ export class Bot {
     await wrapResponse(this.request('/unpinChatMessage', {
       chat_id: chat,
       message_id: message,
-    }));
+    }))
   }
 
   /**
@@ -289,11 +289,11 @@ export class Bot {
    * @returns 服务器对象
    */
   public async getGuild(guild: bigint, user?: bigint) {
-    user = user ?? (await this.getMe()).id;
+    user = user ?? (await this.getMe()).id
     return await wrapResponse<Guild>(this.request('/guild', {
       user_id: String(user),
       guild_id: String(guild),
-    }));
+    }))
   }
 
   /**
@@ -305,13 +305,13 @@ export class Bot {
    * @returns 当前页的成员信息
    */
   public async listGuildMember(guild: bigint, channel: bigint, ranges: Array<{ start: number, end: number }>, user?: bigint) {
-    user = user ?? (await this.getMe()).id;
+    user = user ?? (await this.getMe()).id
     return await wrapResponse<GetGuildMembersResult>(this.request('/v2/guild/members', {
       guild_id: String(guild),
       channel_id: String(channel),
       user_id: String(user),
       ranges,
-    }));
+    }))
   }
 
   /**
@@ -328,7 +328,7 @@ export class Bot {
       role_id: role,
       size,
       last_id: last,
-    }));
+    }))
   }
 
   /**
@@ -341,7 +341,7 @@ export class Bot {
     return await wrapResponse<GuideChatMember[]>(this.request('/searchGuildMember', {
       guild_id: guild,
       username: name,
-    }));
+    }))
   }
 
   /**
@@ -353,8 +353,8 @@ export class Bot {
   public async getMembersByShortIds(guild: bigint, ids: number[]) {
     return await wrapResponse<GuideChatMember[]>(this.request('/searchGuildMemberByName', {
       guild_id: guild,
-      username: ids.map((v) => String(v)),
-    }));
+      username: ids.map(v => String(v)),
+    }))
   }
 
   /**
@@ -368,7 +368,7 @@ export class Bot {
       guild_id: guild,
       user_id: user,
       roles,
-    }));
+    }))
   }
 
   /**
@@ -383,7 +383,7 @@ export class Bot {
       user_id: user,
       roles,
       operation: 'add',
-    }));
+    }))
   }
 
   /**
@@ -398,7 +398,7 @@ export class Bot {
       user_id: user,
       roles,
       operation: 'del',
-    }));
+    }))
   }
 
   /**
@@ -412,7 +412,7 @@ export class Bot {
       guild_id: String(guild),
       member_id: String(user),
       operation: 'add',
-    }))).exists;
+    }))).exists
   }
 
   /**
@@ -428,7 +428,7 @@ export class Bot {
       target_uid: String(user),
       target_guild_id: String(guild),
       duration_in_second: duration,
-    }));
+    }))
   }
 
   /**
@@ -440,7 +440,7 @@ export class Bot {
     await wrapResponse(this.request('/kickChatMember', {
       user_id: user,
       ...options,
-    }));
+    }))
   }
 
   /**
@@ -452,7 +452,7 @@ export class Bot {
     return await wrapResponse<GuildEmoji[]>(this.request('/guild/emoji', undefined, {
       method: 'GET',
       params: { guild_id: String(guild) },
-    }));
+    }))
   }
 
   /**
@@ -467,7 +467,7 @@ export class Bot {
       guild_id: guild,
       size,
       list_id: String(last ?? 0),
-    }));
+    }))
   }
 
   /**
@@ -478,7 +478,7 @@ export class Bot {
   public async getInvitation(code: string) {
     return await wrapResponse<GuildInviteCodeRecord>(this.request('/invite/codeInfo', {
       c: code,
-    }));
+    }))
   }
 
   /**
@@ -487,10 +487,10 @@ export class Bot {
    * @returns 是否已实名认证
    */
   public async getUserHumanVerifyStatus(user: bigint) {
-    return (await wrapResponse<{ authenrited: boolean; }>(this.request('/user/human_authentication', undefined, {
+    return (await wrapResponse<{ authenrited: boolean }>(this.request('/user/human_authentication', undefined, {
       method: 'GET',
       params: { user_id: user },
-    }))).authenrited;
+    }))).authenrited
   }
 
   /**
@@ -503,7 +503,7 @@ export class Bot {
     return await wrapResponse<bigint[]>(this.request('/v2/checkUserGuilds', {
       user_id: user,
       guilds,
-    }));
+    }))
   }
 
   /**
@@ -514,7 +514,7 @@ export class Bot {
   public async listGuildChannel(guild: bigint) {
     return await wrapResponse<Channel[]>(this.request('/channel/list', {
       guild_id: String(guild),
-    }));
+    }))
   }
 
   /**
@@ -533,7 +533,7 @@ export class Bot {
       behavior,
     }, {
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-    }));
+    }))
   }
 
   /**
@@ -550,7 +550,7 @@ export class Bot {
       topic: options?.topic,
       parent_id: options?.parent !== undefined ? String(options?.parent) : undefined,
       icon: options?.icon,
-    }));
+    }))
   }
 
   /**
@@ -561,7 +561,7 @@ export class Bot {
   public async getPrivateChat(user: bigint) {
     return await wrapResponse<Chat>(this.request('/getPrivateChat', {
       user_id: user,
-    }));
+    }))
   }
 
   /**
@@ -574,7 +574,7 @@ export class Bot {
       user_id: String(options.user ?? (await this.getMe()).id),
       guild_id: options.guild !== undefined ? String(options.guild) : undefined,
       chat_id: options.chat !== undefined ? String(options.chat) : undefined,
-    }));
+    }))
   }
 
   /**
@@ -587,7 +587,7 @@ export class Bot {
     return await wrapResponse<GuildRole[]>(this.request('/getGuildRoles', {
       guild_id: guild,
       last_id: last,
-    }));
+    }))
   }
 
   /**
@@ -604,10 +604,10 @@ export class Bot {
       name,
       mentionable: options?.mentionable,
       hoist: options?.hoist,
-      color: color,
+      color,
     }, {
       method: 'PUT',
-    }));
+    }))
   }
 
   /**
@@ -627,7 +627,7 @@ export class Bot {
       color: options?.color,
     }, {
       method: 'PATCH',
-    }));
+    }))
   }
 
   /**
@@ -641,7 +641,7 @@ export class Bot {
       id: String(role),
     }, {
       method: 'DELETE',
-    }));
+    }))
   }
 
   /**
@@ -654,7 +654,7 @@ export class Bot {
     return await wrapResponse<GuildCredit[]>(this.request('/getGuildCredit', {
       guild_id: guild,
       user_id: user,
-    }));
+    }))
   }
 
   /**
@@ -665,7 +665,7 @@ export class Bot {
    * @returns 荣誉自定义 ID
    */
   public async setUserCredit(user: bigint, credit: GuildCredit, options: SetUserCreditOptions) {
-    const id = options.card ?? uuid();
+    const id = options.card ?? uuid()
     await wrapResponse(this.request('/v2/guild/credit', {
       guild_id: options.guild !== undefined ? String(options.guild) : undefined,
       chat_id: options.chat,
@@ -674,8 +674,8 @@ export class Bot {
       guild_credit: credit,
     }, {
       method: 'PUT',
-    }));
-    return id;
+    }))
+    return id
   }
 
   /**
@@ -692,7 +692,7 @@ export class Bot {
       card_id: card,
     }, {
       method: 'DELETE',
-    }));
+    }))
   }
 
   /**
@@ -704,46 +704,61 @@ export class Bot {
    * @see https://github.com/fanbook-open/websocket-doc/blob/main/README.md
    */
   async listen(options?: ListenOptions) {
-    async function handleMessage(ev: MessageEvent) {
-      const data = JSON.parse(
-        ev.data instanceof Blob
-        ? await (ev.data as Blob).text() // 浏览器
-        : ev.toString() // Node.js
-      );
-      switch (data.action) {
-        case 'connect': bus.emit('connect', data.data); break; // 连接成功
-        case 'pong': break; // 心跳包
-        default:
-          bus.emit('push', data.data);
-      }
-    }
-    const Ws = (typeof WebSocket === 'undefined') ? NodeWs : WebSocket;
-    const userToken = encodeURI(options?.userToken ?? Reflect.get(await this.getMe(), 'user_token') as string);
-    const deviceId = encodeURI(options?.deviceId ?? String((await this.getMe()).id));
+    const Ws = (typeof WebSocket === 'undefined') ? NodeWs : WebSocket
+    const userToken = encodeURI(options?.userToken ?? Reflect.get(await this.getMe(), 'user_token') as string)
+    const deviceId = encodeURI(options?.deviceId ?? String((await this.getMe()).id))
     const props = encodeURI(options?.superStr ?? base64.encode(JSON.stringify({
       platform: 'bot',
       version: '1.6.60',
       channel: 'office',
       device_id: deviceId,
       build_number: '1',
-    })));
-    const ping = options?.ping ?? 25;
-    const ws = new Ws(`wss://gateway-bot.fanbook.mobi/websocket?id=${userToken}&dId=${deviceId}&v=1.6.60&x-super-properties=${props}`);
+    })))
+    const ping = options?.ping ?? 25
+    const ws = new Ws(`wss://gateway-bot.fanbook.mobi/websocket?id=${userToken}&dId=${deviceId}&v=1.6.60&x-super-properties=${props}`)
+
     // ws.onmessage 在 Node.js 下无法获取数据
     // 为了兼容浏览器环境，分开实现
-    if ('on' in ws) ws.on('message', handleMessage);
-    else ws.onmessage = handleMessage;
-    ws.onerror = (e: unknown) => bus.emit('error', e);
-    ws.onclose = () => clearInterval(interval); // 防意外关闭导致 interval 不释放（释放两次是安全的）
-    const interval = setInterval(() => { // 定时发送心跳包
-      ws.send('{"type":"ping"}');
-    }, 1000 * ping);
-    const bus = mitt<ListenEvents>();
+    if ('on' in ws)
+      ws.on('message', handleMessage)
+    else ws.onmessage = handleMessage
+
+    // 定时发送心跳包
+    const interval = setInterval(() => {
+      ws.send('{"type":"ping"}')
+    }, 1000 * ping)
+    // 防意外关闭导致 interval 不释放（释放两次是安全的）
+    ws.onclose = () => clearInterval(interval)
+
+    // 向外传出事件
+    const bus = mitt<ListenEvents>()
+    ws.onerror = (e: unknown) => bus.emit('error', e)
     bus.on('close', () => { // 监听用户发的关闭事件
-      if (ws.readyState === ws.CLOSED || ws.readyState === ws.CLOSING) return;
-      clearInterval(interval); // 关闭需要时间，为防关闭时刚好发心跳包，所以提前清除 interval
-      ws.close();
-    });
-    return bus;
+      if (ws.readyState === ws.CLOSED || ws.readyState === ws.CLOSING)
+        return
+      clearInterval(interval) // 关闭需要时间，为防关闭时刚好发心跳包，所以提前清除 interval
+      ws.close()
+    })
+
+    async function handleMessage(ev: MessageEvent) {
+      const data = JSON.parse(
+        ev.data instanceof Blob
+          ? await (ev.data as Blob).text() // 浏览器
+          : ev.toString(), // Node.js
+      )
+      switch (data.action) {
+        // 连接成功
+        case 'connect':
+          bus.emit('connect', data.data)
+          break
+        // 心跳包
+        case 'pong': break
+        // 其他默认是事件推送
+        default:
+          bus.emit('push', data.data)
+      }
+    }
+
+    return bus
   }
 }

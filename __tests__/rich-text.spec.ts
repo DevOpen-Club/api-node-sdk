@@ -1,10 +1,12 @@
-import { RichText, RichTextNode } from '../src';
+import type { RichTextNode } from '../src'
+import { RichText } from '../src'
 
-const BR_NODE: RichTextNode = { insert: '\n' };
+const BR_NODE: RichTextNode = { insert: '\n' }
 
 describe('富文本', () => {
   const nodes: RichTextNode[] = [{
     insert: '@机器人 Demo',
+    // eslint-disable-next-line no-template-curly-in-string
     attributes: { at: '${@!477511007129165824}' },
   }, BR_NODE, {
     insert: {
@@ -66,23 +68,23 @@ describe('富文本', () => {
   }, BR_NODE, {
     insert: 'a',
     attributes: { link: 'https://example.com' },
-  }, BR_NODE];
+  }, BR_NODE]
 
   it('节点初始值', () => {
-    expect(new RichText().nodes).toHaveLength(0);
-  });
+    expect(new RichText().nodes).toHaveLength(0)
+  })
 
   it('从纯文本构造', () => {
     expect(RichText.fromText('Hello\nWorld').nodes).toMatchObject<RichTextNode[]>([{
       insert: 'Hello',
     }, BR_NODE, {
       insert: 'World',
-    }, BR_NODE]);
-  });
+    }, BR_NODE])
+  })
 
   it('从富文本节点构造', () => {
-    expect(RichText.fromNodes(nodes).nodes).toBe(nodes);
-  });
+    expect(RichText.fromNodes(nodes).nodes).toBe(nodes)
+  })
 
   it('转富文本字符串', () => {
     expect(JSON.parse(
@@ -91,7 +93,7 @@ describe('富文本', () => {
       type: 'richText',
       v: 2,
       v2: JSON.stringify(nodes),
-    });
+    })
 
     expect(JSON.parse(
       RichText.fromNodes(nodes).toString('标题123'),
@@ -100,6 +102,6 @@ describe('富文本', () => {
       v: 2,
       title: '标题123',
       v2: JSON.stringify(nodes),
-    });
-  });
-});
+    })
+  })
+})

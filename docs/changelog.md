@@ -42,7 +42,6 @@
 
 ## [0.4.1](https://github.com/DevOpen-Club/api-node-sdk/releases/tag/v0.4.1)
 
-
 - 修复 `Bot#getPrivateChat` 接口请求体格式错误 ([#53](https://github.com/DevOpen-Club/api-node-sdk/pull/53))
 
 ## [0.4.0](https://github.com/DevOpen-Club/api-node-sdk/releases/tag/v0.4.0)
