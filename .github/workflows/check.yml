@@ -20,7 +20,7 @@ jobs:
           path: ~/.pnpm
           key: dependencies
           restore-keys: dependencies
-      - run: pnpm intall
+      - run: pnpm install
       - run: pnpm lint
 
   test:
@@ -39,5 +39,5 @@ jobs:
           path: ~/.pnpm
           key: dependencies
           restore-keys: dependencies
-      - run: pnpm intall
+      - run: pnpm install
       - run: pnpm test
