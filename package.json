@@ -58,7 +58,7 @@
     "typedoc": "^0.24.8",
     "typedoc-plugin-markdown": "^3.17.1",
     "typescript": "^5.1.6",
-    "vitepress": "1.0.0-rc.32",
+    "vitepress": "1.0.0-rc.40",
     "vue": "^3.3.12"
   },
   "publishConfig": {
