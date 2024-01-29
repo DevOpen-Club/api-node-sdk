@@ -705,6 +705,7 @@ export class Bot {
    */
   async listen(options?: ListenOptions) {
     const Ws = (typeof WebSocket === 'undefined') ? NodeWs : WebSocket
+
     const userToken = encodeURI(options?.userToken ?? Reflect.get(await this.getMe(), 'user_token') as string)
     const deviceId = encodeURI(options?.deviceId ?? String((await this.getMe()).id))
     const props = encodeURI(options?.superStr ?? base64.encode(JSON.stringify({
@@ -714,7 +715,10 @@ export class Bot {
       device_id: deviceId,
       build_number: '1',
     })))
-    const ping = options?.ping ?? 25
+    const {
+      ping = 25,
+      filterBgEvents = true,
+    } = options ?? {}
     const ws = new Ws(`wss://gateway-bot.fanbook.mobi/websocket?id=${userToken}&dId=${deviceId}&v=1.6.60&x-super-properties=${props}`)
 
     // ws.onmessage 在 Node.js 下无法获取数据
@@ -749,14 +753,19 @@ export class Bot {
       switch (data.action) {
         // 连接成功
         case 'connect':
-          bus.emit('connect', data.data)
+          bus.emit('connect', data)
           break
         // 心跳包
         case 'pong': break
         // 其他默认是事件推送
         default:
-          bus.emit('push', data.data)
+          // 过滤剩下的走到这里，如果只接收过滤剩下的，则把它发出去
+          if (filterBgEvents)
+            bus.emit('push', data)
       }
+      // 否则不管有没有被过滤掉，都发出去
+      if (!filterBgEvents)
+        bus.emit('push', data)
     }
 
     return bus

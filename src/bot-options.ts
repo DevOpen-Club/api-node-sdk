@@ -1,4 +1,5 @@
 import type {
+  Event,
   ForceReply,
   GuildInviteCodeRecord,
   InlineKeyboardMarkup,
@@ -235,61 +236,6 @@ export interface DeleteGuildUserCreditOptions {
   guild?: string
 }
 
-export interface ListenChatMemberMention {
-  nickname: string
-  user_id: string
-}
-
-export interface ListenMessageMember {
-  nick: string | null
-  roles: string[]
-  guild_card: string[]
-  assist_level: number
-}
-
-export interface ListenMessageAuthor {
-  nickname: string
-  username: string
-  avatar: string
-  avatar_nft?: unknown
-  bot: boolean
-}
-
-export interface ListenMessage {
-  content: string
-  time: number
-  user_id: string
-  channel_id: string
-  message_id: string
-  quote_l1?: string | null
-  quote_l2?: string | null
-  guild_id: string
-  channel_type: number
-  status?: number
-  nonce?: string
-  ctype?: number
-  mentions?: ListenChatMemberMention[]
-  member?: ListenMessageMember
-  author?: ListenMessageAuthor
-  desc?: string
-}
-
-export interface ConnectEvent {
-  client_id: string
-}
-
-// eslint-disable-next-line ts/consistent-type-definitions
-export type ListenEvents = { // mitt 要求使用 type
-  /** 连接成功。 */
-  connect: ConnectEvent
-  /** 连接发生错误。 */
-  error: unknown
-  /** 收到消息推送。 */
-  push: ListenMessage
-  /** 关闭连接。 */
-  close: void
-}
-
 export interface ListenOptions {
   userToken?: string
   deviceId?: string
@@ -299,4 +245,28 @@ export interface ListenOptions {
    * @default 25
    */
   ping?: number
+  /**
+   * 是否过滤 `connect` `pong` 事件。
+   *
+   * 接收到上述事件后，会自动做一些特殊处理。
+   * 如果此选项为 `true`，则处理后你就不会收到上述事件。
+   * @default true
+   */
+  filterBgEvents?: boolean
+}
+
+// eslint-disable-next-line ts/consistent-type-definitions
+export type ListenEvents = { // mitt 要求使用 type
+  /** 连接成功。 */
+  connect: Event.ConnectEvent
+  /** 连接发生错误。 */
+  error: any
+  /**
+   * 收到事件推送。
+   *
+   * 注意：`connect` `pong` 事件默认不会传出
+   */
+  push: Event.PushPayload
+  /** 关闭连接。 */
+  close: void
 }
