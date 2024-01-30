@@ -7,6 +7,26 @@ import type {
   User,
 } from './typings'
 
+export interface GetMeOptions {
+  /**
+   * 是否不使用缓存，而强制重新获取机器人信息。
+   *
+   * @default false
+   */
+  forced?: boolean
+  /**
+   * 更新缓存的策略。
+   *
+   * `no`: 不更新缓存。
+   * `assign`: 直接赋值。
+   * `copy`: 深拷贝后赋值。
+   *
+   * 如果选择 `assign`，修改返回值会导致缓存被一同修改。
+   * @default 'copy'
+   */
+  writeToCache?: 'no' | 'assign' | 'copy'
+}
+
 export interface SendMessageOptions {
   /**
    * 解析模式。
