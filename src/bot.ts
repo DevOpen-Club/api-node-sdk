@@ -92,7 +92,7 @@ export class Bot {
    * @returns 机器人自身信息
    */
   public async getMe(options?: GetMeOptions) {
-    if (!options.forced && this.cachedBotInfo)
+    if (!options?.forced && this.cachedBotInfo)
       return this.cachedBotInfo
     const ret = await wrapResponse<User>(this.request('/getMe', undefined, {
       method: 'GET',
