@@ -38,9 +38,13 @@ import type {
   SetUserCreditOptions,
 } from './bot-options'
 
+type WsClient = typeof globalThis.WebSocket | typeof NodeWs.WebSocket
+
 export interface BotOptions {
   /** axios 实例配置。 */
   axios?: CreateAxiosDefaults
+  /** WebSocket 接口。 */
+  ws?: WsClient
 }
 
 /** 机器人客户端。 */
@@ -52,7 +56,8 @@ export class Bot {
     options?: BotOptions,
   ) {
     this.axios = createAxios(options?.axios)
-    this.axios.defaults.baseURL = `https://a1.fanbook.mobi/api/bot/${this.token}`
+    this.axios.defaults.baseURL ??= `https://a1.fanbook.mobi/api/bot/${this.token}`
+    this.WebSocket = options?.ws ?? globalThis.WebSocket ?? NodeWs.WebSocket
   }
 
   /**
@@ -62,6 +67,13 @@ export class Bot {
    * - `baseURL`: `https://a1.fanbook.mobi/api/bot/${this.token}`
    */
   public readonly axios: InstanceType<typeof Axios>
+
+  /**
+   * 请求使用的 WebSocket 接口。
+   *
+   * @default globalThis.WebSocket ?? (await import('ws')).WebSocket
+   */
+  public readonly WebSocket: WsClient
 
   /**
    * 向发送开放平台请求。
@@ -704,28 +716,23 @@ export class Bot {
    * @see https://github.com/fanbook-open/websocket-doc/blob/main/README.md
    */
   async listen(options?: ListenOptions) {
-    const Ws = (typeof WebSocket === 'undefined') ? NodeWs : WebSocket
-
-    const userToken = encodeURI(options?.userToken ?? Reflect.get(await this.getMe(), 'user_token') as string)
-    const deviceId = encodeURI(options?.deviceId ?? String((await this.getMe()).id))
-    const props = encodeURI(options?.superStr ?? base64.encode(JSON.stringify({
+    const userToken = options?.userToken ?? (await this.getMe()).user_token
+    const deviceId = options?.deviceId ?? String((await this.getMe()).id)
+    const version = options?.version ?? '1.6.60'
+    const props = options?.superStr ?? base64.encode(JSON.stringify({
       platform: 'bot',
       version: '1.6.60',
       channel: 'office',
       device_id: deviceId,
       build_number: '1',
-    })))
-    const {
-      ping = 25,
-      filterBgEvents = true,
-    } = options ?? {}
-    const ws = new Ws(`wss://gateway-bot.fanbook.mobi/websocket?id=${userToken}&dId=${deviceId}&v=1.6.60&x-super-properties=${props}`)
-
-    // ws.onmessage 在 Node.js 下无法获取数据
-    // 为了兼容浏览器环境，分开实现
-    if ('on' in ws)
-      ws.on('message', handleMessage)
-    else ws.onmessage = handleMessage
+    }))
+    const ping = options?.ping ?? 25
+    const url = new URL(options?.url ?? 'wss://gateway-bot.fanbook.mobi/websocket')
+    url.searchParams.append('id', userToken)
+    url.searchParams.append('dId', deviceId)
+    url.searchParams.append('v', version)
+    url.searchParams.append('x-super-properties', props)
+    const ws = new this.WebSocket(url)
 
     // 定时发送心跳包
     const interval = setInterval(() => {
@@ -744,29 +751,27 @@ export class Bot {
       ws.close()
     })
 
-    async function handleMessage(ev: MessageEvent) {
+    const handleMessage = async (ev: MessageEvent) => {
       const data = JSON.parse(
         ev.data instanceof Blob
           ? await (ev.data as Blob).text() // 浏览器
-          : ev.toString(), // Node.js
+          : ev.data.toString(), // Node.js
       )
       switch (data.action) {
         // 连接成功
         case 'connect':
-          bus.emit('connect', data)
+          bus.emit('connect', data.data)
           break
         // 心跳包
         case 'pong': break
         // 其他默认是事件推送
         default:
-          // 过滤剩下的走到这里，如果只接收过滤剩下的，则把它发出去
-          if (filterBgEvents)
-            bus.emit('push', data)
+          bus.emit('push', data.data)
       }
-      // 否则不管有没有被过滤掉，都发出去
-      if (!filterBgEvents)
-        bus.emit('push', data)
     }
+
+    // 接收消息
+    ws.onmessage = handleMessage
 
     return bus
   }

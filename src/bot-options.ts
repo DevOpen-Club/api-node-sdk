@@ -237,8 +237,27 @@ export interface DeleteGuildUserCreditOptions {
 }
 
 export interface ListenOptions {
+  /**
+   * 事件订阅 WebSocket 接口 url。
+   * @default 'wss://gateway-bot.fanbook.mobi/websocket'
+   */
+  url?: string | URL
+  /** @default (await this.getMe()).user_token */
   userToken?: string
+  /** @default String((await this.getMe()).id) */
   deviceId?: string
+  /** @default '1.6.60' */
+  version?: string
+  /**
+   * @default
+   * base64.encode(JSON.stringify({
+   *   platform: 'bot',
+   *   version: '1.6.60',
+   *   channel: 'office',
+   *   device_id: deviceId,
+   *   build_number: '1',
+   * }))
+   */
   superStr?: string
   /**
    * 心跳包间隔时间（单位：秒）。

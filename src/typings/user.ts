@@ -35,6 +35,7 @@ export interface User {
   supports_inline_queries?: boolean
   /** 服务器开启入门仪式时，用户是否已完成入门仪式。 */
   pending?: boolean
+  user_token?: string
 }
 
 /** 用户资料图片。 */
