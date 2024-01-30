@@ -24,10 +24,9 @@
     "build": "sh scripts/build.sh",
     "test": "cross-env NODE_OPTIONS=--experimental-vm-modules jest",
     "lint": "eslint .",
-    "doc-gen": "ts-node scripts/doc-gen.ts",
     "docs-to-interface": "ts-node scripts/docs-to-interface.ts",
     "docs:dev": "vitepress dev docs --port 8771",
-    "docs:build": "vitepress build docs",
+    "docs:build": "typedoc && vitepress build docs",
     "docs:preview": "vitepress preview docs"
   },
   "dependencies": {
