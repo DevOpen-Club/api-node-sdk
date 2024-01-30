@@ -2,6 +2,7 @@
   "entryPoints": [
     "src/index.ts"
   ],
+  "readme": "docs/api/index.md",
   "out": "docs/api",
   "cleanOutputDir": false,
   "jsDocCompatibility": true,
