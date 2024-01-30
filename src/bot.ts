@@ -23,6 +23,7 @@ import type {
   DeleteGuildUserCreditOptions,
   EditMessageOptions,
   GetGuildMembersResult,
+  GetMeOptions,
   GuideChatMember,
   KickChatMemberOptions,
   ListChatMemberOptions,
@@ -68,6 +69,9 @@ export class Bot {
    */
   public readonly axios: InstanceType<typeof Axios>
 
+  /** 缓存的机器人信息。 */
+  private cachedBotInfo: User | undefined
+
   /**
    * 请求使用的 WebSocket 接口。
    *
@@ -99,10 +103,21 @@ export class Bot {
    * 校验令牌有效性，获取机器人自身的信息。
    * @returns 机器人自身信息
    */
-  public async getMe() {
-    return await wrapResponse<User>(this.request('/getMe', undefined, {
+  public async getMe(options?: GetMeOptions) {
+    if (!options?.forced && this.cachedBotInfo)
+      return this.cachedBotInfo
+    const ret = await wrapResponse<User>(this.request('/getMe', undefined, {
       method: 'GET',
     }))
+    switch (options?.writeToCache) {
+      case 'no': break
+      case 'assign':
+        this.cachedBotInfo = ret
+        break
+      default:
+        this.cachedBotInfo = structuredClone(ret)
+    }
+    return ret
   }
 
   /**
@@ -122,7 +137,7 @@ export class Bot {
    * @param id 机器人的 user id，留空则自动获取
    */
   public async setGuildScopedName(guild: bigint, name: string, id?: bigint) {
-    id = id ?? (await this.getMe()).id
+    id ??= (await this.getMe()).id
     await wrapResponse(this.request('/robot/setGuildNick', {
       guild_id: String(guild),
       bot_id: String(id),
@@ -187,7 +202,7 @@ export class Bot {
    * @param nonce 雪花 ID，留空则自动生成
    */
   public async sendNotication(user: bigint, content: string, type: 1 | 2, nonce?: string) {
-    nonce = nonce ?? uuid()
+    nonce ??= uuid()
     await wrapResponse(this.request('/sendNotication', {
       channel_type: String(type),
       to_user_id: String(user),
@@ -301,7 +316,7 @@ export class Bot {
    * @returns 服务器对象
    */
   public async getGuild(guild: bigint, user?: bigint) {
-    user = user ?? (await this.getMe()).id
+    user ??= (await this.getMe()).id
     return await wrapResponse<Guild>(this.request('/guild', {
       user_id: String(user),
       guild_id: String(guild),
@@ -317,7 +332,7 @@ export class Bot {
    * @returns 当前页的成员信息
    */
   public async listGuildMember(guild: bigint, channel: bigint, ranges: Array<{ start: number, end: number }>, user?: bigint) {
-    user = user ?? (await this.getMe()).id
+    user ??= (await this.getMe()).id
     return await wrapResponse<GetGuildMembersResult>(this.request('/v2/guild/members', {
       guild_id: String(guild),
       channel_id: String(channel),
