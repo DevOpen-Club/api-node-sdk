@@ -70,7 +70,7 @@ export class Bot {
   public readonly axios: InstanceType<typeof Axios>
 
   /** 缓存的机器人信息。 */
-  private cachedBotInfo: User | undefined
+  private cachedBotInfo?: User
 
   /**
    * 请求使用的 WebSocket 接口。
@@ -747,7 +747,7 @@ export class Bot {
     url.searchParams.append('dId', deviceId)
     url.searchParams.append('v', version)
     url.searchParams.append('x-super-properties', props)
-    const ws = new this.WebSocket(url)
+    const ws = new this.WebSocket(url.toString())
 
     // 定时发送心跳包
     const interval = setInterval(() => {
@@ -775,7 +775,7 @@ export class Bot {
       switch (data.action) {
         // 连接成功
         case 'connect':
-          bus.emit('connect', data.data)
+          bus.emit('connect', data)
           break
         // 心跳包
         case 'pong': break

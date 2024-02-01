@@ -5,7 +5,7 @@ module.exports = antfu({
     'examples/**/*.ts',
     'src/**/*.ts',
     'scripts/**/*.ts',
-    'test/**/*.ts',
+    '__tests__/**/*.ts',
   ],
 }, {
   files: ['examples/**/*.ts'],
