@@ -11,17 +11,19 @@ const bot = new Bot(YOUR_BOT_TOKEN)
 const bus = await bot.listen()
 
 console.log('Service started')
-bus.on('push', async (data) => {
-  if (data.channel_type !== ChannelType.DMChannel)
+bus.on('push', async (ev) => {
+  if (ev.action !== 'push') // 非新消息，不处理
+    return
+  if (ev.data.channel_type !== ChannelType.DMChannel)
     return // 非私聊，不处理
-  const content = JSON.parse(data.content)
+  const content = JSON.parse(ev.data.content)
   if (content.contentType !== 0)
     return // 非纯文本，不处理
   try {
-    const res = await bot.sendMessage(TARGET_CHANNEL, content.text, data.desc)
-    console.log(`Forwarded ${data.message_id} -> ${res.message_id}`)
+    const res = await bot.sendMessage(TARGET_CHANNEL, content.text, ev.data.desc)
+    console.log(`Forwarded ${ev.data.message_id} -> ${res.message_id}`)
   }
   catch (e) {
-    console.error(`Failed to forward message ${data.message_id}:`, e)
+    console.error(`Failed to forward message ${ev.data.message_id}:`, e)
   }
 })

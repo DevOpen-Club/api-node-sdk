@@ -11,12 +11,16 @@ const CLOSING_MESSAGE = '{"type":"text","text":"取消","contentType":0}' // 纯
 const bot = new Bot(YOUR_BOT_TOKEN)
 const bus = await bot.listen()
 
-bus.on('connect', data => console.log('Connection opened, id:', data.client_id))
+bus.on('connect', (ev) => {
+  console.log('Connection opened, id:', ev.data.client_id)
+})
 bus.on('error', e => console.error('Error occurred:', e))
 bus.on('push', (ev) => {
   console.log('Received push:', ev)
-  if (ev.content === CLOSING_MESSAGE) { // 收到“取消”消息
-    console.log('Closing connection by message:', ev.message_id)
+  if (ev.action !== 'push') // 非消息推送
+    return
+  if (ev.data.content === CLOSING_MESSAGE) { // 收到“取消”消息
+    console.log('Closing connection by message:', ev.data.message_id)
     bus.emit('close')
   }
 })

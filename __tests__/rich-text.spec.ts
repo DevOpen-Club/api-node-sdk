@@ -1,5 +1,5 @@
-import type { RichTextNode } from '../src'
-import { RichText } from '../src'
+import type { RichTextNode } from '../src/rich-text'
+import { RichText } from '../src/rich-text'
 
 const BR_NODE: RichTextNode = { insert: '\n' }
 
