@@ -7,7 +7,7 @@ settings:
 dependencies:
   axios:
     specifier: ^1.6.2
-    version: 1.6.2
+    version: 1.6.7
   is-plain-object:
     specifier: ^5.0.0
     version: 5.0.0
@@ -84,7 +84,7 @@ devDependencies:
     version: 5.1.6
   vitepress:
     specifier: 1.0.0-rc.40
-    version: 1.0.0-rc.40(@algolia/client-search@4.22.1)(@types/node@18.19.3)(axios@1.6.2)(search-insights@2.13.0)(typescript@5.1.6)
+    version: 1.0.0-rc.40(@algolia/client-search@4.22.1)(@types/node@18.19.3)(axios@1.6.7)(search-insights@2.13.0)(typescript@5.1.6)
   vue:
     specifier: ^3.3.12
     version: 3.4.15(typescript@5.1.6)
@@ -2166,7 +2166,7 @@ packages:
       - vue
     dev: true
 
-  /@vueuse/integrations@10.7.2(axios@1.6.2)(focus-trap@7.5.4)(vue@3.4.15):
+  /@vueuse/integrations@10.7.2(axios@1.6.7)(focus-trap@7.5.4)(vue@3.4.15):
     resolution: {integrity: sha512-+u3RLPFedjASs5EKPc69Ge49WNgqeMfSxFn+qrQTzblPXZg6+EFzhjarS5edj2qAf6xQ93f95TUxRwKStXj/sQ==}
     peerDependencies:
       async-validator: '*'
@@ -2209,7 +2209,7 @@ packages:
     dependencies:
       '@vueuse/core': 10.7.2(vue@3.4.15)
       '@vueuse/shared': 10.7.2(vue@3.4.15)
-      axios: 1.6.2
+      axios: 1.6.7
       focus-trap: 7.5.4
       vue-demi: 0.14.6(vue@3.4.15)
     transitivePeerDependencies:
@@ -2353,8 +2353,8 @@ packages:
   /asynckit@0.4.0:
     resolution: {integrity: sha512-Oei9OH4tRh0YqU3GxhX79dM/mwVgvbZJaSNaRk+bshkj0S5cfHcgYakreBjrHwatXKbz+IoIdYLxrKim2MjW0Q==}
 
-  /axios@1.6.2:
-    resolution: {integrity: sha512-7i24Ri4pmDRfJTR7LDBhsOTtcm+9kjX5WiY1X3wIisx6G9So3pfMkEiU7emUBe46oceVImccTEM3k6C5dbVW8A==}
+  /axios@1.6.7:
+    resolution: {integrity: sha512-/hDJGff6/c7u0hDkvkGxR/oy6CbCs8ziCsC7SqmhjfozqiJGc8Z11wrv9z9lYfY4K8l+H9TpjcMDX0xOZmx+RA==}
     dependencies:
       follow-redirects: 1.15.5
       form-data: 4.0.0
@@ -5430,7 +5430,7 @@ packages:
       fsevents: 2.3.3
     dev: true
 
-  /vitepress@1.0.0-rc.40(@algolia/client-search@4.22.1)(@types/node@18.19.3)(axios@1.6.2)(search-insights@2.13.0)(typescript@5.1.6):
+  /vitepress@1.0.0-rc.40(@algolia/client-search@4.22.1)(@types/node@18.19.3)(axios@1.6.7)(search-insights@2.13.0)(typescript@5.1.6):
     resolution: {integrity: sha512-1x9PCrcsJwqhpccyTR93uD6jpiPDeRC98CBCAQLLBb44a3VSXYBPzhCahi+2kwAYylu49p0XhseMPVM4IVcWcw==}
     hasBin: true
     peerDependencies:
@@ -5448,7 +5448,7 @@ packages:
       '@vitejs/plugin-vue': 5.0.3(vite@5.0.12)(vue@3.4.15)
       '@vue/devtools-api': 6.5.1
       '@vueuse/core': 10.7.2(vue@3.4.15)
-      '@vueuse/integrations': 10.7.2(axios@1.6.2)(focus-trap@7.5.4)(vue@3.4.15)
+      '@vueuse/integrations': 10.7.2(axios@1.6.7)(focus-trap@7.5.4)(vue@3.4.15)
       focus-trap: 7.5.4
       mark.js: 8.11.1
       minisearch: 6.3.0
