@@ -46,7 +46,7 @@
     "@swc/jest": "^0.2.29",
     "@types/jest": "^29.5.11",
     "@types/json-bigint": "^1.0.4",
-    "@types/node": "^18.19.3",
+    "@types/node": "^20.11.17",
     "@types/uuid": "^9.0.7",
     "@types/ws": "^8.5.10",
     "cross-env": "^7.0.3",
