@@ -120,9 +120,8 @@ console.log(await bot.sendMessage(CHAT_ID, CONTENT, CONTENT))
 ```ts
 import { Bot } from 'fanbook-api-node-sdk'
 
-const BOT_TOKEN = '在此填入你的机器人令牌'
 // ---cut---
-const bot = new Bot(BOT_TOKEN, {
+const bot = new Bot('在此填入你的机器人令牌', {
   axios: { // axios 选项
     timeout: 3 * 1000,
     timeoutErrorMessage: 'Timeout 3000ms',
@@ -135,8 +134,7 @@ const bot = new Bot(BOT_TOKEN, {
 ```ts{7}
 import { Bot } from 'fanbook-api-node-sdk'
 
-const BOT_TOKEN = '在此填入你的机器人令牌'
-const bot = new Bot(BOT_TOKEN)
+const bot = new Bot('在此填入你的机器人令牌')
 
 // ---cut---
 // baseURL 是 `https://a1.fanbook.mobi/api/bot/${this.token}`
