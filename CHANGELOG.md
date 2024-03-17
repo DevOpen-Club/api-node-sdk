@@ -1,6 +1,6 @@
 # 更新日志
 
-## [0.6.0] - 2024-01-08
+## 0.6.0 (2024-01-08)
 
 ### ⚠️ 需要注意
 
@@ -19,13 +19,13 @@
 
 - 示例说明兼容 node 20 ([#84](https://github.com/DevOpen-Club/api-node-sdk/pull/84))
 
-## [0.5.2] - 2023-12-05
+## 0.5.2 (2023-12-05)
 
 ### 🐛 bug 修复
 
 - 修复 TS 声明文件未发布的问题 ([#78](https://github.com/DevOpen-Club/api-node-sdk/pull/78))
 
-## [0.5.1] - 2023-12-05
+## 0.5.1 (2023-12-05)
 
 ### 🐛 bug 修复
 
@@ -35,7 +35,7 @@
 
 - 优化包体积 ([#76](https://github.com/DevOpen-Club/api-node-sdk/pull/76))
 
-## [0.5.0] - 2023-12-03
+## 0.5.0 (2023-12-03)
 
 ### ⚠️ 需要注意
 
@@ -58,13 +58,13 @@
 
 - 修复示例代码 tsconfig 和依赖 ([#64](https://github.com/DevOpen-Club/api-node-sdk/pull/64))
 
-## [0.4.4] - 2023-11-05
+## 0.4.4 (2023-11-05)
 
 ### 🐛 bug 修复
 
 - 添加 `GuildCredit` 在文档中未列出的属性 ([#61](https://github.com/DevOpen-Club/api-node-sdk/pull/61))
 
-## [0.4.3] - 2023-10-23
+## 0.4.3 (2023-10-23)
 
 ### 🐛 bug 修复
 
@@ -75,7 +75,7 @@
 - 更新 `package.json` 中的 `homepage` ([#58](https://github.com/DevOpen-Club/api-node-sdk/pull/58))
 - 贡献指南补充分支规则 ([#58](https://github.com/DevOpen-Club/api-node-sdk/pull/58))
 
-## [0.4.2] - 2023-10-04
+## 0.4.2 (2023-10-04)
 
 ### 🐛 bug 修复
 
@@ -85,13 +85,13 @@
 
 - 修正 v0.4.1 更新日志的标题 ([#55](https://github.com/DevOpen-Club/api-node-sdk/pull/55))
 
-## [0.4.1] - 2023-10-02
+## 0.4.1 (2023-10-02)
 
 ### 🐛 bug 修复
 
 - 修复 `Bot#getPrivateChat` 接口请求体格式错误 ([#53](https://github.com/DevOpen-Club/api-node-sdk/pull/53))
 
-## [0.4.0] - 2023-09-29
+## 0.4.0 (2023-09-29)
 
 ### 🚀 新功能
 
@@ -113,7 +113,7 @@
 - 添加单元测试 ([#47](https://github.com/DevOpen-Club/api-node-sdk/pull/47)) ([#50](https://github.com/DevOpen-Club/api-node-sdk/pull/50))
 - 修改示例运行方法 ([#48](https://github.com/DevOpen-Club/api-node-sdk/pull/48))
 
-## [0.3.0] - 2023-08-27
+## 0.3.0 (2023-08-27)
 
 ### ⚠️ 需要注意
 
@@ -135,13 +135,13 @@
 
 - 添加示例 ([#41](https://github.com/DevOpen-Club/api-node-sdk/pull/41))
 
-## [0.2.1] - 2023-08-23
+## 0.2.1 (2023-08-23)
 
 ### 🐛 bug 修复
 
 - 修复 ES Module 下无法正常工作的问题 ([#32](https://github.com/DevOpen-Club/api-node-sdk/pull/32))
 
-## [0.2.0] - 2023-08-23
+## 0.2.0 (2023-08-23)
 
 ### 🚀 新功能
 
@@ -162,6 +162,6 @@
 
 - 修改示例目录结构 ([#26](https://github.com/DevOpen-Club/api-node-sdk/pull/26))
 
-## [0.1.0] - 2023-08-18
+## 0.1.0 (2023-08-18)
 
 - 发布首个版本
