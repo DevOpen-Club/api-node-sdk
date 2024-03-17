@@ -1,4 +1,5 @@
 import { defineConfig } from 'vitepress'
+import { transformerTwoslash } from '@shikijs/vitepress-twoslash'
 
 export default defineConfig({
   title: 'Fanbook API Node.js SDK',
@@ -7,6 +8,18 @@ export default defineConfig({
     ['link', { rel: 'icon', href: '/icon/fanbook.svg' }],
   ],
   lang: 'zh-CN',
+  markdown: {
+    codeTransformers: [
+      transformerTwoslash({
+        explicitTrigger: false,
+        twoslashOptions: {
+          handbookOptions: {
+            noErrors: true,
+          },
+        },
+      }),
+    ],
+  },
   themeConfig: {
     nav: [
       { text: '首页', link: '/' },
