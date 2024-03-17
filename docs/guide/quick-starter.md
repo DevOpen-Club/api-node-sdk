@@ -40,7 +40,6 @@ import { Bot } from 'fanbook-api-node-sdk'
 ```
 
 ```ts [Common JS]
-// @noErrors
 const { Bot } = require('fanbook-api-node-sdk')
 ```
 

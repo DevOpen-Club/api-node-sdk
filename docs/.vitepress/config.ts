@@ -12,6 +12,11 @@ export default defineConfig({
     codeTransformers: [
       transformerTwoslash({
         explicitTrigger: false,
+        twoslashOptions: {
+          handbookOptions: {
+            noErrors: true,
+          },
+        },
       }),
     ],
   },
