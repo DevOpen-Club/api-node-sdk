@@ -7,8 +7,5 @@
     "alwaysStrict": true,
     "esModuleInterop": true
   },
-  "include": ["script/*.ts", "src/**/*.ts", "src/typings/**/*.ts"],
-  "ts-node": {
-    "swc": true
-  }
+  "include": ["script/*.ts", "src/**/*.ts", "src/typings/**/*.ts"]
 }
