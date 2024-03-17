@@ -48,11 +48,11 @@ export interface RichTextBrNode {
   /** 被此节点所结束的一行的属性。 */
   attributes?: {
     /** 标题等级。 */
-    'header'?: 1 | 2 | 3
+    header?: 1 | 2 | 3
     /** 列表类型。 */
-    'list'?: 'ordered' | 'bullet'
+    list?: 'ordered' | 'bullet'
     /** 引用。 */
-    'blockquote'?: boolean
+    blockquote?: boolean
     /** 代码块。 */
     'code-block'?: boolean
   }
