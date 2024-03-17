@@ -26,7 +26,7 @@
     "lint": "eslint .",
     "docs-to-interface": "ts-node scripts/docs-to-interface.ts",
     "docs:dev": "vitepress dev docs --port 8771",
-    "docs:build": "typedoc && vitepress build docs",
+    "docs:build": "pnpm build && typedoc && vitepress build docs",
     "docs:preview": "vitepress preview docs"
   },
   "dependencies": {
