@@ -775,13 +775,13 @@ export class Bot {
       switch (data.action) {
         // 连接成功
         case 'connect':
-          bus.emit('connect', data)
+          bus.emit('connect', data.data)
           break
         // 心跳包
         case 'pong': break
         // 其他默认是事件推送
         default:
-          bus.emit('push', data.data)
+          bus.emit('push', data)
       }
     }
 

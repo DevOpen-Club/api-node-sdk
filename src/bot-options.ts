@@ -1,5 +1,4 @@
 import type {
-  Event,
   ForceReply,
   GuildInviteCodeRecord,
   InlineKeyboardMarkup,
@@ -297,7 +296,9 @@ export interface ListenOptions {
 // eslint-disable-next-line ts/consistent-type-definitions
 export type ListenEvents = { // mitt 要求使用 type
   /** 连接成功。 */
-  connect: Event.ConnectEvent
+  connect: {
+    client_id: string
+  }
   /** 连接发生错误。 */
   error: any
   /**
@@ -305,7 +306,7 @@ export type ListenEvents = { // mitt 要求使用 type
    *
    * 注意：`connect` `pong` 事件默认不会传出
    */
-  push: Event.PushPayload
+  push: any
   /** 关闭连接。 */
   close: void
 }
