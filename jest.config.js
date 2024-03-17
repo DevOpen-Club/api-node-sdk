@@ -1,8 +1,7 @@
-import type { Config } from 'jest'
-
-export default {
+/** @type{import('jest').Config} */
+module.exports = {
   collectCoverage: true,
   transform: {
     '^.+\\.(t|j)sx?$': '@swc/jest',
   },
-} satisfies Config
+}
