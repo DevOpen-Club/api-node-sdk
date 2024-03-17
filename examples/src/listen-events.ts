@@ -12,7 +12,7 @@ const bot = new Bot(YOUR_BOT_TOKEN)
 const bus = await bot.listen()
 
 bus.on('connect', (ev) => {
-  console.log('Connection opened, id:', ev.data.client_id)
+  console.log('Connection opened, id:', ev.client_id)
 })
 bus.on('error', e => console.error('Error occurred:', e))
 bus.on('push', (ev) => {
