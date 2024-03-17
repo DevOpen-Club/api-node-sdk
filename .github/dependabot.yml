@@ -4,7 +4,9 @@ updates:
     directory: /
     schedule:
       interval: weekly
-groups:
-  dependencies:
-    patterns:
-      - '*'
+    ignore:
+      - dependency-name: '@types/node'
+    groups:
+      dependencies:
+        patterns:
+          - '*'

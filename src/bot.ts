@@ -775,7 +775,7 @@ export class Bot {
       switch (data.action) {
         // 连接成功
         case 'connect':
-          bus.emit('connect', data.data)
+          bus.emit('connect', data)
           break
         // 心跳包
         case 'pong': break
