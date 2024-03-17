@@ -67,6 +67,9 @@ devDependencies:
   eslint:
     specifier: ^8.56.0
     version: 8.57.0
+  fanbook-api-node-sdk:
+    specifier: link:.
+    version: 'link:'
   fast-xml-parser:
     specifier: ^4.3.2
     version: 4.3.5

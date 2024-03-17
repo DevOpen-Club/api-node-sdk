@@ -1,6 +1,0 @@
-lockfileVersion: '6.0'
-
-dependencies:
-  fanbook-api-node-sdk:
-    specifier: link:..
-    version: link:..
