@@ -1,5 +1,6 @@
 {
   "cleanOutputDir": false,
+  "entryFileName": "index",
   "entryPoints": ["src/index.ts"],
   "enumMembersFormat": "table",
   "hideBreadcrumbs": true,
