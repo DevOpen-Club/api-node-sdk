@@ -5,11 +5,12 @@
   "hideBreadcrumbs": true,
   "hidePageHeader": true,
   "jsDocCompatibility": true,
+  "mergeReadme": true,
   "out": "docs/api",
   "parametersFormat": "table",
   "plugin": [
     "typedoc-plugin-markdown"
   ],
   "preserveAnchorCasing": true,
-  "readme": "docs/api/index.md"
+  "readme": "docs/_api-index.md"
 }

@@ -48,5 +48,4 @@ node_modules
 /typings
 docs/.vitepress/dist
 docs/.vitepress/cache
-docs/api/**
-!docs/api/index.md
+docs/api
