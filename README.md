@@ -15,7 +15,7 @@
 
 # 安装
 
-建议使用 Node.js 18，至少需要 Node.js 10.0.4 。
+建议使用 Node.js 最新的 LTS 版本，至少需要 Node.js 10.0.4 。
 
 ## npm
 
