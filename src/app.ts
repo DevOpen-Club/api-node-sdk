@@ -26,7 +26,6 @@ export class App {
     this.axios.defaults.baseURL = 'https://a1.fanbook.mobi/open'
     // 这里用 defaults.headers 而不用 defaults.auth，因为后者会覆盖请求实际传入的配置
     this.axios.defaults.headers.common.Authorization = `Basic ${base64.encode(`${this.clientId}:${this.clientSecret}`)}`
-    this.axios.defaults.headers.common['Content-Type'] = 'application/x-www-form-urlencoded'
   }
 
   /**
@@ -46,11 +45,11 @@ export class App {
    * @returns 获取结果
    */
   public async codeToToken(code: string) {
-    return await wrapResponse<OAuth2Session>(this.axios.post('/oauth2/token', {
-      grant_type: 'authorization_code',
-      code,
-      redirect_uri: this.redirectUrl,
-    }))
+    const params = new URLSearchParams()
+    params.append('grant_type', 'authorization_code')
+    params.append('code', code)
+    params.append('redirect_uri', this.redirectUrl)
+    return await wrapResponse<OAuth2Session>(this.axios.post('/oauth2/token', params.toString()))
   }
 
   /**
@@ -59,11 +58,11 @@ export class App {
    * @returns 刷新结果
    */
   public async refreshToken(refreshToken: string) {
-    return await wrapResponse<OAuth2Session>(this.axios.post('/oauth2/refresh', {
-      grant_type: 'refresh_token',
-      refresh_token: refreshToken,
-      redirect_uri: this.redirectUrl,
-    }))
+    const params = new URLSearchParams()
+    params.append('grant_type', 'refresh_token')
+    params.append('refresh_token', refreshToken)
+    params.append('redirect_uri', this.redirectUrl)
+    return await wrapResponse<OAuth2Session>(this.axios.post('/oauth2/refresh', params.toString()))
   }
 
   /**
@@ -74,8 +73,7 @@ export class App {
   public async getUser(accessToken: string) {
     return await wrapResponse<OAuth2.User>(this.axios.post('/api/user/getMe', {}, {
       headers: {
-        'Authorization': `Bearer ${accessToken}`,
-        'Content-Type': 'application/json',
+        Authorization: `Bearer ${accessToken}`,
       },
     }))
   }
@@ -88,8 +86,7 @@ export class App {
   public async listUserGuild(accessToken: string) {
     return await wrapResponse<Guild[]>(this.axios.post('/api/guild/getGuilds', {}, {
       headers: {
-        'Authorization': `Bearer ${accessToken}`,
-        'Content-Type': 'application/json',
+        Authorization: `Bearer ${accessToken}`,
       },
     }))
   }

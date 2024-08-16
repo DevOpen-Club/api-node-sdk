@@ -1,3 +1,9 @@
 {
-  "type": "module"
+  "type": "module",
+  "dependencies": {
+    "fanbook-api-node-sdk": "link:.."
+  },
+  "devDependencies": {
+    "tsx": "^4.17.0"
+  }
 }
