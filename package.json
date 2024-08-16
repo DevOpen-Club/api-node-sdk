@@ -1,7 +1,7 @@
 {
   "name": "fanbook-api-node-sdk",
   "version": "0.7.0",
-  "packageManager": "pnpm@8.15.0",
+  "packageManager": "pnpm@9.7.0",
   "description": "Fanbook OpenAPI JavaScript / Node.js SDK",
   "author": "DevOpen Club",
   "license": "MIT",

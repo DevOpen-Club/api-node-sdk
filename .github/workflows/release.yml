@@ -26,10 +26,10 @@ jobs:
           node-version: 20
       - uses: pnpm/action-setup@v2
         with:
-          version: 8
-      - run: |
-          pnpm install
-          pnpm build
-      - run: pnpm publish --no-git-checks
+          version: 9
+      - run: pnpm install
+      - run: pnpm build
+      - run: npm config set '//registry.npmjs.org/:_authToken' "${NODE_AUTH_TOKEN}"
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_ACCESS_TOKEN }}
+      - run: pnpm publish --no-git-checks
