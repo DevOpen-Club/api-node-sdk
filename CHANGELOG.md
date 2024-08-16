@@ -1,5 +1,17 @@
 # 更新日志
 
+## 0.7.0 (2024-08-16)
+
+### ⚠️ 需要注意
+
+- 现在使用 `Bot#listen` 方法监听事件，将收到完整的事件负载。迁移方法请见 [PR](https://github.com/DevOpen-Club/api-node-sdk/pull/124/commits/13b1ae86b15607d53018a120e055e91b246bd434#diff-fa6a39443ae626c6c79779d7d3b7bfbddd305f8e738f9afdd6fcf8ad9b62bc97)
+- `Bot#getMe` 现在默认会缓存返回值，下次直接使用缓存的值。可以传入参数来改变这一行为 ([#104](https://github.com/DevOpen-Club/api-node-sdk/pull/104))
+
+### 🐛 bug 修复
+
+- 修复 OAuth 2.0 接口 Content-Type 问题 ([327dc7a](https://github.com/DevOpen-Club/api-node-sdk/commit/327dc7a309ff1f0c1e70900f7915fdc8b28ff7bd))
+- 跟进上游供应链对 CVE-2024-39338 的修复 ([e61115d](https://github.com/DevOpen-Club/api-node-sdk/commit/e61115db0c5e27297b5df26dcc0cacc8340712c8))
+
 ## 0.6.0 (2024-01-08)
 
 ### ⚠️ 需要注意
