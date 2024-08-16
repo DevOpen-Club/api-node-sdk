@@ -4,13 +4,33 @@
 
 ### ⚠️ 需要注意
 
-- 现在使用 `Bot#listen` 方法监听事件，将收到完整的事件负载。迁移方法请见 [PR](https://github.com/DevOpen-Club/api-node-sdk/pull/124/commits/13b1ae86b15607d53018a120e055e91b246bd434#diff-fa6a39443ae626c6c79779d7d3b7bfbddd305f8e738f9afdd6fcf8ad9b62bc97)
-- `Bot#getMe` 现在默认会缓存返回值，下次直接使用缓存的值。可以传入参数来改变这一行为 ([#104](https://github.com/DevOpen-Club/api-node-sdk/pull/104))
+- `Bot#listen` 现在传出完整的事件数据，你需要对代码进行类似这样的修改：
+
+   ```diff
+    bus.on('push', (ev) => {
+      console.log('Received push:', ev)
+      if (ev.action !== 'push') // 非消息推送
+        return
+   -  if (ev.content === CLOSING_MESSAGE) { // 收到“取消”消息
+   +  if (ev.data.content === CLOSING_MESSAGE) { // 收到“取消”消息
+        console.log('Closing connection by message:', ev.data.message_id)
+        bus.emit('close')
+      }
+    })
+   ```
+
+   ([#124](https://github.com/DevOpen-Club/api-node-sdk/pull/124), [7b53bd9](https://github.com/DevOpen-Club/api-node-sdk/commit/7b53bd9f25fa3a1518c81844a52ddcae6054dfc9))
+- `Bot#getMe` 现在默认缓存上次调用的结果，你可以使用 `bot.getMe({ forced: true })` 来强制重新拉取机器人信息 ([#104](https://github.com/DevOpen-Club/api-node-sdk/pull/104))
 
 ### 🐛 bug 修复
 
 - 修复 OAuth 2.0 接口 Content-Type 问题 ([327dc7a](https://github.com/DevOpen-Club/api-node-sdk/commit/327dc7a309ff1f0c1e70900f7915fdc8b28ff7bd))
 - 跟进上游供应链对 CVE-2024-39338 的修复 ([e61115d](https://github.com/DevOpen-Club/api-node-sdk/commit/e61115db0c5e27297b5df26dcc0cacc8340712c8))
+
+### 📝 文档改进
+
+- 添加代码块类型提示 ([#126](https://github.com/DevOpen-Club/api-node-sdk/pull/126))
+- 修复 API 文档生成错误 ([ec7b59f](https://github.com/DevOpen-Club/api-node-sdk/commit/ec7b59f7c811e51aa66f84a36cd8e418ca1b0a4a), [ebe6730](https://github.com/DevOpen-Club/api-node-sdk/commit/ebe67308be3f4a82f9c26dd6477a8d5c99bdb811))
 
 ## 0.6.0 (2024-01-08)
 
