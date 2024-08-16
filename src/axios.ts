@@ -1,5 +1,5 @@
 import type { AxiosRequestHeaders, AxiosResponse, CreateAxiosDefaults } from 'axios'
-import axios from 'axios'
+import axios, { AxiosError, isAxiosError } from 'axios'
 import { isPlainObject } from 'is-plain-object'
 import jsonBigint from 'json-bigint'
 import { FanbookApiError } from './error'
@@ -80,6 +80,8 @@ export async function wrapResponse<D, T = unknown>(request: Promise<AxiosRespons
     response = await request
   }
   catch (e) {
+    if (isAxiosError(e))
+      throw new FanbookApiError(undefined, undefined, e.request, e.response, e)
     throw new FanbookApiError(undefined, undefined, undefined, undefined, e)
   }
   const { data } = response
